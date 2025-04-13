@@ -1,6 +1,7 @@
 <script>
 	import maplibregl from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
+	let { modal } = $props();
 
 	$effect(() => {
 		const map = new maplibregl.Map({
@@ -33,8 +34,14 @@
 <div id="map" class="absolute h-screen" hidden={map_hidden}></div>
 <main class="flex h-screen w-screen justify-center bg-[#625661]">
 	<button
+		onclick={modal}
+		class="bouncy blurry absolute top-0 left-0 m-4 cursor-pointer rounded-lg bg-neutral-400"
+	>
+		return
+	</button>
+	<button
 		onclick={() => (map_hidden = !map_hidden)}
-		class="absolute top-0 right-0 m-4 cursor-pointer rounded-lg bg-neutral-400 p-2 text-white hover:bg-neutral-600"
+		class="bouncy blurry absolute top-0 right-0 m-4 cursor-pointer rounded-lg bg-neutral-400"
 	>
 		{map_hidden ? 'Show Map' : 'Hide Map'}</button
 	>
