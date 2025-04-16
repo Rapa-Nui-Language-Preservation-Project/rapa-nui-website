@@ -1,20 +1,22 @@
 <script>
 	import Map from '$lib/components/Map.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 
-	let mapHidden = $state(false);
+	let hidden = $state(false);
 </script>
 
-<Map hidden={mapHidden} />
-<main class="flex h-screen w-screen justify-center bg-[#625661]">
-	<button
-		onclick={() => (mapHidden = !mapHidden)}
-		class="absolute right-0 top-0 m-4 cursor-pointer rounded-lg bg-neutral-400 p-2 text-white hover:bg-neutral-600"
+<Map {hidden} />
+<main class="flex h-screen w-screen justify-center bg-[#34373d]">
+	<Button
+		onclick={() => (hidden = !hidden)}
+		variant="secondary"
+		class="absolute bottom-8 right-0 m-4"
 	>
-		{mapHidden ? 'Show Map' : 'Hide Map'}</button
-	>
+		{hidden ? 'Show Map' : 'Hide Map'}
+	</Button>
 	<div class="absolute h-screen">
 		<img
-			hidden={!mapHidden}
+			hidden={!hidden}
 			src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
 			class="h-screen"
 			alt="Map of Easter Island"

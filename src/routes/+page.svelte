@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
 	import NavigationCard from '$lib/components/NavigationCard.svelte';
@@ -28,7 +27,6 @@
 </script>
 
 <main class="h-screen w-screen">
-	<Header />
 	<div class="mt-52 flex flex-col items-center justify-center">
 		<div class="m-2 w-fit rounded-xl bg-muted p-4">
 			<h1 class="m-2 w-fit text-wrap text-5xl min-[450px]:text-7xl">
