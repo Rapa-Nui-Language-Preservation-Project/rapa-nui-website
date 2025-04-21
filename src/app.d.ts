@@ -1,7 +1,7 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
-import PocketBase from 'pocketbase';
 
+import { PocketBase } from 'pocketbase';
 declare global {
 	namespace App {
 		// interface Error {}

@@ -1,43 +1,54 @@
 <script lang="ts">
-	import Map from '$lib/Map.svelte';
-	import { fade, scale } from 'svelte/transition';
-	let show = $state(true);
+	import Footer from '$lib/components/Footer.svelte';
 
-	function handleBackgroundClick(event: Event) {
-		if (event.target === event.currentTarget) {
-			show = false;
+	import NavigationCard from '$lib/components/NavigationCard.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+
+	let cards = [
+		{
+			title: 'Lorem Ipsum Dolor',
+			description:
+				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Blanditiis optio deserunt qui officia dolores vel voluptas nesciunt ipsam voluptatibus.',
+			href: '/#'
+		},
+		{
+			title: 'View our Map',
+			description:
+				'Blanditiis optio deserunt qui officia dolores vel voluptas nesciunt ipsam voluptatibus beatae inventore, nihil quis. Ab, autem earum voluptatibus ipsam quas libero?',
+			href: '/map'
+		},
+		{
+			title: 'Lorem Ipsum Dolor',
+			description:
+				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Blanditiis optio deserunt qui officia dolores vel voluptas nesciunt ipsam voluptatibus.',
+			href: '/#'
 		}
-		event.stopPropagation();
-	}
+	];
 </script>
 
-<main class="relative h-screen overflow-hidden">
-	{#if show}
-		<button
-			aria-label="background"
-			class="absolute inset-0 z-[5] bg-black/5 backdrop-blur-xs"
-			transition:fade={{ duration: 500 }}
-			onclick={handleBackgroundClick}
-		></button>
-		<dialog
-			open
-			class="absolute top-1/3 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center rounded-lg border-2 border-gray-100 bg-gray-900/20 bg-clip-padding p-6 text-white shadow-lg backdrop-blur-md"
-			transition:scale={{ duration: 400, start: 0.95, opacity: 0 }}
-		>
-			<h1 class="mb-2 text-5xl"><b>Rapa Nui</b> Preservation</h1>
-			<h2 class="mb-12 self-start text-2xl">digital archive</h2>
-			<p class="mx-auto mb-12 w-full max-w-md break-words">
-				We could put some kind of information about the project here, for now it is just placeholder
-				text that creates visual balance between the titles and the buttons
-			</p>
-			<div class="flex flex-row gap-6 text-xs">
-				<a href="/locations" class="bouncy blurry bg-secondary/40 text-white">Locations API Test</a>
-				<button class="bouncy bg-primary/40 blurry text-white" onclick={() => (show = !show)}>
-					Expore
-				</button>
-			</div>
-		</dialog>
-	{/if}
-	<Map modal={() => (show = true)} />
+<main class="h-screen w-screen">
+	<div class="mt-52 flex flex-col items-center justify-center">
+		<div class="m-2 w-fit rounded-xl bg-muted p-4">
+			<h1 class="m-2 w-fit text-wrap text-5xl min-[450px]:text-7xl">
+				<span class="font-bold">Rapa Nui</span> Preservation
+			</h1>
+			<h2 class="m-2 mt-1 text-wrap text-2xl min-[450px]:text-4xl">a digital archive</h2>
+		</div>
+		<div class="m-5 mt-32 flex flex-row flex-wrap items-center justify-center gap-4">
+			<NavigationCard card={cards[0]}>
+				<Button variant="secondary" class="h-[200px] w-full rounded-md bg-muted" />
+			</NavigationCard>
+			<NavigationCard card={cards[1]}>
+				<img
+					src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/0de8x34jot74fcr/screenshot_2025_04_14_at_8_04_d5u5yvtdpc.27PM.png"
+					alt="An outline Map of Easter Island"
+					class="h-[200px] w-full rounded-md object-cover outline-offset-1 transition-opacity hover:outline"
+				/>
+			</NavigationCard>
+			<NavigationCard card={cards[2]}>
+				<Button variant="secondary" class="h-[200px] w-full rounded-md bg-muted" />
+			</NavigationCard>
+		</div>
+	</div>
+	<Footer />
 </main>
-
