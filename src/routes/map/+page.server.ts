@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 import type { Location } from '$lib/models';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, fetch }) => {
 	const locations: Location[] = await locals.pb
 		.collection('locations')
 		.getFullList({ expand: 'media' });

@@ -25,7 +25,7 @@
 	</div>
 	<div class="inline-flex shrink-0 items-center rounded-lg bg-secondary">
 		{#each pages as page}
-			<a href={page.path} class="rounded-lg text-sm font-medium text-muted hover:bg-secondary">
+			<a href={page.path} class=" rounded-lg text-sm font-medium text-muted hover:bg-secondary">
 				<Button variant="link" class={page.path == currentPath ? 'underline' : ''}>
 					{page.name}
 				</Button>

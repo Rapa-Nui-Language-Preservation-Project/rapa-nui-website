@@ -8,7 +8,7 @@
 	let { locations } = data;
 </script>
 
-<Map {locations} {hidden} interactive />
+<Map {locations} {hidden} />
 <main class={cn('flex w-screen justify-center bg-[#34373d]', hidden && 'h-screen')}>
 	<Button
 		onclick={() => (hidden = !hidden)}
