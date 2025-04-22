@@ -1,20 +1,23 @@
 import type { PageServerLoad } from './$types';
-import type { Location } from '$lib/models';
+import type { Layer, Location } from '$lib/models';
 
-export const load: PageServerLoad = async ({ locals, fetch }) => {
-	const locations: Location[] = await locals.pb
-		.collection('locations')
-		.getFullList({ expand: 'media' });
+export const load: PageServerLoad = async ({ locals }) => {
+	const layers: Layer[] = await locals.pb
+		.collection('layers')
+		.getFullList({ expand: 'locations,locations.media'});
 
 
 	// Add the URL to the media files
-	locations.forEach((location) => {
-		location.expand.media.forEach((media) => {
-			media.file = locals.pb.files.getURL(media, media.file);
-		});
-	});
+	layers.forEach((layer) => {
+		layer.expand.locations.forEach((location) => {
+			location.expand.media.forEach((media) => {
+				media.file = locals.pb.files.getURL(media, media.file);
+			}
+			);}
+		);}
+	);
 
 	return {
-		locations
+		layers
 	};
 };

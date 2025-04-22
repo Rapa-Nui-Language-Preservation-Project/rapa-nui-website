@@ -5,10 +5,10 @@
 
 	let hidden = $state(false);
 	let { data } = $props();
-	let { locations } = data;
+	let { layers } = data;
 </script>
 
-<Map {locations} {hidden} />
+<Map {layers} {hidden} />
 <main class={cn('flex w-screen justify-center bg-[#34373d]', hidden && 'h-screen')}>
 	<Button
 		onclick={() => (hidden = !hidden)}
