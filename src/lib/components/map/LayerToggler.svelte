@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Layer } from '$lib/models';
-	import { Checkbox } from './ui/checkbox';
-	import { Label } from './ui/label';
+	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Label } from '$lib/components/ui/label';
 
 	let { layers, selectedLayers = $bindable() } = $props();
 

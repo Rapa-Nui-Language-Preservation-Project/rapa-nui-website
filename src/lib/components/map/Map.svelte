@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { PMTilesProtocol } from 'svelte-maplibre-gl/pmtiles';
 	import { MapLibre } from 'svelte-maplibre-gl';
-	import { cn } from '$lib/utils';
 	import type { Layer } from '$lib/models';
 	import { mode } from 'mode-watcher';
 	import MarkerPopup from './MarkerPopup.svelte';
@@ -35,10 +34,6 @@
 			{ lng: -109.65, lat: -27.3 },
 			{ lng: -109, lat: -26.96 }
 		]}
-		onclick={async (e) => {
-			const clipboard = navigator.clipboard;
-			await clipboard.writeText(e.lngLat.toString());
-		}}
 	>
 		{#each selectedLayers.values() as layer}
 			{#each layer.expand.locations as location}

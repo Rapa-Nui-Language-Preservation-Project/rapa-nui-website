@@ -1,7 +1,6 @@
 <script lang="ts">
-	import Footer from '$lib/components/Footer.svelte';
-
-	import NavigationCard from '$lib/components/NavigationCard.svelte';
+	import Footer from '$lib/components/layout/Footer.svelte';
+	import NavigationCard from '$lib/components/home/NavigationCard.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 
 	let cards = [

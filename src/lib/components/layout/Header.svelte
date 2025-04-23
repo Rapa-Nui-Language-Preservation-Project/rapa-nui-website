@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ModeSwitcher from './ModeSwitcher.svelte';
-	import { Button } from './ui/button';
+	import { Button } from '$lib/components/ui/button';
 
 	let currentPath = $state(page.url.pathname);
 
