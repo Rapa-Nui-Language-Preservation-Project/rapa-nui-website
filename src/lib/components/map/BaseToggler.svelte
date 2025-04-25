@@ -9,13 +9,13 @@
 	};
 </script>
 
-<div class="m-4 flex flex-col items-center justify-center rounded-lg bg-muted p-4 shadow-lg">
+<div class="m-2 flex flex-col items-center justify-center bg-muted p-2 w-ful">
 	<h2 class="mb-2 text-lg font-semibold">Base</h2>
 	<RadioGroup.Root value={selectedBase}>
 		{#each bases as base}
-			<div class="mb-2 flex items-center justify-center gap-2">
+			<div class="mb-2 flex w-full justify-end gap-2">
 				<Label
-					class="float-left text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+					class="float-left w-full text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 					for={base}
 				>
 					{base}
