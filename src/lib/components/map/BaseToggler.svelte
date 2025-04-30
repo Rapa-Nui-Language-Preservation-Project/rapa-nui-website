@@ -7,13 +7,13 @@
 	};
 </script>
 
-<RadioGroup.Root value={selectedBase} class="gap-3">
+<RadioGroup.Root value={selectedBase} class="">
 	{#each bases as base}
-		<div class="flex">
-			<Label class="" for={base}>
+		<div class="flex items-center justify-end">
+			<Label for={base}>
 				{base}
 			</Label>
-			<RadioGroup.Item class="ml-auto" value={base} id={base} onclick={() => toggleBase(base)} />
+			<RadioGroup.Item class="ml-4" value={base} id={base} onclick={() => toggleBase(base)} />
 		</div>
 	{/each}
 </RadioGroup.Root>
