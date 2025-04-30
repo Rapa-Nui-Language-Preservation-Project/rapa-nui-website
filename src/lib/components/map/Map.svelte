@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PMTilesProtocol } from 'svelte-maplibre-gl/pmtiles';
 	import { MapLibre } from 'svelte-maplibre-gl';
-	import type { Layer } from '$lib/models';
+	import type { ExpandedLayer } from '$lib/expanded-models.ts';
 	import { mode } from 'mode-watcher';
 	import MarkerPopup from './MarkerPopup.svelte';
 	import LayerToggler from './LayerToggler.svelte';
@@ -12,8 +12,8 @@
 		dark = m === 'dark';
 	});
 
-	let { layers, bases }: { layers: Layer[]; bases: string[] } = $props();
-	let selectedLayers = $state(new Map<string, Layer>());
+	let { layers, bases }: { layers: ExpandedLayer[]; bases: string[] } = $props();
+	let selectedLayers = $state(new Map<string, ExpandedLayer>());
 	let selectedBase = $state(bases[0]);
 </script>
 
@@ -36,7 +36,7 @@
 				]}
 			>
 				{#each selectedLayers.values() as layer}
-					{#each layer.expand.locations as location}
+					{#each layer.expand.locations || [] as location}
 						<MarkerPopup {location} />
 					{/each}
 				{/each}
