@@ -51,6 +51,8 @@
 	</div>
 </div>
 <nav class="absolute bottom-0 right-0">
-	<BaseToggler {bases} bind:selectedBase />
-	<LayerToggler {layers} bind:selectedLayers />
+	<div class="items-left m-8 flex w-32 flex-col gap-3">
+		<BaseToggler {bases} bind:selectedBase />
+		<LayerToggler {layers} bind:selectedLayers />
+	</div>
 </nav>
