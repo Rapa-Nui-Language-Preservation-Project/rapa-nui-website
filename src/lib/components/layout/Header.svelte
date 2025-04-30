@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import ModeSwitcher from './ModeSwitcher.svelte';
 	import { Button } from '$lib/components/ui/button';
 
 	let currentPath = $state(page.url.pathname);
@@ -26,7 +25,5 @@
 			</a>
 		{/each}
 	</div>
-	<div class="inline-flex justify-end" style="width: 50%;">
-		<ModeSwitcher />
-	</div>
+	<div class="inline-flex justify-end" style="width: 50%;"></div>
 </header>
