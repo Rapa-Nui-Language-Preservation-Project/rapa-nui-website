@@ -6,6 +6,11 @@
 	import MarkerPopup from './MarkerPopup.svelte';
 	import LayerToggler from './LayerToggler.svelte';
 	import BaseToggler from './BaseToggler.svelte';
+	import CalibrationTool from './CalibrationTool.svelte';
+	import { transformLatLngToXY } from '$lib/utils/geoTransform';
+	import ArtisticMarkerPopup from './ArtisticMarkerPopup.svelte';
+
+
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
@@ -14,7 +19,10 @@
 
 	let { layers, bases }: { layers: ExpandedLayer[]; bases: string[] } = $props();
 	let selectedLayers = $state(new Map<string, ExpandedLayer>());
-	let selectedBase = $state(bases[0]);
+	let selectedBase = $state(bases[1]);
+	let calibrate = false; // toggle this to true to enable calibration mode
+
+
 </script>
 
 <div class="flex h-screen w-screen justify-center bg-black">
@@ -41,17 +49,41 @@
 					{/each}
 				{/each}
 			</MapLibre>
-		{:else if selectedBase === 'Artistic'}
-			<img
-				src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
-				class="h-screen"
-				alt="Map of Easter Island"
-			/>
-		{/if}
+			{:else if selectedBase === 'Artistic'}
+				{#if calibrate}
+					<CalibrationTool />
+				{:else}
+				<div class="relative h-screen w-auto">
+					<img
+						src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
+						class="h-screen"
+						alt="Map of Easter Island"
+					/>
+				
+					{#each selectedLayers.values() as layer}
+						{#each layer.expand.locations || [] as location}
+							{#if location.latitude != null && location.longitude != null}
+								{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
+								<div
+									class="absolute z-10"
+									style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
+								>
+									<ArtisticMarkerPopup {location} />
+								</div>
+							{/if}
+						{/each}
+					{/each}
+				</div>				
+				{/if}
+			{/if}
 	</div>
 </div>
 <nav class="absolute bottom-0 right-0">
-	<div class="items-left m-8 flex flex-col gap-3">
+	<div
+		class={`items-left m-8 flex flex-col gap-3 rounded-md p-4 backdrop-blur-md ${
+			selectedBase === 'Artistic' ? 'bg-white/70' : 'bg-background/80'
+		}`}
+	>
 		<BaseToggler {bases} bind:selectedBase />
 		<LayerToggler {layers} bind:selectedLayers />
 	</div>

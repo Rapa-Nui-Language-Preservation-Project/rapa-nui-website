@@ -5,23 +5,23 @@
 
 	let cards = [
 		{
-			title: 'Lorem Ipsum Dolor',
+			title: 'Aprende Rapa Nui',
 			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Blanditiis optio deserunt qui officia dolores vel voluptas nesciunt ipsam voluptatibus.',
+				'Aquí estaremos compartiendo recursos para aprender Rapa Nui, la lengua de la Isla de Pascua.',
 			href: '/#'
 		},
 		{
-			title: 'View our Map',
+			title: 'Mapa Cultural de la Isla de Pascua',
 			description:
-				'Blanditiis optio deserunt qui officia dolores vel voluptas nesciunt ipsam voluptatibus beatae inventore, nihil quis. Ab, autem earum voluptatibus ipsam quas libero?',
+				'Pon click para navegar a través de una collección de cuentas, lugares, eventos y fotos compartido por la comunidad.',
 			href: '/map'
 		},
 		{
-			title: 'Lorem Ipsum Dolor',
+			title: 'Glosario de Palabras',
 			description:
-				'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Blanditiis optio deserunt qui officia dolores vel voluptas nesciunt ipsam voluptatibus.',
+				'Una collección de información y cuentas donado por su historia y cultura.',
 			href: '/#'
-		}
+		},
 	];
 </script>
 
@@ -29,9 +29,9 @@
 	<div class="mt-52 flex flex-col items-center justify-center">
 		<div class="m-2 w-fit rounded-xl bg-muted p-4 ">
 			<h1 class="m-2 w-fit text-wrap text-5xl min-[450px]:text-7xl">
-				<span class="font-bold">Rapa Nui</span> Preservation
+				<span class="font-bold">Rapa Nui</span> 
 			</h1>
-			<h2 class="m-2 mt-1 text-wrap text-2xl min-[450px]:text-4xl">a digital archive</h2>
+			<h2 class="m-2 mt-1 text-wrap text-2xl min-[450px]:text-4xl">Recursos para la documentación digital</h2>
 		</div>
 		<div class="m-5 mt-32 flex flex-row flex-wrap items-center justify-center gap-4">
 			<NavigationCard card={cards[0]}>
