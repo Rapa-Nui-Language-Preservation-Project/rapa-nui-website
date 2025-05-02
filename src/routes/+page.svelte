@@ -35,7 +35,11 @@
 		</div>
 		<div class="m-5 mt-32 flex flex-row flex-wrap items-center justify-center gap-4">
 			<NavigationCard card={cards[0]}>
-				<Button variant="secondary" class="h-[200px] w-full rounded-md bg-muted" />
+				<img
+					src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/s718fkw89hh68y9/paper_camera2012_11_26_14_17_43_af9n9sbkio.jpg"
+					alt="imagen"
+					class="h-[200px] w-full rounded-md object-cover outline-offset-1 transition-opacity hover:outline"
+				/>
 			</NavigationCard>
 			<NavigationCard card={cards[1]}>
 				<img
@@ -45,7 +49,11 @@
 				/>
 			</NavigationCard>
 			<NavigationCard card={cards[2]}>
-				<Button variant="secondary" class="h-[200px] w-full rounded-md bg-muted" />
+				<img
+					src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/hv0b009265nrg85/hmppx5_13yd9imgw5.png"
+					alt=""
+					class="h-[200px] w-full rounded-md object-cover outline-offset-1 transition-opacity hover:outline"
+				/>
 			</NavigationCard>
 		</div>
 	</div>
