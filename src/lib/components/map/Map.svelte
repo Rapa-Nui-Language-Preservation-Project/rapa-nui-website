@@ -49,7 +49,7 @@
 			{#if calibrate}
 				<CalibrationTool />
 			{:else}
-				<div class="relative h-screen w-auto">
+				<div class="relative z-10 h-screen w-auto">
 					<img
 						src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
 						class="h-screen"
@@ -74,13 +74,11 @@
 		{/if}
 	</div>
 </div>
-<nav class="absolute bottom-0 right-0">
-	<div
-		class={`items-left m-8 flex flex-col gap-3 rounded-md p-4 backdrop-blur-md ${
-			selectedBase === 'Artistic' ? 'bg-white/70' : 'bg-background/80'
-		}`}
-	>
+<nav class="absolute bottom-0 right-0 z-0">
+	<div class={`mb-4 flex w-52 flex-col gap-4 bg-black p-2 font-normal text-white`}>
+		<h3 class="text-xl">Map Type</h3>
 		<BaseToggler {bases} bind:selectedBase />
+		<h3 class="text-xl">Layers</h3>
 		<LayerToggler {layers} bind:selectedLayers />
 	</div>
 </nav>

@@ -9,11 +9,16 @@
 
 <RadioGroup.Root value={selectedBase} class="">
 	{#each bases as base}
-		<div class="flex items-center justify-end">
+		<div class="flex w-full items-center justify-between">
 			<Label for={base}>
 				{base}
 			</Label>
-			<RadioGroup.Item class="ml-4" value={base} id={base} onclick={() => toggleBase(base)} />
+			<RadioGroup.Item
+				class="border-2 border-white"
+				value={base}
+				id={base}
+				onclick={() => toggleBase(base)}
+			/>
 		</div>
 	{/each}
 </RadioGroup.Root>

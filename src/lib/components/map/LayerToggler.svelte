@@ -17,10 +17,10 @@
 </script>
 
 {#each layers as layer}
-	<div class="flex items-center justify-end">
+	<div class="flex w-full items-center justify-between gap-4">
 		<Label>
 			{layer.name}
 		</Label>
-		<Checkbox class="ml-4" onclick={() => toggleLayer(layer)} />
+		<Checkbox class="border-2 border-white" onclick={() => toggleLayer(layer)} />
 	</div>
 {/each}
