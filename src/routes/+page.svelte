@@ -2,6 +2,8 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import NavigationCard from '$lib/components/home/NavigationCard.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import ImageMarquee from '$lib/components/home/ImageMarquee.svelte';
+
 
 	let cards = [
 		{
@@ -25,8 +27,10 @@
 	];
 </script>
 
+<ImageMarquee />
+
 <main class="h-screen w-screen">
-	<div class="mt-52 flex flex-col items-center justify-center">
+	<div class="mt-32 flex flex-col items-center justify-center">
 		<div class="m-2 w-fit rounded-xl bg-muted p-4 ">
 			<h1 class="m-2 w-fit text-wrap text-5xl min-[450px]:text-7xl">
 				<span class="font-bold">Rapa Nui</span> 
