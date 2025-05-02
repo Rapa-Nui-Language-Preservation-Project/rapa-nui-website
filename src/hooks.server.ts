@@ -7,5 +7,6 @@ export const handle = async ({ event, resolve }) => {
     if (!event.locals.pb) {
         event.locals.pb = new PocketBase(PB_URL);
     }
+
     return resolve(event);
 }

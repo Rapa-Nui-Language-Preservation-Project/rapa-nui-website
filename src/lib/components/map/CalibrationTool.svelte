@@ -11,7 +11,6 @@
 	}
 </script>
 
-
 <div class="relative">
 	<img
 		src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
@@ -25,6 +24,6 @@
 			class="marker"
 			style={`top: ${y}%; left: ${x}%; position: absolute;`}
 			title={`Point ${i + 1}: ${x.toFixed(2)}%, ${y.toFixed(2)}%`}
-		/>
+		></div>
 	{/each}
 </div>
