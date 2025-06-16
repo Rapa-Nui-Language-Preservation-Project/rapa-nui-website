@@ -48,7 +48,8 @@
 			</Tooltip.Root>
 		</Tooltip.Provider>
 	</Dialog.Trigger>
-	<Dialog.Content class="max-w-screen m-0 h-[90vh] w-[90vw]">
+	<Dialog.Content class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900">
+
 		<ScrollArea>
 			<div class="flex flex-col items-center">
 				<h1 class="text-xl font-bold">{location.name}</h1>
@@ -90,7 +91,7 @@
 						<img
 							src={location.expand.story[0].field}
 							alt={location.expand.story[0].image_title}
-							class="rounded-lg shadow-lg max-w-[75%]"
+							class="rounded-lg shadow-lg max-w-[100%]"
 						/>
 						<p class="mt-1 text-xs italic text-muted-foreground">{location.expand.story[0].image_title}</p>
 
