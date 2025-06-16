@@ -49,7 +49,6 @@
 		</Tooltip.Provider>
 	</Dialog.Trigger>
 	<Dialog.Content class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900">
-
 		<ScrollArea>
 			<div class="flex flex-col items-center">
 				<h1 class="text-xl font-bold">{location.name}</h1>
