@@ -20,29 +20,29 @@
 	let selectedLayers = $state(new Map<string, ExpandedLayer>());
 	let selectedBase = $state(bases[1]);
 	let calibrate = false;
-	
+
 	// Sidebar visibility states
 	let leftSidebarVisible = $state(true);
 	let rightSidebarVisible = $state(true);
-	
+
 	const hideSidebars = () => {
 		leftSidebarVisible = false;
 		rightSidebarVisible = false;
 	};
-	
+
 	const showSidebars = () => {
 		leftSidebarVisible = true;
 		rightSidebarVisible = true;
 	};
-	
+
 	const areSidebarsHidden = $derived(!leftSidebarVisible && !rightSidebarVisible);
 </script>
 
-<div class="flex h-screen w-screen justify-center bg-gray-100 overflow-hidden">
+<div class="flex h-screen w-screen justify-center overflow-hidden bg-gray-100">
 	<PMTilesProtocol />
-	
+
 	<!-- Map Container -->
-	<div class="flex-1 relative bg-gray-900 transition-all duration-500 ease-in-out">
+	<div class="relative flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
 		{#if selectedBase === 'Geográfica'}
 			<MapLibre
 				class="absolute left-0 top-0 h-screen w-full"
@@ -68,7 +68,7 @@
 			{#if calibrate}
 				<CalibrationTool />
 			{:else}
-				<div class="relative h-screen w-auto ml-80 mr-64">
+				<div class="relative ml-80 mr-64 h-screen w-auto">
 					<img
 						src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
 						class="h-screen"
@@ -100,10 +100,10 @@
 			tabindex="0"
 			onclick={showSidebars}
 			onkeydown={(e) => e.key === 'Enter' && showSidebars()}
-			class="fixed top-0 left-0 h-full w-1/4 md:w-1/6 bg-transparent z-10 cursor-pointer group"
+			class="group fixed left-0 top-0 z-10 h-full w-1/4 cursor-pointer bg-transparent md:w-1/6"
 		>
 			<ChevronRight
-				class="fixed top-1/2 left-4 transform -translate-y-1/2 text-white/50 group-hover:text-white group-hover:scale-125 transition-all duration-300"
+				class="fixed left-4 top-1/2 -translate-y-1/2 transform text-white/50 transition-all duration-300 group-hover:scale-125 group-hover:text-white"
 				size={32}
 			/>
 		</div>
@@ -113,10 +113,10 @@
 			tabindex="0"
 			onclick={showSidebars}
 			onkeydown={(e) => e.key === 'Enter' && showSidebars()}
-			class="fixed top-0 right-0 h-full w-1/4 md:w-1/6 bg-transparent z-10 cursor-pointer group"
+			class="group fixed right-0 top-0 z-10 h-full w-1/4 cursor-pointer bg-transparent md:w-1/6"
 		>
 			<ChevronLeft
-				class="fixed top-1/2 right-4 transform -translate-y-1/2 text-white/50 group-hover:text-white group-hover:scale-125 transition-all duration-300"
+				class="fixed right-4 top-1/2 -translate-y-1/2 transform text-white/50 transition-all duration-300 group-hover:scale-125 group-hover:text-white"
 				size={32}
 			/>
 		</div>
@@ -124,12 +124,12 @@
 
 	<!-- Left Sidebar - Layers -->
 	<div
-		class={`fixed top-0 left-0 h-full w-96 bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900 font-serif border-r border-black/10 overflow-y-auto transition-all duration-500 ease-in-out z-20 
-		${leftSidebarVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}
+		class={`fixed left-0 top-0 z-20 h-full w-96 overflow-y-auto border-r border-black/10 bg-gradient-to-b from-amber-50 to-orange-50 font-serif text-amber-900 transition-all duration-500 ease-in-out 
+		${leftSidebarVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-full opacity-0'}`}
 		style="font-family: 'Merriweather', serif;"
 	>
 		<div class="p-6">
-			<h2 class="text-2xl font-bold mb-1rem text-center tracking-wider">Capas</h2>
+			<h2 class="mb-1rem text-center text-2xl font-bold tracking-wider">Capas</h2>
 			<div class="space-y-2">
 				<LayerToggler {layers} bind:selectedLayers />
 			</div>
@@ -138,12 +138,12 @@
 
 	<!-- Right Sidebar - Map Style -->
 	<div
-		class={`fixed top-0 right-0 h-full w-80 bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900 font-serif border-l border-black/10 overflow-y-auto transition-all duration-500 ease-in-out z-20 
-		${rightSidebarVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}
+		class={`fixed right-0 top-0 z-20 h-full w-80 overflow-y-auto border-l border-black/10 bg-gradient-to-b from-amber-50 to-orange-50 font-serif text-amber-900 transition-all duration-500 ease-in-out 
+		${rightSidebarVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'}`}
 		style="font-family: 'Merriweather', serif;"
 	>
 		<div class="p-6">
-			<h2 class="text-2xl font-bold mb-8 text-center tracking-wider">Mapas</h2>
+			<h2 class="mb-8 text-center text-2xl font-bold tracking-wider">Mapas</h2>
 			<div class="space-y-4">
 				<BaseToggler {bases} bind:selectedBase />
 			</div>
@@ -154,7 +154,7 @@
 	{#if leftSidebarVisible || rightSidebarVisible}
 		<button
 			onclick={hideSidebars}
-			class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-full shadow-xl z-30 transition-colors"
+			class="fixed bottom-4 left-1/2 z-30 -translate-x-1/2 transform rounded-full bg-orange-600 p-3 text-white shadow-xl transition-colors hover:bg-orange-700"
 			aria-label="Hide Sidebars"
 		>
 			<EyeOff size={24} />

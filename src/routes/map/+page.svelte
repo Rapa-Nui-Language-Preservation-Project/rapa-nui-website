@@ -4,7 +4,6 @@
 	let { data } = $props();
 	let { layers } = data;
 	let bases = ['Geográfica', 'Artística'];
-
 </script>
 
 <Map {bases} {layers} />

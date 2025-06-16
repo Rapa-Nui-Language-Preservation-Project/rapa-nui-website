@@ -1,13 +1,18 @@
-import type { LayersResponse, LocationsResponse, MediaResponse, StoriesResponse } from '$lib/pocketbase-types';
+import type {
+	LayersResponse,
+	LocationsResponse,
+	MediaResponse,
+	StoriesResponse
+} from '$lib/pocketbase-types';
 
 type LocationExpand = {
-    media: MediaResponse[];
-    story: StoriesResponse[];
-}
+	media: MediaResponse[];
+	story: StoriesResponse[];
+};
 
 type LayerExpand = {
-    locations: LocationsResponse<LocationExpand>[];
-}
+	locations: LocationsResponse<LocationExpand>[];
+};
 
 export type ExpandedLayer = LayersResponse<LayerExpand>;
 export type ExpandedLocation = LocationsResponse<LocationExpand>;

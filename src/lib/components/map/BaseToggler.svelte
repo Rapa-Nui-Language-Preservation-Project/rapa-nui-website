@@ -6,15 +6,15 @@
 	<div
 		role="button"
 		tabindex="0"
-		on:click={() => selectedBase = base}
+		on:click={() => (selectedBase = base)}
 		on:keydown={(e) => e.key === 'Enter' && (selectedBase = base)}
-		class={`flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-black/5 transition-colors ${
-			selectedBase === base ? 'bg-orange-200 text-orange-700 font-semibold' : ''
+		class={`flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-black/5 ${
+			selectedBase === base ? 'bg-orange-200 font-semibold text-orange-700' : ''
 		}`}
 	>
 		<!-- Radio button style indicator -->
 		<div
-			class={`w-3 h-3 rounded-full border-2 border-orange-700 ${
+			class={`h-3 w-3 rounded-full border-2 border-orange-700 ${
 				selectedBase === base ? 'bg-orange-600' : 'bg-transparent'
 			}`}
 		></div>

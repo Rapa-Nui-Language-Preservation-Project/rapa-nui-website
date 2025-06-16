@@ -18,13 +18,13 @@ const controlPoints: ControlPoint[] = [
  * Solve Ax = b using the normal equations: (AᵗA)x = Aᵗb
  */
 function solveAffine(A: number[][], b: number[]): number[] {
-	const AT = A[0].map((_, i) => A.map(row => row[i])); // transpose A
+	const AT = A[0].map((_, i) => A.map((row) => row[i])); // transpose A
 
 	// compute ATA
-	const ATA = AT.map(row => AT.map(col => row.reduce((sum, r, i) => sum + r * col[i], 0)));
+	const ATA = AT.map((row) => AT.map((col) => row.reduce((sum, r, i) => sum + r * col[i], 0)));
 
 	// compute ATb
-	const ATb = AT.map(row => row.reduce((sum, r, i) => sum + r * b[i], 0));
+	const ATb = AT.map((row) => row.reduce((sum, r, i) => sum + r * b[i], 0));
 
 	// Solve 3x3 system using Cramer's Rule (since it's small)
 	const det = (m: number[][]) =>
@@ -37,7 +37,7 @@ function solveAffine(A: number[][], b: number[]): number[] {
 	const replaceColumn = (mat: number[][], colIndex: number, newCol: number[]): number[][] =>
 		mat.map((row, i) => [...row.slice(0, colIndex), newCol[i], ...row.slice(colIndex + 1)]);
 
-	return [0, 1, 2].map(i => det(replaceColumn(ATA, i, ATb)) / D);
+	return [0, 1, 2].map((i) => det(replaceColumn(ATA, i, ATb)) / D);
 }
 
 function computeAffineTransform(points: ControlPoint[]) {
@@ -53,7 +53,7 @@ function computeAffineTransform(points: ControlPoint[]) {
 
 	return {
 		xCoeffs: solveAffine(A, bx), // [a, b, tx]
-		yCoeffs: solveAffine(A, by)  // [c, d, ty]
+		yCoeffs: solveAffine(A, by) // [c, d, ty]
 	};
 }
 

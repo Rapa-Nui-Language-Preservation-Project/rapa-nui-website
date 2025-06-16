@@ -7,7 +7,6 @@
 	import type { CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import type { ExpandedLocation } from '$lib/expanded-models';
 
-
 	let { location }: { location: ExpandedLocation } = $props();
 
 	let mediaAPI = $state<CarouselAPI>();
@@ -48,7 +47,9 @@
 			</Tooltip.Root>
 		</Tooltip.Provider>
 	</Dialog.Trigger>
-	<Dialog.Content class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900">
+	<Dialog.Content
+		class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900"
+	>
 		<ScrollArea>
 			<div class="flex flex-col items-center">
 				<h1 class="text-xl font-bold">{location.name}</h1>
@@ -85,21 +86,26 @@
 					</div>
 				{/if}
 				{#if location.expand.story?.length == 1}
-
 					<div class="relative flex flex-col items-center justify-center text-center">
 						<img
 							src={location.expand.story[0].field}
 							alt={location.expand.story[0].image_title}
-							class="rounded-lg shadow-lg max-w-[100%]"
+							class="max-w-[100%] rounded-lg shadow-lg"
 						/>
-						<p class="mt-1 text-xs italic text-muted-foreground">{location.expand.story[0].image_title}</p>
+						<p class="mt-1 text-xs italic text-muted-foreground">
+							{location.expand.story[0].image_title}
+						</p>
 
 						<h2 class="mt-4 text-xl font-semibold">
-							{showSpanish ? location.expand.story[0].title_spanish : location.expand.story[0].title}
+							{showSpanish
+								? location.expand.story[0].title_spanish
+								: location.expand.story[0].title}
 						</h2>
 
-						<p class="mt-2 px-4 text-base max-w-prose">
-							{showSpanish ? location.expand.story[0].text_spanish : location.expand.story[0].text_rapanui}
+						<p class="mt-2 max-w-prose px-4 text-base">
+							{showSpanish
+								? location.expand.story[0].text_spanish
+								: location.expand.story[0].text_rapanui}
 						</p>
 
 						<button
@@ -109,7 +115,6 @@
 							{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
 						</button>
 					</div>
-
 				{:else if location.expand.story?.length > 1}
 					<div class="flex flex-col items-center justify-center text-center">
 						<Carousel.Root
