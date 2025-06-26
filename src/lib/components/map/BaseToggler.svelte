@@ -6,8 +6,8 @@
 	<div
 		role="button"
 		tabindex="0"
-		on:click={() => (selectedBase = base)}
-		on:keydown={(e) => e.key === 'Enter' && (selectedBase = base)}
+		onclick={() => (selectedBase = base)}
+		onkeydown={(e) => e.key === 'Enter' && (selectedBase = base)}
 		class={`flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-black/5 ${
 			selectedBase === base ? 'bg-orange-200 font-semibold text-orange-700' : ''
 		}`}
