@@ -53,7 +53,7 @@
 		<ScrollArea>
 			<div class="flex flex-col items-center">
 				<h1 class="text-xl font-bold">{location.name}</h1>
-				<p class="text-md font-normal">{location.description}</p>
+				<p class="text-center text-md font-normal preserve-whitespace">{location.description_espanol}</p>
 				{#if location.expand.media?.length == 1}
 					<div class="flex flex-col items-center justify-center text-center">
 						<img
