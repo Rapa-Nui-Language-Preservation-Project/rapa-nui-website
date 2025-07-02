@@ -6,8 +6,11 @@
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import type { CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import type { ExpandedLocation } from '$lib/expanded-models';
+	import KoronuiLayer from '$lib/components/map/ExpandedLayers/KoronuiLayer.svelte';
 
 	let { location }: { location: ExpandedLocation } = $props();
+	//for testing
+	console.log('Current Location:', location);
 
 	let mediaAPI = $state<CarouselAPI>();
 	let storyAPI = $state<CarouselAPI>();
@@ -52,8 +55,14 @@
 	>
 		<ScrollArea>
 			<div class="flex flex-col items-center">
-				<h1 class="text-xl font-bold">{location.name}</h1>
-				<p class="text-md font-normal">{location.description}</p>
+				{#if location.actividad?.length != 0}
+					<KoronuiLayer {location} />
+				{:else}
+					<h1 class="text-xl font-bold">{location.name}</h1>
+					<p class="text-md preserve-whitespace text-center font-normal">
+						{location.description_espanol}
+					</p>
+				{/if}
 				{#if location.expand.media?.length == 1}
 					<div class="flex flex-col items-center justify-center text-center">
 						<img
@@ -73,7 +82,6 @@
 								{#each location.expand.media || [] as media}
 									<Carousel.Item class="flex flex-col items-center justify-center ">
 										<img src={media.file} alt={media.description} width="100%" />
-										<!-- <p class="text-sm">{media.title}</p> -->
 									</Carousel.Item>
 								{/each}
 							</Carousel.Content>

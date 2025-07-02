@@ -44,7 +44,6 @@
 		{/if}
 
 		<!-- Cover photo -->
-		<!-- Cover photo -->
 		{#if layer.cover_photo && layer.cover_photo.length > 0}
 			<div class="relative my-2 aspect-[16/10] overflow-hidden rounded bg-white">
 				<img

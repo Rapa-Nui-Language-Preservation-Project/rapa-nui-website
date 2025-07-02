@@ -11,9 +11,11 @@ export enum Collections {
 	Mfas = '_mfas',
 	Otps = '_otps',
 	Superusers = '_superusers',
+	Actividad = 'actividad',
 	Layers = 'layers',
 	Locations = 'locations',
 	Media = 'media',
+	Pruebas = 'pruebas',
 	Stories = 'stories',
 	Users = 'users'
 }
@@ -94,6 +96,19 @@ export type SuperusersRecord = {
 	verified?: boolean;
 };
 
+export type ActividadRecord<Tpruebas = unknown> = {
+	created?: IsoDateString;
+	description_espanol?: string;
+	description_rapa_nui?: string;
+	id: string;
+	mapa?: string;
+	media?: RecordIdString[];
+	participantes?: string;
+	pruebas?: null | Tpruebas;
+	title?: string;
+	updated?: IsoDateString;
+};
+
 export type LayersRecord = {
 	cover_photo?: string[];
 	created?: IsoDateString;
@@ -105,17 +120,19 @@ export type LayersRecord = {
 };
 
 export enum LocationsLanguageOptions {
-	'English' = 'English',
-	'Spanish' = 'Spanish',
-	'Rapa Nui' = 'Rapa Nui'
+	'inglés' = 'inglés',
+	'español' = 'español',
+	'rapanui' = 'rapanui'
 }
 
 export enum LocationsTypeOptions {
 	'site' = 'site'
 }
 export type LocationsRecord = {
+	actividad?: RecordIdString[];
 	created?: IsoDateString;
-	description?: string;
+	description_espanol?: string;
+	description_rapa_nui?: string;
 	id: string;
 	language?: LocationsLanguageOptions[];
 	latitude?: number;
@@ -130,7 +147,8 @@ export type LocationsRecord = {
 export enum MediaTypeOptions {
 	'image' = 'image',
 	'video' = 'video',
-	'text' = 'text'
+	'text' = 'text',
+	'pdf' = 'pdf'
 }
 export type MediaRecord = {
 	created?: IsoDateString;
@@ -140,6 +158,14 @@ export type MediaRecord = {
 	license?: string;
 	title?: string;
 	type?: MediaTypeOptions;
+	updated?: IsoDateString;
+};
+
+export type PruebasRecord = {
+	created?: IsoDateString;
+	description_espanol?: string;
+	id: string;
+	title?: string;
 	updated?: IsoDateString;
 };
 
@@ -179,10 +205,16 @@ export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemF
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>;
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> &
 	AuthSystemFields<Texpand>;
+export type ActividadResponse<Tpruebas = unknown, Texpand = unknown> = Required<
+	ActividadRecord<Tpruebas>
+> &
+	BaseSystemFields<Texpand>;
 export type LayersResponse<Texpand = unknown> = Required<LayersRecord> & BaseSystemFields<Texpand>;
 export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> &
 	BaseSystemFields<Texpand>;
 export type MediaResponse<Texpand = unknown> = Required<MediaRecord> & BaseSystemFields<Texpand>;
+export type PruebasResponse<Texpand = unknown> = Required<PruebasRecord> &
+	BaseSystemFields<Texpand>;
 export type StoriesResponse<Texpand = unknown> = Required<StoriesRecord> &
 	BaseSystemFields<Texpand>;
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>;
@@ -195,9 +227,11 @@ export type CollectionRecords = {
 	_mfas: MfasRecord;
 	_otps: OtpsRecord;
 	_superusers: SuperusersRecord;
+	actividad: ActividadRecord;
 	layers: LayersRecord;
 	locations: LocationsRecord;
 	media: MediaRecord;
+	pruebas: PruebasRecord;
 	stories: StoriesRecord;
 	users: UsersRecord;
 };
@@ -208,9 +242,11 @@ export type CollectionResponses = {
 	_mfas: MfasResponse;
 	_otps: OtpsResponse;
 	_superusers: SuperusersResponse;
+	actividad: ActividadResponse;
 	layers: LayersResponse;
 	locations: LocationsResponse;
 	media: MediaResponse;
+	pruebas: PruebasResponse;
 	stories: StoriesResponse;
 	users: UsersResponse;
 };
@@ -224,9 +260,11 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: '_mfas'): RecordService<MfasResponse>;
 	collection(idOrName: '_otps'): RecordService<OtpsResponse>;
 	collection(idOrName: '_superusers'): RecordService<SuperusersResponse>;
+	collection(idOrName: 'actividad'): RecordService<ActividadResponse>;
 	collection(idOrName: 'layers'): RecordService<LayersResponse>;
 	collection(idOrName: 'locations'): RecordService<LocationsResponse>;
 	collection(idOrName: 'media'): RecordService<MediaResponse>;
+	collection(idOrName: 'pruebas'): RecordService<PruebasResponse>;
 	collection(idOrName: 'stories'): RecordService<StoriesResponse>;
 	collection(idOrName: 'users'): RecordService<UsersResponse>;
 };

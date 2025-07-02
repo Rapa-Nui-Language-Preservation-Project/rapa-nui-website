@@ -77,3 +77,9 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+@layer utilities {
+	.preserve-whitespace {
+		white-space: pre-wrap;
+	}
+}
