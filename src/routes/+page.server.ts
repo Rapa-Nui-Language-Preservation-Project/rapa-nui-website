@@ -4,12 +4,10 @@ import type { ExpandedLayer } from '$lib/expanded-models';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// The expand string now correctly fetches all the nested relations you need.
-	const layers: ExpandedLayer[] = await locals.pb
-		.collection(Collections.Layers)
-		.getFullList({
-			expand:
-				'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media'
-		});
+	const layers: ExpandedLayer[] = await locals.pb.collection(Collections.Layers).getFullList({
+		expand:
+			'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media'
+	});
 
 	// This loop is necessary to resolve the file URLs for all your media.
 	for (const layer of layers) {

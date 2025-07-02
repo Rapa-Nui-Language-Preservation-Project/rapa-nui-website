@@ -3,8 +3,8 @@ import type {
 	LocationsResponse,
 	MediaResponse,
 	StoriesResponse,
-	ActividadResponse, 
-	PruebasResponse 
+	ActividadResponse,
+	PruebasResponse
 } from '$lib/pocketbase-types';
 
 type LocationExpand = {

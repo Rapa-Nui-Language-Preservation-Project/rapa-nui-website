@@ -9,6 +9,8 @@
 	import KoronuiLayer from '$lib/components/map/ExpandedLayers/KoronuiLayer.svelte';
 
 	let { location }: { location: ExpandedLocation } = $props();
+	//for testing
+	console.log('Current Location:', location);
 
 	let mediaAPI = $state<CarouselAPI>();
 	let storyAPI = $state<CarouselAPI>();
@@ -53,11 +55,14 @@
 	>
 		<ScrollArea>
 			<div class="flex flex-col items-center">
-				<h1 class="text-xl font-bold">{location.name}</h1>
-				{#if location.expand.actividad.length > 0}
+				{#if location.actividad?.length != 0}
 					<KoronuiLayer {location} />
+				{:else}
+					<h1 class="text-xl font-bold">{location.name}</h1>
+					<p class="text-md preserve-whitespace text-center font-normal">
+						{location.description_espanol}
+					</p>
 				{/if}
-				<p class="text-center text-md font-normal preserve-whitespace">{location.description_espanol}</p>
 				{#if location.expand.media?.length == 1}
 					<div class="flex flex-col items-center justify-center text-center">
 						<img

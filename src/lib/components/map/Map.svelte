@@ -68,10 +68,10 @@
 			{#if calibrate}
 				<CalibrationTool />
 			{:else}
-				<div class="relative ml-80 mr-64 h-screen w-auto">
+				<div class="relative ml-80 mr-64 h-screen overflow-hidden">
 					<img
 						src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
-						class="h-screen"
+						class="h-screen w-auto min-w-max"
 						alt="Map of Easter Island"
 					/>
 
