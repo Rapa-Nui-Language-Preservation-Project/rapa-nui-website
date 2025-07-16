@@ -3,7 +3,7 @@
 
 	let { data } = $props();
 	let { layers } = data;
-	let bases = ['Geográfica', 'Artística'];
+	let bases = ['Rapa Nui','Geografía'];
 </script>
 
 <Map {bases} {layers} />

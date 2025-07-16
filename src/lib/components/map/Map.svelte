@@ -18,7 +18,7 @@
 
 	let { layers, bases }: { layers: ExpandedLayer[]; bases: string[] } = $props();
 	let selectedLayers = $state(new Map<string, ExpandedLayer>());
-	let selectedBase = $state(bases[1]);
+	let selectedBase = $state(bases[0]);
 	let calibrate = false;
 
 	// Sidebar visibility states
@@ -43,7 +43,7 @@
 
 	<!-- Map Container -->
 	<div class="relative flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
-		{#if selectedBase === 'Geográfica'}
+		{#if selectedBase === 'Geografía'}
 			<MapLibre
 				class="absolute left-0 top-0 h-screen w-full"
 				attributionControl={false}
@@ -64,7 +64,7 @@
 					{/each}
 				{/each}
 			</MapLibre>
-		{:else if selectedBase === 'Artística'}
+		{:else if selectedBase === 'Rapa Nui'}
 			{#if calibrate}
 				<CalibrationTool />
 			{:else}

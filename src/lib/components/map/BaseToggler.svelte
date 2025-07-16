@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { bases, selectedBase = $bindable('Geographic') } = $props();
+	let { bases, selectedBase = $bindable('Rapa Nui') } = $props();
 </script>
 
 {#each bases as base}
