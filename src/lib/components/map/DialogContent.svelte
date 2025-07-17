@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { MapPin } from 'lucide-svelte';
+	import { MapPin, Bird, Circle } from 'lucide-svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
@@ -8,9 +8,10 @@
 	import type { ExpandedLocation } from '$lib/expanded-models';
 	import KoronuiLayer from '$lib/components/map/ExpandedLayers/KoronuiLayer.svelte';
 
-	let { location }: { location: ExpandedLocation } = $props();
+	let { location, layerName }: { location: ExpandedLocation; layerName: string } = $props();
 	//for testing
 	console.log('Current Location:', location);
+	console.log('Layer Name:', layerName);
 
 	let mediaAPI = $state<CarouselAPI>();
 	let storyAPI = $state<CarouselAPI>();
@@ -42,7 +43,15 @@
 		<Tooltip.Provider delayDuration={0}>
 			<Tooltip.Root>
 				<Tooltip.Trigger>
-					<MapPin color="white" />
+					{#if layerName.startsWith('Aves')}
+						<Bird color="blue" size=48 />
+					{:else if layerName.startsWith('A ‘AMU')}
+						<MapPin color="purple" size = 32 />
+					{:else if layerName.startsWith('Koro')}
+						<Circle color="red" size=48 />
+					{:else}
+						<MapPin color="white" />
+					{/if}
 				</Tooltip.Trigger>
 				<Tooltip.Content side="bottom" class="z-50 border-none bg-transparent shadow-none">
 					<div class="drop-shadow-xs font-bold text-white">{location.name}</div>

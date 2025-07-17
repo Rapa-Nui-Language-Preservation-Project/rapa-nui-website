@@ -58,11 +58,7 @@
 					{ lng: -109, lat: -26.96 }
 				]}
 			>
-				{#each selectedLayers.values() as layer}
-					{#each layer.expand.locations || [] as location}
-						<MarkerPopup {location} />
-					{/each}
-				{/each}
+				<MarkerPopup layers={[...selectedLayers.values()]} />
 			</MapLibre>
 		{:else if selectedBase === 'Rapa Nui'}
 			{#if calibrate}
@@ -83,7 +79,7 @@
 									class="absolute z-10"
 									style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
 								>
-									<DialogContent {location} />
+									<DialogContent {location} layerName={layer.name} />
 								</div>
 							{/if}
 						{/each}

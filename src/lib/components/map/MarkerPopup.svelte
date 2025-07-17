@@ -1,13 +1,17 @@
 <script lang="ts">
-	import type { ExpandedLocation } from '$lib/expanded-models';
+	import type { ExpandedLayer } from '$lib/expanded-models';
 	import { Marker } from 'svelte-maplibre-gl';
 	import DialogContent from './DialogContent.svelte';
 
-	let { location }: { location: ExpandedLocation } = $props();
+	let { layers }: { layers: ExpandedLayer[] } = $props();
 </script>
 
-<Marker lnglat={{ lng: location.longitude || 0, lat: location.latitude || 0 }}>
-	{#snippet content()}
-		<DialogContent {location} />
-	{/snippet}
-</Marker>
+{#each layers as layer}
+	{#each layer.expand.locations || [] as location}
+		<Marker lnglat={{ lng: location.longitude || 0, lat: location.latitude || 0 }}>
+			{#snippet content()}
+				<DialogContent {location} layerName={layer.name} />
+			{/snippet}
+		</Marker>
+	{/each}
+{/each}
