@@ -8,10 +8,10 @@
 	import type { ExpandedLocation } from '$lib/expanded-models';
 	import KoronuiLayer from '$lib/components/map/ExpandedLayers/KoronuiLayer.svelte';
 
+
+	// TODO: This file should be split up into smaller components for better maintainability. See above,
+	// how Koronui has its own Layer found in ExpandedLayers folder. This should be the same for each, to make it easier to read
 	let { location, layerName }: { location: ExpandedLocation; layerName: string } = $props();
-	//for testing
-	console.log('Current Location:', location);
-	console.log('Layer Name:', layerName);
 
 	let mediaAPI = $state<CarouselAPI>();
 	let storyAPI = $state<CarouselAPI>();
