@@ -9,7 +9,7 @@
     {location.description_espanol}
 </p>
 <Youtube
-  id="EBtsu6naB8g"
+  id={location.description_rapa_nui}
   thumbnail={undefined}
   play_button={undefined}
 />
