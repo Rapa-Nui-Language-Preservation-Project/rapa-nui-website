@@ -1,13 +1,17 @@
 import type { PageServerLoad } from './$types';
-import { Collections } from '$lib/pocketbase-types';
+import { Collections} from '$lib/pocketbase-types';
 import type { ExpandedLayer } from '$lib/expanded-models';
 
+
 export const load: PageServerLoad = async ({ locals }) => {
-	// The expand string now correctly fetches all the nested relations you need.
-	const layers: ExpandedLayer[] = await locals.pb.collection(Collections.Layers).getFullList({
-		expand:
-			'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media'
-	});
+	// Fetch all collections in parallel for efficiency
+	const [layers, pruebas] = await Promise.all([
+		locals.pb.collection(Collections.Layers).getFullList({
+			expand:
+				'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media'
+		}) as Promise<ExpandedLayer[]>,
+		locals.pb.collection(Collections.Pruebas).getFullList()
+	]);
 
 	// This loop is necessary to resolve the file URLs for all your media.
 	for (const layer of layers) {
@@ -27,7 +31,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 					}
 				}
 
-				// Handle media within each actividad
+				// Handle media within eachividad
 				if (location.expand.actividad) {
 					for (const actividad of location.expand.actividad) {
 						if (actividad.mapa) {
@@ -45,6 +49,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 
 	return {
-		layers
+		layers,
+		pruebas
 	};
 };

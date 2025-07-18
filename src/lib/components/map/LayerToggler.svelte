@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { type ExpandedLayer } from '$lib/expanded-models';
+	import { Bird, MapPin, Circle, SquarePlay } from 'lucide-svelte';
 
 	let { layers, selectedLayers = $bindable() } = $props();
 
@@ -29,12 +30,27 @@
 			}`}
 		></div>
 
-		<!-- Layer name -->
-		<h3
-			class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
-		>
-			{layer.name}
-		</h3>
+		<!-- Layer name and icon -->
+		<div class="flex items-center justify-between">
+			<h3
+				class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
+			>
+				{layer.name}
+			</h3>
+			<div>
+				{#if layer.name.startsWith('Aves')}
+					<Bird color="blue"  />
+				{:else if layer.name.startsWith('A ‘AMU')}
+					<MapPin color="purple" />
+				{:else if layer.name.startsWith('Koro')}
+					<Circle color="red"  />
+				{:else if layer.name.startsWith('Hist')}
+					<SquarePlay color="green" />
+				{:else}
+					<MapPin color="white" />
+				{/if}
+			</div>
+		</div>
 
 		<!-- Description -->
 		{#if layer.description}
