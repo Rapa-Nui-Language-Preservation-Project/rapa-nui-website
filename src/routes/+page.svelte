@@ -2,8 +2,8 @@
 	import Map from '$lib/components/map/Map.svelte';
 
 	let { data } = $props();
-	let { layers } = data;
-	let bases = ['Rapa Nui','Geografía'];
+	let { layers, pruebas } = data;
+	let bases = ['Rapa Nui', 'Geografía'];
 </script>
 
-<Map {bases} {layers} />
+<Map {bases} {layers} {pruebas} />

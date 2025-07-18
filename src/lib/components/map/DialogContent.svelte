@@ -1,41 +1,14 @@
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { MapPin, Bird, Circle } from 'lucide-svelte';
+	import { MapPin, Bird, Circle, SquarePlay } from 'lucide-svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import * as Carousel from '$lib/components/ui/carousel/index.js';
-	import type { CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import type { ExpandedLocation } from '$lib/expanded-models';
 	import KoronuiLayer from '$lib/components/map/ExpandedLayers/KoronuiLayer.svelte';
-
-
-	// TODO: This file should be split up into smaller components for better maintainability. See above,
-	// how Koronui has its own Layer found in ExpandedLayers folder. This should be the same for each, to make it easier to read
+	import HistPerdidasLayer from './ExpandedLayers/HistPerdidasLayer.svelte';
+	import AvesLayer from './ExpandedLayers/AvesLayer.svelte';
+	import MicroCuentasLayer from './ExpandedLayers/MicroCuentasLayer.svelte';
 	let { location, layerName }: { location: ExpandedLocation; layerName: string } = $props();
-
-	let mediaAPI = $state<CarouselAPI>();
-	let storyAPI = $state<CarouselAPI>();
-
-	const mediaCount = $derived(mediaAPI ? mediaAPI.scrollSnapList().length : 0);
-	const storyCount = $derived(storyAPI ? storyAPI.scrollSnapList().length : 0);
-	let mediaCurrent = $state(0);
-	let storyCurrent = $state(0);
-	let showSpanish = $state(false);
-
-	$effect(() => {
-		if (mediaAPI) {
-			mediaCurrent = mediaAPI.selectedScrollSnap() + 1;
-			mediaAPI.on('select', () => {
-				mediaCurrent = mediaAPI!.selectedScrollSnap() + 1;
-			});
-		}
-		if (storyAPI) {
-			storyCurrent = storyAPI.selectedScrollSnap() + 1;
-			storyAPI.on('select', () => {
-				storyCurrent = storyAPI!.selectedScrollSnap() + 1;
-			});
-		}
-	});
 </script>
 
 <Dialog.Root>
@@ -49,6 +22,8 @@
 						<MapPin color="purple" size = 32 />
 					{:else if layerName.startsWith('Koro')}
 						<Circle color="red" size=48 />
+					{:else if layerName.startsWith('Hist')}
+						<SquarePlay color="green" size=32 />
 					{:else}
 						<MapPin color="white" />
 					{/if}
@@ -62,98 +37,19 @@
 	<Dialog.Content
 		class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900"
 	>
-		<ScrollArea>
+		<ScrollArea> 
 			<div class="flex flex-col items-center">
-				{#if location.actividad?.length != 0}
+				{#if layerName.startsWith('Koro')}
 					<KoronuiLayer {location} />
-				{:else}
-					<h1 class="text-xl font-bold">{location.name}</h1>
-					<p class="text-md preserve-whitespace text-center font-normal">
-						{location.description_espanol}
-					</p>
-				{/if}
-				{#if location.expand.media?.length == 1}
-					<div class="flex flex-col items-center justify-center text-center">
-						<img
-							src={location.expand.media[0].file}
-							alt={location.expand.media[0].description}
-							width="75%"
-						/>
-						<p class="m-2 text-sm">{location.expand.media[0].title}</p>
-					</div>
-				{:else if location.expand.media?.length > 1}
-					<div class="flex flex-col items-center justify-center px-16 text-center">
-						<Carousel.Root
-							setApi={(emblaApi) => (mediaAPI = emblaApi)}
-							class="flex w-fit flex-col items-center justify-center text-center"
-						>
-							<Carousel.Content>
-								{#each location.expand.media || [] as media}
-									<Carousel.Item class="flex flex-col items-center justify-center ">
-										<img src={media.file} alt={media.description} width="100%" />
-									</Carousel.Item>
-								{/each}
-							</Carousel.Content>
-							<Carousel.Previous variant="secondary" />
-							<Carousel.Next variant="secondary" />
-						</Carousel.Root>
-						<div class="py-2 text-center text-sm text-muted-foreground">
-							{mediaCurrent} of {mediaCount}
-						</div>
-					</div>
-				{/if}
-				{#if location.expand.story?.length == 1}
-					<div class="relative flex flex-col items-center justify-center text-center">
-						<img
-							src={location.expand.story[0].field}
-							alt={location.expand.story[0].image_title}
-							class="max-w-[100%] rounded-lg shadow-lg"
-						/>
-						<p class="mt-1 text-xs italic text-muted-foreground">
-							{location.expand.story[0].image_title}
-						</p>
 
-						<h2 class="mt-4 text-xl font-semibold">
-							{showSpanish
-								? location.expand.story[0].title_spanish
-								: location.expand.story[0].title}
-						</h2>
+				{:else if layerName.startsWith('Aves')}
+					<AvesLayer {location} />
 
-						<p class="mt-2 max-w-prose px-4 text-base">
-							{showSpanish
-								? location.expand.story[0].text_spanish
-								: location.expand.story[0].text_rapanui}
-						</p>
+				{:else if layerName.startsWith('A ‘AMU')}
+					<MicroCuentasLayer {location} />
 
-						<button
-							onclick={() => (showSpanish = !showSpanish)}
-							class="mt-4 rounded-full bg-primary px-4 py-2 text-white shadow hover:bg-primary/80"
-						>
-							{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
-						</button>
-					</div>
-				{:else if location.expand.story?.length > 1}
-					<div class="flex flex-col items-center justify-center text-center">
-						<Carousel.Root
-							setApi={(emblaApi) => (storyAPI = emblaApi)}
-							class="flex flex-col items-center justify-center"
-						>
-							<h2 class="text-md">Stories</h2>
-							<Carousel.Content>
-								{#each location.expand.story || [] as story}
-									<Carousel.Item class="flex flex-col items-center justify-center">
-										<img src={story.field} alt={story.image_title} width="75%" />
-										<p class="text-sm">{story.title}</p>
-									</Carousel.Item>
-								{/each}
-							</Carousel.Content>
-							<Carousel.Previous variant="secondary" />
-							<Carousel.Next variant="secondary" />
-						</Carousel.Root>
-						<div class="py-2 text-center text-sm text-muted-foreground">
-							{storyCurrent} of {storyCount}
-						</div>
-					</div>
+				{:else if layerName.startsWith('Hist')}
+					<HistPerdidasLayer {location} />
 				{/if}
 			</div>
 		</ScrollArea>

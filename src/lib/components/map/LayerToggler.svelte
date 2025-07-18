@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type ExpandedLayer } from '$lib/expanded-models';
-	import { Bird, MapPin, Circle } from 'lucide-svelte';
+	import { Bird, MapPin, Circle, SquarePlay } from 'lucide-svelte';
 
 	let { layers, selectedLayers = $bindable() } = $props();
 
@@ -44,6 +44,8 @@
 					<MapPin color="purple" />
 				{:else if layer.name.startsWith('Koro')}
 					<Circle color="red"  />
+				{:else if layer.name.startsWith('Hist')}
+					<SquarePlay color="green" />
 				{:else}
 					<MapPin color="white" />
 				{/if}

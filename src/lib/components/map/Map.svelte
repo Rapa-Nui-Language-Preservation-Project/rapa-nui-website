@@ -16,7 +16,7 @@
 		dark = m === 'dark';
 	});
 
-	let { layers, bases }: { layers: ExpandedLayer[]; bases: string[] } = $props();
+	let { layers, bases, pruebas }: { layers: ExpandedLayer[]; bases: string[]; pruebas: any[] } = $props();
 	let selectedLayers = $state(new Map<string, ExpandedLayer>());
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
