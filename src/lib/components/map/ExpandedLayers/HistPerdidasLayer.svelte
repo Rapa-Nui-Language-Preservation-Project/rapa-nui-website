@@ -8,6 +8,6 @@
 <p class="text-md preserve-whitespace text-center font-normal">
 	{location.description_espanol}
 </p>
-<div class="h-full w-full">
+<div class="w-[95%]">
 	<Youtube id={location.description_rapa_nui} thumbnail={undefined} play_button={undefined} />
 </div>

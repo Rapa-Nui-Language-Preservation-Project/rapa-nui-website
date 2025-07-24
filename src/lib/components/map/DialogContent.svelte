@@ -17,13 +17,13 @@
 			<Tooltip.Root>
 				<Tooltip.Trigger>
 					{#if layerName.startsWith('Aves')}
-						<Bird color="blue" size=48 />
+						<Bird color="blue" size="48" />
 					{:else if layerName.startsWith('A ‘AMU')}
-						<MapPin color="purple" size = 32 />
+						<MapPin color="purple" size="32" />
 					{:else if layerName.startsWith('Koro')}
-						<Circle color="red" size=48 />
+						<Circle color="red" size="48" />
 					{:else if layerName.startsWith('Hist')}
-						<SquarePlay color="green" size=32 />
+						<SquarePlay color="green" size="32" />
 					{:else}
 						<MapPin color="white" />
 					{/if}
@@ -37,17 +37,14 @@
 	<Dialog.Content
 		class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900"
 	>
-		<ScrollArea> 
+		<ScrollArea>
 			<div class="flex flex-col items-center">
 				{#if layerName.startsWith('Koro')}
 					<KoronuiLayer {location} />
-
 				{:else if layerName.startsWith('Aves')}
 					<AvesLayer {location} />
-
 				{:else if layerName.startsWith('A ‘AMU')}
 					<MicroCuentasLayer {location} />
-
 				{:else if layerName.startsWith('Hist')}
 					<HistPerdidasLayer {location} />
 				{/if}
