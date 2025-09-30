@@ -4,10 +4,10 @@
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import type { ExpandedLocation } from '$lib/expanded-models';
-	import KoronuiLayer from '$lib/components/map/ExpandedLayers/KoronuiLayer.svelte';
-	import HistPerdidasLayer from './ExpandedLayers/HistPerdidasLayer.svelte';
-	import AvesLayer from './ExpandedLayers/AvesLayer.svelte';
-	import MicroCuentasLayer from './ExpandedLayers/MicroCuentasLayer.svelte';
+	import KoronuiLayer from './KoronuiLayer.svelte';
+	import HistPerdidasLayer from './HistPerdidasLayer.svelte';
+	import AvesLayer from './AvesLayer.svelte';
+	import MicroCuentasLayer from './MicroCuentasLayer.svelte';
 	let { location, layerName }: { location: ExpandedLocation; layerName: string } = $props();
 </script>
 
@@ -55,3 +55,4 @@
 		</ScrollArea>
 	</Dialog.Content>
 </Dialog.Root>
+

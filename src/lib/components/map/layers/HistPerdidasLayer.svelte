@@ -11,3 +11,4 @@
 <div class="h-full w-full">
 	<Youtube id={location.description_rapa_nui} thumbnail={undefined} play_button={undefined} />
 </div>
+

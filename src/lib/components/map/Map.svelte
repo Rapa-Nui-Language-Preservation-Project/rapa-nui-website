@@ -3,13 +3,13 @@
 	import { MapLibre } from 'svelte-maplibre-gl';
 	import type { ExpandedLayer } from '$lib/expanded-models.ts';
 	import { mode } from 'mode-watcher';
-	import MarkerPopup from './MarkerPopup.svelte';
-	import LayerToggler from './LayerToggler.svelte';
-	import BaseToggler from './BaseToggler.svelte';
-	import CalibrationTool from './CalibrationTool.svelte';
+	import MarkerPopup from './overlays/MarkerPopup.svelte';
+	import CalibrationTool from './tools/CalibrationTool.svelte';
 	import { transformLatLngToXY } from '$lib/utils/geoTransform';
-	import DialogContent from './DialogContent.svelte';
-	import { ChevronLeft, ChevronRight, EyeOff } from 'lucide-svelte';
+	import LocationDialog from './layers/LocationDialog.svelte';
+	import LeftSidebar from './sidebars/LeftSidebar.svelte';
+	import RightSidebar from './sidebars/RightSidebar.svelte';
+	import SidebarControls from './sidebars/SidebarControls.svelte';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
@@ -24,18 +24,6 @@
 	// Sidebar visibility states
 	let leftSidebarVisible = $state(true);
 	let rightSidebarVisible = $state(true);
-
-	const hideSidebars = () => {
-		leftSidebarVisible = false;
-		rightSidebarVisible = false;
-	};
-
-	const showSidebars = () => {
-		leftSidebarVisible = true;
-		rightSidebarVisible = true;
-	};
-
-	const areSidebarsHidden = $derived(!leftSidebarVisible && !rightSidebarVisible);
 </script>
 
 <div class="flex h-screen w-screen justify-center overflow-hidden bg-gray-100">
@@ -79,7 +67,7 @@
 									class="absolute z-10"
 									style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
 								>
-									<DialogContent {location} layerName={layer.name} />
+									<LocationDialog {location} layerName={layer.name} />
 								</div>
 							{/if}
 						{/each}
@@ -89,71 +77,10 @@
 		{/if}
 	</div>
 
-	<!-- Click areas to show sidebars when hidden -->
-	{#if areSidebarsHidden}
-		<div
-			role="button"
-			tabindex="0"
-			onclick={showSidebars}
-			onkeydown={(e) => e.key === 'Enter' && showSidebars()}
-			class="group fixed left-0 top-0 z-10 h-full w-1/4 cursor-pointer bg-transparent md:w-1/6"
-		>
-			<ChevronRight
-				class="fixed left-4 top-1/2 -translate-y-1/2 transform text-white/50 transition-all duration-300 group-hover:scale-125 group-hover:text-white"
-				size={32}
-			/>
-		</div>
-
-		<div
-			role="button"
-			tabindex="0"
-			onclick={showSidebars}
-			onkeydown={(e) => e.key === 'Enter' && showSidebars()}
-			class="group fixed right-0 top-0 z-10 h-full w-1/4 cursor-pointer bg-transparent md:w-1/6"
-		>
-			<ChevronLeft
-				class="fixed right-4 top-1/2 -translate-y-1/2 transform text-white/50 transition-all duration-300 group-hover:scale-125 group-hover:text-white"
-				size={32}
-			/>
-		</div>
-	{/if}
-
+	<SidebarControls bind:leftVisible={leftSidebarVisible} bind:rightVisible={rightSidebarVisible} />
 	<!-- Left Sidebar - Layers -->
-	<div
-		class={`fixed left-0 top-0 z-20 h-full w-96 overflow-y-auto border-r border-black/10 bg-gradient-to-b from-amber-50 to-orange-50 font-serif text-amber-900 transition-all duration-500 ease-in-out 
-		${leftSidebarVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-full opacity-0'}`}
-		style="font-family: 'Merriweather', serif;"
-	>
-		<div class="p-6">
-			<h2 class="mb-1rem text-center text-2xl font-bold tracking-wider">Capas</h2>
-			<div class="space-y-2">
-				<LayerToggler {layers} bind:selectedLayers />
-			</div>
-		</div>
-	</div>
-
+	<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
 	<!-- Right Sidebar - Map Style -->
-	<div
-		class={`fixed right-0 top-0 z-20 h-full w-80 overflow-y-auto border-l border-black/10 bg-gradient-to-b from-amber-50 to-orange-50 font-serif text-amber-900 transition-all duration-500 ease-in-out 
-		${rightSidebarVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'}`}
-		style="font-family: 'Merriweather', serif;"
-	>
-		<div class="p-6">
-			<h2 class="mb-8 text-center text-2xl font-bold tracking-wider">Mapas</h2>
-			<div class="space-y-4">
-				<BaseToggler {bases} bind:selectedBase />
-			</div>
-		</div>
-	</div>
+	<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
 
-	<!-- Hide Sidebars Button -->
-	{#if leftSidebarVisible || rightSidebarVisible}
-		<button
-			onclick={hideSidebars}
-			class="fixed bottom-4 left-1/2 z-30 -translate-x-1/2 transform rounded-full bg-orange-600 p-3 text-white shadow-xl transition-colors hover:bg-orange-700"
-			aria-label="Hide Sidebars"
-		>
-			<EyeOff size={24} />
-		</button>
-	{/if}
 </div>

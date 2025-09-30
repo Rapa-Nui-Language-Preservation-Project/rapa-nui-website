@@ -1,4 +1,3 @@
-
 <script lang="ts">
 	import type { ExpandedLocation } from '$lib/expanded-models';
     import * as Carousel from '$lib/components/ui/carousel/index.js';
@@ -53,3 +52,4 @@
         </div>
     </div>
 {/if}
+
