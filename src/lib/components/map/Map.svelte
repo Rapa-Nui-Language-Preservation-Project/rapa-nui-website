@@ -16,7 +16,8 @@
 		dark = m === 'dark';
 	});
 
-	let { layers, bases, pruebas }: { layers: ExpandedLayer[]; bases: string[]; pruebas: any[] } = $props();
+	let { layers, bases, pruebas }: { layers: ExpandedLayer[]; bases: string[]; pruebas: any[] } =
+		$props();
 	let selectedLayers = $state(new Map<string, ExpandedLayer>());
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
@@ -82,5 +83,4 @@
 	<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
 	<!-- Right Sidebar - Map Style -->
 	<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
-
 </div>

@@ -45,7 +45,6 @@ jobs:
           path: build
           if-no-files-found: ignore
 
-      # Dead exports check 
+      # Dead exports check
       # - name: Dead exports
       #   run: npx ts-prune --error
-

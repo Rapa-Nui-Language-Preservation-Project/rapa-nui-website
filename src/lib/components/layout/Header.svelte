@@ -12,4 +12,3 @@
 		{ name: 'Map', path: '/map' }
 	];
 </script>
-

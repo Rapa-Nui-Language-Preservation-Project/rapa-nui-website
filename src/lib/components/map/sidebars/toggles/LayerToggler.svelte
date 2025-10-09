@@ -39,11 +39,11 @@
 			</h3>
 			<div>
 				{#if layer.name.startsWith('Aves')}
-					<Bird color="blue"  />
+					<Bird color="blue" />
 				{:else if layer.name.startsWith('A ‘AMU')}
 					<MapPin color="purple" />
 				{:else if layer.name.startsWith('Koro')}
-					<Circle color="red"  />
+					<Circle color="red" />
 				{:else if layer.name.startsWith('Hist')}
 					<SquarePlay color="green" />
 				{:else}
@@ -75,4 +75,3 @@
 		{/if}
 	</div>
 {/each}
-
