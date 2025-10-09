@@ -1,9 +1,8 @@
 name: PR CI
 
 on:
-  pull_request:
   push:
-    branches: [main]
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

@@ -2,7 +2,7 @@
 	let clicks: { x: number; y: number }[] = [];
 
 	function handleClick(event: MouseEvent) {
-		const rect = (event.currentTarget as HTMLImageElement).getBoundingClientRect();
+		const rect = (event.currentTarget as HTMLButtonElement).getBoundingClientRect();
 		const x = ((event.clientX - rect.left) / rect.width) * 100;
 		const y = ((event.clientY - rect.top) / rect.height) * 100;
 
@@ -12,12 +12,18 @@
 </script>
 
 <div class="relative">
-	<img
-		src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
-		class="h-screen cursor-crosshair"
-		onclick={handleClick}
-		alt="Artistic map for calibration"
-	/>
+	<button
+		type="button"
+		on:click={handleClick}
+		class="cursor-crosshair border-0 bg-transparent p-0"
+		aria-label="Marcar punto en mapa de calibración"
+	>
+		<img
+			src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
+			class="h-screen"
+			alt="Artistic map for calibration"
+		/>
+	</button>
 
 	{#each clicks as { x, y }, i}
 		<div

@@ -10,14 +10,20 @@
 	import LeftSidebar from './sidebars/LeftSidebar.svelte';
 	import RightSidebar from './sidebars/RightSidebar.svelte';
 	import SidebarControls from './sidebars/SidebarControls.svelte';
+	import type { PruebasResponse } from '$lib/pocketbase-types';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
 		dark = m === 'dark';
 	});
 
-	let { layers, bases, pruebas }: { layers: ExpandedLayer[]; bases: string[]; pruebas: any[] } =
-		$props();
+	let {
+		layers,
+		bases,
+		pruebas
+	}: { layers: ExpandedLayer[]; bases: string[]; pruebas: PruebasResponse[] } = $props();
+	// TODO: here is pruebas, currently unused, this should be used as a tooltip for the corresponding prueba in the KoroNui layer
+	void pruebas;
 	let selectedLayers = $state(new Map<string, ExpandedLayer>());
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
