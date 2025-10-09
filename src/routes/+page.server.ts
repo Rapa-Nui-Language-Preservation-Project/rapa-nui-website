@@ -1,7 +1,6 @@
 import type { PageServerLoad } from './$types';
-import { Collections} from '$lib/pocketbase-types';
+import { Collections } from '$lib/pocketbase-types';
 import type { ExpandedLayer } from '$lib/expanded-models';
-
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Fetch all collections in parallel for efficiency

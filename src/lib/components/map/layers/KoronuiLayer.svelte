@@ -71,7 +71,13 @@
 {#if showFull && selectedFullImage}
 	<div
 		class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/80"
+		role="button"
+		tabindex="0"
+		aria-label="Cerrar imagen ampliada"
 		onclick={closeFullImage}
+		onkeydown={(e) => {
+			if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') closeFullImage();
+		}}
 	>
 		<div class="relative flex h-full w-full items-center justify-center p-4">
 			<img
@@ -130,7 +136,7 @@
 	<!-- Top Marquee -->
 	<div class="w-full overflow-hidden border-b border-amber-200 bg-amber-100/50 py-6">
 		<div class="flex animate-marquee space-x-6">
-			{#each [...mediaImages, ...mediaImages] as media, idx}
+			{#each [...mediaImages, ...mediaImages] as media}
 				<div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
 					<button
 						type="button"
@@ -170,12 +176,18 @@
 				class="col-span-5 rounded-lg border border-amber-200 bg-white/90 p-6 shadow-lg backdrop-blur-sm"
 			>
 				<div class="relative h-64 w-full">
-					<img
-						src={mapa}
-						alt="Mapa de Rapa Nui"
-						class="h-full w-full rounded-lg object-contain"
+					<button
+						type="button"
 						onclick={() => openFullImage(mapa)}
-					/>
+						class="h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+						aria-label="Ver mapa ampliado"
+					>
+						<img
+							src={mapa}
+							alt="Mapa de Rapa Nui"
+							class="h-full w-full rounded-lg object-contain"
+						/>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -205,7 +217,7 @@
 	<!-- Bottom Marquee -->
 	<div class="w-full overflow-hidden border-t border-amber-200 bg-amber-100/50 py-6">
 		<div class="animate-marquee-reverse flex space-x-6">
-			{#each [...mediaImages, ...mediaImages] as media, idx}
+			{#each [...mediaImages, ...mediaImages] as media}
 				<div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
 					<button
 						type="button"

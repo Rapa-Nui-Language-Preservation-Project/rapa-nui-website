@@ -21,4 +21,3 @@
 		<span class="text-sm">{base}</span>
 	</div>
 {/each}
-
