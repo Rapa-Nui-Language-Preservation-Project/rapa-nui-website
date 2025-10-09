@@ -1,38 +1,32 @@
-# sv
+# Rapa Nui Website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This repository contains the Rapa Nui website, built with SvelteKit and powered by Vite, managed with npm.
 
-## Creating a project
+SvelteKit is a full-stack application framework for Svelte that provides routing, server-side rendering, and modern web app primitives. Vite is a fast build tool and dev server that optimizes development and production builds. npm is the Node.js package manager used here to install dependencies and run project scripts.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Requirements
 
-```bash
-# create a new project in the current directory
-npx sv create
+- Node.js 20 LTS (matches CI). Use `nvm` or your preferred manager.
+- npm 10+ recommended.
 
-# create a new project in my-app
-npx sv create my-app
-```
+## Commands
 
-## Developing
+- `npm install`: install dependencies
+- `npm run dev`: start the dev server
+- `npm run build`: create a production build
+- `npm run preview`: preview the production build
+- `npm run check`: Svelte + TypeScript checks
+- `npm run lint`: Prettier check and ESLint (matches CI)
+- `npm run format`: auto-format with Prettier
+- `npm run check:watch`: run type checks in watch mode
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Contributing
 
-```bash
-npm run dev
+Below are the guidelines to follow when contributing; let's try to stick to them:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Branch names should follow `name_of_contributor/name_of_feature` (e.g., `max/tooltips-to-pruebas`).
+There is a CI that must pass before merge (type check, lint, build). Also CodeRabbit will review your open a PR so see what it says along with one of the other devs review.
 
-## Building
+We will try our best to follow clean code practices (https://blog.codacy.com/what-is-clean-code#WhatIsCleanCode) and Conventional Commits (https://www.conventionalcommits.org/en/v1.0.0/). Keep the code readable, focused, and typed where possible. Run `npm run check` and `npm run lint` before pushing; `npm run lint` already verifies formatting with Prettier. Use `npm run format` if you need to apply formatting changes.
 
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Also, please run `npm audit` every so often (for example, once a month or when updating dependencies) and fix issues when reasonable. When dependencies change, commit the updated `package-lock.json` so everyone and CI install the same versions. You can use `npm outdated` to see what can be updated and prefer patch/minor updates when possible. In the future this will be automated but for now its worth mentioning.
