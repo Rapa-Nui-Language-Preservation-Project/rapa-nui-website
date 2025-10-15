@@ -18,6 +18,6 @@
 				selectedBase === base ? 'bg-orange-600' : 'bg-transparent'
 			}`}
 		></div>
-		<span class="text-sm">{base}</span>
+		<span class="text-xs">{base}</span>
 	</div>
 {/each}
