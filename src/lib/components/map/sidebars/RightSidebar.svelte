@@ -1,11 +1,9 @@
 <script lang="ts">
 	import BaseToggler from './toggles/BaseToggler.svelte';
 
-	let {
-		bases,
-		selectedBase = $bindable('Rapa Nui'),
-		visible
-	}: { bases: string[]; selectedBase: string; visible: boolean } = $props();
+	export let bases: string[] = [];
+	export let selectedBase: string;
+	export let visible = true;
 </script>
 
 <div

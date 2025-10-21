@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight, EyeOff } from 'lucide-svelte';
 
-	let {
-		leftVisible = $bindable(true),
-		rightVisible = $bindable(true)
-	}: { leftVisible: boolean; rightVisible: boolean } = $props();
+	export let leftVisible = true;
+	export let rightVisible = true;
 
 	const showBoth = () => {
 		leftVisible = true;
@@ -16,10 +14,10 @@
 		rightVisible = false;
 	};
 
-	let bothHidden = $derived(() => !leftVisible && !rightVisible);
+	$: bothHidden = !leftVisible && !rightVisible;
 </script>
 
-{#if bothHidden()}
+{#if bothHidden}
 	<!-- Click areas to show sidebars when hidden -->
 	<div
 		role="button"

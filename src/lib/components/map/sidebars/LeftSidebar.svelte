@@ -1,16 +1,9 @@
 <script lang="ts">
 	import type { ExpandedLayer } from '$lib/expanded-models';
 	import LayerToggler from './toggles/LayerToggler.svelte';
-
-	let {
-		layers,
-		selectedLayers = $bindable(new Map<string, ExpandedLayer>()),
-		visible
-	}: {
-		layers: ExpandedLayer[];
-		selectedLayers: Map<string, ExpandedLayer>;
-		visible: boolean;
-	} = $props();
+	export let layers: ExpandedLayer[] = [];
+	export let selectedLayers: Map<string, ExpandedLayer>;
+	export let visible = true;
 </script>
 
 <div
