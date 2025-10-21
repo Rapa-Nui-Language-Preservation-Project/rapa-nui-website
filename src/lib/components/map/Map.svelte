@@ -31,13 +31,17 @@
 	// Sidebar visibility states
 	let leftSidebarVisible = $state(true);
 	let rightSidebarVisible = $state(true);
+
+	import { MediaQuery } from 'svelte/reactivity';
+	import BottomDrawer from './sidebars/BottomDrawer.svelte';
+	const desktop = new MediaQuery('(min-width: 768px)');
 </script>
 
 <div class="flex h-screen w-screen justify-center overflow-hidden bg-gray-100">
 	<PMTilesProtocol />
 
 	<!-- Map Container -->
-	<div class="relative flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
+	<div class="relative flex-1 bg-transparent transition-all duration-500 ease-in-out">
 		{#if selectedBase === 'Geografía'}
 			<MapLibre
 				class="absolute left-0 top-0 h-screen w-full"
@@ -59,10 +63,10 @@
 			{#if calibrate}
 				<CalibrationTool />
 			{:else}
-				<div class="relative ml-80 mr-64 h-screen overflow-hidden">
+				<div class="flex h-screen w-screen items-center justify-center bg-gray-200">
 					<img
 						src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
-						class="h-screen w-auto min-w-max"
+						class="h-screen w-screen object-contain"
 						alt="Map of Easter Island"
 					/>
 
@@ -84,9 +88,16 @@
 		{/if}
 	</div>
 
-	<SidebarControls bind:leftVisible={leftSidebarVisible} bind:rightVisible={rightSidebarVisible} />
-	<!-- Left Sidebar - Layers -->
-	<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
-	<!-- Right Sidebar - Map Style -->
-	<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
+	{#if desktop.current}
+		<SidebarControls
+			bind:leftVisible={leftSidebarVisible}
+			bind:rightVisible={rightSidebarVisible}
+		/>
+		<!-- Left Sidebar - Layers -->
+		<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
+		<!-- Right Sidebar - Map Style -->
+		<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
+	{:else}
+		<BottomDrawer />
+	{/if}
 </div>
