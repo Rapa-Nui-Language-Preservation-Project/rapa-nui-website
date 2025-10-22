@@ -12,6 +12,7 @@
 	import SidebarControls from './sidebars/SidebarControls.svelte';
 	import type { PruebasResponse } from '$lib/pocketbase-types';
 	import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
@@ -65,7 +66,7 @@
 	<PMTilesProtocol />
 
 	<!-- Map Container -->
-	<div class="relative h-auto w-auto md:flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
+	<div class="relative h-auto w-auto md:h-auto w-auto md:flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
 		<div
 			class="pointer-events-none absolute left-1/2 top-8 z-10 -translate-x-[-50%] scale-90 transform rounded-lg bg-gradient-to-b from-amber-50 to-orange-50 px-6 py-3 font-serif text-amber-900 shadow-lg"
 			style="font-family: 'Merriweather', serif;"
