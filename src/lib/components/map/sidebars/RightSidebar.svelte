@@ -17,4 +17,11 @@
 			<BaseToggler {bases} bind:selectedBase />
 		</div>
 	</div>
+	<div
+		class="fixed bottom-0 right-0 m-4 mx-12 rounded outline-4 outline-orange-600 transition-all duration-100 ease-in-out hover:outline"
+	>
+		<a href="/InaKoMou.pdf">
+			<img src="/InaKoMouCover.png" alt="Ina Ko Mou Cover" />
+		</a>
+	</div>
 </div>
