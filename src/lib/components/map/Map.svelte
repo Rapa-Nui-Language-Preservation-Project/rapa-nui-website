@@ -91,10 +91,11 @@
 				{#if !isDesktop}
 					<div class="absolute top text-center z-20 p-3 mt-8 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-200 rounded-lg m-4"
 						style="font-family: 'Merriweather', serif;">
-						<h3 class="text-lg font-semibold text-amber-900 mb-2">Desktop Recommended</h3>
+						<h3 class="text-lg font-semibold text-amber-900 mb-2">Recomendado Para Escritorio</h3>
 						<p class="text-amber-700">
-							This interactive map is optimized for desktop exploration to provide the best experience. 
-							We recommend switching to a desktop computer or tablet for full map controls and site information.
+							Este mapa interactivo ha sido optimizado para ser explorado en computadoras de escritorio. 
+							Recomendamos usar una computadora de escritorio o una tableta para poder acceder a todos los 
+							controles del mapa y a la información del sitio.
 						</p>
 					</div>
 				{/if}
