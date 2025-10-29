@@ -38,6 +38,15 @@
 
 	<!-- Map Container -->
 	<div class="relative flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
+		<div
+			class="scale-90 pointer-events-none absolute left-1/2 top-8 z-10 -translate-x-[-50%] transform rounded-lg bg-gradient-to-b from-amber-50 to-orange-50 px-6 py-3 font-serif text-amber-900 shadow-lg"
+			style="font-family: 'Merriweather', serif;"
+		>
+			<h1 class="text-xl font-semibold tracking-wide md:text-3xl">
+				Rapa Nui:<br />
+				Lengua y Cultura
+			</h1>
+		</div>
 		{#if selectedBase === 'Geografía'}
 			<MapLibre
 				class="absolute left-0 top-0 h-screen w-full"

@@ -12,7 +12,6 @@
 	style="font-family: 'Merriweather', serif;"
 >
 	<div class="p-6">
-		<h2 class="mb-8 text-center text-2xl font-bold tracking-wider">Mapas</h2>
 		<div class="space-y-4">
 			<BaseToggler {bases} bind:selectedBase />
 		</div>
