@@ -12,7 +12,6 @@
 	import SidebarControls from './sidebars/SidebarControls.svelte';
 	import type { PruebasResponse } from '$lib/pocketbase-types';
 	import { onMount } from 'svelte';
-	import { onMount } from 'svelte';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
