@@ -23,5 +23,5 @@
 		</div>
 	</div>
 {:else}
-  <div></div>
+	<div></div>
 {/if}
