@@ -65,12 +65,14 @@
 	<PMTilesProtocol />
 
 	<!-- Map Container -->
-	<div class="relative h-auto w-auto md:h-auto w-auto bg-gray-900 transition-all duration-500 ease-in-out md:flex-1">
+	<div
+		class="relative h-auto w-auto w-auto bg-gray-900 transition-all duration-500 ease-in-out md:h-auto md:flex-1"
+	>
 		<div
 			class="pointer-events-none absolute left-1/2 top-8 z-10 -translate-x-[-50%] scale-90 transform rounded-lg bg-gradient-to-b from-amber-50 to-orange-50 px-6 py-3 font-serif text-amber-900 shadow-lg"
 			style="font-family: 'Merriweather', serif;"
 		>
-			<h1 class="text-xl font-semibold tracking-wide md:text-3xl">
+			<h1 class="hidden text-xl font-semibold tracking-wide md:block md:text-3xl">
 				Rapa Nui:<br />
 				Lengua y Cultura
 			</h1>
@@ -103,7 +105,7 @@
 						style="font-family: 'Merriweather', serif;"
 					>
 						<h3 class="mb-2 text-lg font-semibold text-amber-900">Recomendado Para Escritorio</h3>
-						<p class="text-amber-700">
+						<p class="text-sm text-amber-700">
 							Este mapa interactivo ha sido optimizado para ser explorado en computadoras de
 							escritorio. Recomendamos usar una computadora de escritorio o una tableta para poder
 							acceder a todos los controles del mapa y a la información del sitio.
