@@ -11,6 +11,7 @@
 	import RightSidebar from './sidebars/RightSidebar.svelte';
 	import SidebarControls from './sidebars/SidebarControls.svelte';
 	import type { PruebasResponse } from '$lib/pocketbase-types';
+	import { onMount } from 'svelte';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
@@ -31,18 +32,47 @@
 	// Sidebar visibility states
 	let leftSidebarVisible = $state(true);
 	let rightSidebarVisible = $state(true);
+
+	let isDesktop = $state(true);
+
+	/* 
+	The geographic map is unnecessary for the current simple mobile view implementation.
+	The following logic automatically switches back to the Rapa Nui view in case someone
+	switches to the Geographic map while on Desktop then makes their view mobile-sized.
+
+	The main reason for doing this is b/c the Rapa Nui map image looks cleaner to display 
+	alongside the message, but also the Geographic map is broken on mobile.
+	*/
+	onMount(() => {
+		const checkScreenSize = () => {
+			isDesktop = window.innerWidth >= 768;
+		};
+
+		checkScreenSize();
+		window.addEventListener('resize', checkScreenSize);
+
+		return () => window.removeEventListener('resize', checkScreenSize);
+	});
+
+	$effect(() => {
+		if (!isDesktop && selectedBase === 'Geografía') {
+			selectedBase = 'Rapa Nui';
+		}
+	});
 </script>
 
-<div class="flex h-screen w-screen justify-center overflow-hidden bg-gray-100">
+<div class="fixed inset-0 flex h-screen w-screen overflow-hidden bg-gray-100 md:ml-0">
 	<PMTilesProtocol />
 
 	<!-- Map Container -->
-	<div class="relative flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
+	<div
+		class="relative h-auto w-auto w-auto bg-gray-900 transition-all duration-500 ease-in-out md:h-auto md:flex-1"
+	>
 		<div
 			class="pointer-events-none absolute left-1/2 top-8 z-10 -translate-x-[-50%] scale-90 transform rounded-lg bg-gradient-to-b from-amber-50 to-orange-50 px-6 py-3 font-serif text-amber-900 shadow-lg"
 			style="font-family: 'Merriweather', serif;"
 		>
-			<h1 class="text-xl font-semibold tracking-wide md:text-3xl">
+			<h1 class="hidden text-xl font-semibold tracking-wide md:block md:text-3xl">
 				Rapa Nui:<br />
 				Lengua y Cultura
 			</h1>
@@ -68,34 +98,54 @@
 			{#if calibrate}
 				<CalibrationTool />
 			{:else}
-				<div class="relative ml-80 mr-64 h-screen overflow-hidden">
+				<!--Mobile view message-->
+				{#if !isDesktop}
+					<div
+						class="absolute z-20 m-4 mt-8 rounded-lg border border-amber-200 bg-gradient-to-b from-amber-50 to-orange-50 p-3 text-center"
+						style="font-family: 'Merriweather', serif;"
+					>
+						<h3 class="mb-2 text-lg font-semibold text-amber-900">Recomendado Para Escritorio</h3>
+						<p class="text-sm text-amber-700">
+							Este mapa interactivo ha sido optimizado para ser explorado en computadoras de
+							escritorio. Recomendamos usar una computadora de escritorio o una tableta para poder
+							acceder a todos los controles del mapa y a la información del sitio.
+						</p>
+					</div>
+				{/if}
+				<div class="relative h-full w-full overflow-hidden md:ml-80 md:mr-64 md:h-screen md:w-auto">
 					<img
 						src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
-						class="h-screen w-auto min-w-max"
+						class="h-full w-full object-contain md:h-screen md:w-auto md:min-w-max"
 						alt="Map of Easter Island"
 					/>
-
-					{#each selectedLayers.values() as layer}
-						{#each layer.expand.locations || [] as location}
-							{#if location.latitude != null && location.longitude != null}
-								{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
-								<div
-									class="absolute z-10"
-									style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
-								>
-									<LocationDialog {location} layerName={layer.name} />
-								</div>
-							{/if}
+					{#if isDesktop}
+						<!--Conditional prevents layers from appearing on mobile view-->
+						{#each selectedLayers.values() as layer}
+							{#each layer.expand.locations || [] as location}
+								{#if location.latitude != null && location.longitude != null}
+									{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
+									<div
+										class="absolute z-10"
+										style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
+									>
+										<LocationDialog {location} layerName={layer.name} />
+									</div>
+								{/if}
+							{/each}
 						{/each}
-					{/each}
+					{/if}
 				</div>
 			{/if}
 		{/if}
 	</div>
-
-	<SidebarControls bind:leftVisible={leftSidebarVisible} bind:rightVisible={rightSidebarVisible} />
-	<!-- Left Sidebar - Layers -->
-	<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
-	<!-- Right Sidebar - Map Style -->
-	<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
+	{#if isDesktop}
+		<SidebarControls
+			bind:leftVisible={leftSidebarVisible}
+			bind:rightVisible={rightSidebarVisible}
+		/>
+		<!-- Left Sidebar - Layers -->
+		<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
+		<!-- Right Sidebar - Map Style -->
+		<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
+	{/if}
 </div>

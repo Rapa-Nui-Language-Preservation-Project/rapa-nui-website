@@ -50,7 +50,7 @@
 	<!-- Hide Sidebars Button -->
 	<button
 		onclick={hideBoth}
-		class="fixed bottom-4 left-1/2 z-30 -translate-x-1/2 transform rounded-full bg-orange-600 p-3 text-white shadow-xl transition-colors hover:bg-orange-700"
+		class="fixed bottom-4 left-1/2 z-30 hidden -translate-x-1/2 transform rounded-full bg-orange-600 p-3 text-white shadow-xl transition-colors hover:bg-orange-700 md:block"
 		aria-label="Hide Sidebars"
 	>
 		<EyeOff size={24} />
