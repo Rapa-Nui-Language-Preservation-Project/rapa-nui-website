@@ -17,7 +17,6 @@
 		style="font-family: 'Merriweather', serif;"
 	>
 		<div class="p-6">
-			<h2 class="mb-1rem text-center text-2xl font-bold tracking-wider">Capas</h2>
 			<div class="space-y-2">
 				<LayerToggler {layers} bind:selectedLayers />
 			</div>
