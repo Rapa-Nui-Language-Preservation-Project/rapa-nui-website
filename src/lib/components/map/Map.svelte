@@ -84,7 +84,11 @@
 					<CalibrationTool />
 				{:else}
 					<div class="relative ml-80 mr-64 h-screen overflow-hidden">
-						<img src={artisticMapSrc} class="h-screen w-auto min-w-max" alt="Map of Easter Island" />
+						<img
+							src={artisticMapSrc}
+							class="h-screen w-auto min-w-max"
+							alt="Map of Easter Island"
+						/>
 
 						{#each selectedLayers.values() as layer}
 							{#each layer.expand.locations || [] as location}
@@ -104,7 +108,10 @@
 			{/if}
 		</div>
 
-		<SidebarControls bind:leftVisible={leftSidebarVisible} bind:rightVisible={rightSidebarVisible} />
+		<SidebarControls
+			bind:leftVisible={leftSidebarVisible}
+			bind:rightVisible={rightSidebarVisible}
+		/>
 		<!-- Left Sidebar - Layers -->
 		<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
 		<!-- Right Sidebar - Map Style -->
