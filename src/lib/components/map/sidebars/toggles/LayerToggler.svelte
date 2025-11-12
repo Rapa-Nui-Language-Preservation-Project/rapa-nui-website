@@ -32,11 +32,11 @@
 
 		<!-- Layer name and icon -->
 		<div class="flex items-center justify-between">
-			<h3
+			<span
 				class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
 			>
 				{layer.name}
-			</h3>
+			</span>
 			<div>
 				{#if layer.name.startsWith('Aves')}
 					<Bird color="blue" />
