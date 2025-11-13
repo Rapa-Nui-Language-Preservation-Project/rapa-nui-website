@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { type ExpandedLayer } from '$lib/expanded-models';
 	import { Bird, MapPin, Circle, SquarePlay } from 'lucide-svelte';
+	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 
 	let { layers, selectedLayers = $bindable() } = $props();
 
@@ -63,7 +64,7 @@
 		{#if layer.cover_photo && layer.cover_photo.length > 0}
 			<div class="relative my-2 aspect-[16/10] overflow-hidden rounded bg-white">
 				<img
-					src={`http://127.0.0.1:8090/api/files/layers/${layer.id}/${layer.cover_photo[0]}`}
+					src={`${PUBLIC_POCKETBASE_URL}/files/layers/${layer.id}/${layer.cover_photo[0]}`}
 					alt={`Cover photo for ${layer.name}`}
 					class={`h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105 ${
 						selectedLayers.has(layer.id)

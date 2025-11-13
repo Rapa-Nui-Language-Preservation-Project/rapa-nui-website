@@ -1,7 +1,7 @@
 import PocketBase from 'pocketbase';
 import { env } from '$env/dynamic/private';
 
-const DEFAULT_PB_URL = 'http://127.0.0.1:8090';
+const DEFAULT_PB_URL = 'https://rapa-nui-prototipo.org/api';
 
 export const handle = async ({ event, resolve }) => {
 	// Resolve the PocketBase endpoint from environment for container deployments

@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      PUBLIC_POCKETBASE_URL: http://localhost:8090/api
+      POCKETBASE_URL: http://localhost:8090
 
     steps:
       - name: Checkout
