@@ -1,7 +1,15 @@
 <script lang="ts">
 	import { type ExpandedLayer } from '$lib/expanded-models';
-	import { Bird, MapPin, Circle, SquarePlay } from 'lucide-svelte';
-
+	//import { Bird, MapPin, Circle, SquarePlay } from 'lucide-svelte';
+	import Fa from 'svelte-fa';
+	import {
+		faBookOpen,
+		faLightbulb,
+		faMapMarkerAlt,
+		faCrow,
+		faCirclePlay
+	} from '@fortawesome/free-solid-svg-icons';
+	//import { faCirclePlay } from '@fortawesome/free-regular-svg-icons';
 	let { layers, selectedLayers = $bindable() } = $props();
 
 	const toggleLayer = (layer: ExpandedLayer) => {
@@ -39,15 +47,15 @@
 			</span>
 			<div>
 				{#if layer.name.startsWith('Aves')}
-					<Bird color="blue" />
+					<Fa icon={faCrow} color="blue" />
 				{:else if layer.name.startsWith('A ‘AMU')}
-					<MapPin color="purple" />
+					<Fa icon={faBookOpen} color="purple" />
 				{:else if layer.name.startsWith('Koro')}
-					<Circle color="red" />
+					<Fa icon={faLightbulb} color="orange" />
 				{:else if layer.name.startsWith('Hist')}
-					<SquarePlay color="green" />
+					<Fa icon={faCirclePlay} color="green" />
 				{:else}
-					<MapPin color="white" />
+					<Fa icon={faMapMarkerAlt} color="white" />
 				{/if}
 			</div>
 		</div>
