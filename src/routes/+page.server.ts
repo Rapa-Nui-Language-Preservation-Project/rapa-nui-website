@@ -8,7 +8,10 @@ import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
  * This ensures client-side browsers can access files even when the server
  * uses an internal Docker network URL.
  */
-function getPublicFileURL(record: { id: string; collectionId?: string; collectionName?: string }, filename: string): string {
+function getPublicFileURL(
+	record: { id: string; collectionId?: string; collectionName?: string },
+	filename: string
+): string {
 	if (!filename) return '';
 	const collection = record.collectionId || record.collectionName || '';
 	const recordId = record.id || '';
