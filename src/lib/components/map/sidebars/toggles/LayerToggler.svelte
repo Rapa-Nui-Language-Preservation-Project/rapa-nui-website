@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { type ExpandedLayer } from '$lib/expanded-models';
-	//import { Bird, MapPin, Circle, SquarePlay } from 'lucide-svelte';
 	import Fa from 'svelte-fa';
 	import {
 		faBookOpen,
@@ -9,7 +8,6 @@
 		faCrow,
 		faCirclePlay
 	} from '@fortawesome/free-solid-svg-icons';
-	//import { faCirclePlay } from '@fortawesome/free-regular-svg-icons';
 	let { layers, selectedLayers = $bindable() } = $props();
 
 	const toggleLayer = (layer: ExpandedLayer) => {

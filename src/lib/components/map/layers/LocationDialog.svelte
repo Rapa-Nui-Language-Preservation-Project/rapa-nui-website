@@ -1,6 +1,5 @@
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	//import { MapPin, Bird, Circle, SquarePlay } from 'lucide-svelte';
 	import Fa from 'svelte-fa';
 	import {
 		faBookOpen,
@@ -9,7 +8,6 @@
 		faCrow,
 		faCirclePlay
 	} from '@fortawesome/free-solid-svg-icons';
-	//import { faCirclePlay } from '@fortawesome/free-regular-svg-icons';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import type { ExpandedLocation } from '$lib/expanded-models';
@@ -37,7 +35,7 @@
 						{:else if layerName.startsWith('Hist')}
 							<Fa icon={faCirclePlay} color="green" size="2x" />
 						{:else}
-							<Fa icon={faMapMarkerAlt} color="white" />
+							<Fa icon={faMapMarkerAlt} color="white" size="2x" />
 						{/if}
 					</span>
 				</Tooltip.Trigger>
