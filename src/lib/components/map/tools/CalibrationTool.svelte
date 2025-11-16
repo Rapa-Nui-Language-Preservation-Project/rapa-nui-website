@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+
 	let clicks: { x: number; y: number }[] = [];
 
 	function handleClick(event: MouseEvent) {
@@ -19,7 +21,7 @@
 		aria-label="Marcar punto en mapa de calibración"
 	>
 		<img
-			src="http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png"
+			src={`${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png`}
 			class="h-screen"
 			alt="Artistic map for calibration"
 		/>

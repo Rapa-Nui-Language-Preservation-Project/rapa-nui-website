@@ -14,6 +14,7 @@
 	import type { PruebasResponse } from '$lib/pocketbase-types';
 	import { watchMediaQuery } from '$lib/utils/media-query';
 	import MobileMap from './MobileMap.svelte';
+	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
@@ -31,8 +32,7 @@
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
 	let isMobile = $state(false);
-	const artisticMapSrc =
-		'http://127.0.0.1:8090/api/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png';
+	const artisticMapSrc = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png`;
 
 	onMount(() => {
 		return watchMediaQuery('(max-width: 768px)', (matches) => {
