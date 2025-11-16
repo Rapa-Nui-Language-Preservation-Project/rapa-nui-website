@@ -1,6 +1,13 @@
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { MapPin, Bird, Circle, SquarePlay } from 'lucide-svelte';
+	import Fa from 'svelte-fa';
+	import {
+		faBookOpen,
+		faLightbulb,
+		faMapMarkerAlt,
+		faCrow,
+		faCirclePlay
+	} from '@fortawesome/free-solid-svg-icons';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import type { ExpandedLocation } from '$lib/expanded-models';
@@ -16,17 +23,21 @@
 		<Tooltip.Provider delayDuration={0}>
 			<Tooltip.Root>
 				<Tooltip.Trigger>
-					{#if layerName.startsWith('Aves')}
-						<Bird color="blue" size="48" />
-					{:else if layerName.startsWith('A ‘AMU')}
-						<MapPin color="purple" size="32" />
-					{:else if layerName.startsWith('Koro')}
-						<Circle color="red" size="48" />
-					{:else if layerName.startsWith('Hist')}
-						<SquarePlay color="green" size="32" />
-					{:else}
-						<MapPin color="white" />
-					{/if}
+					<span
+						class="relative inline-block transition-transform hover:z-20 hover:scale-125 hover:drop-shadow-[0_0_4px_black]"
+					>
+						{#if layerName.startsWith('Aves')}
+							<Fa icon={faCrow} color="blue" size="2x" />
+						{:else if layerName.startsWith('A ‘AMU')}
+							<Fa icon={faBookOpen} color="purple" size="2x" />
+						{:else if layerName.startsWith('Koro')}
+							<Fa icon={faLightbulb} color="orange" size="2x" />
+						{:else if layerName.startsWith('Hist')}
+							<Fa icon={faCirclePlay} color="green" size="2x" />
+						{:else}
+							<Fa icon={faMapMarkerAlt} color="white" size="2x" />
+						{/if}
+					</span>
 				</Tooltip.Trigger>
 				<Tooltip.Content side="bottom" class="z-50 border-none bg-transparent shadow-none">
 					<div class="drop-shadow-xs font-bold text-white">{location.name}</div>

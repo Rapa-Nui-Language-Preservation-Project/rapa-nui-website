@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { type ExpandedLayer } from '$lib/expanded-models';
-	import { Bird, MapPin, Circle, SquarePlay } from 'lucide-svelte';
+	import Fa from 'svelte-fa';
+	import {
+		faBookOpen,
+		faLightbulb,
+		faMapMarkerAlt,
+		faCrow,
+		faCirclePlay
+	} from '@fortawesome/free-solid-svg-icons';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 
 	let { layers, selectedLayers = $bindable() } = $props();
@@ -33,22 +40,22 @@
 
 		<!-- Layer name and icon -->
 		<div class="flex items-center justify-between">
-			<h3
+			<span
 				class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
 			>
 				{layer.name}
-			</h3>
+			</span>
 			<div>
 				{#if layer.name.startsWith('Aves')}
-					<Bird color="blue" />
+					<Fa icon={faCrow} color="blue" />
 				{:else if layer.name.startsWith('A ‘AMU')}
-					<MapPin color="purple" />
+					<Fa icon={faBookOpen} color="purple" />
 				{:else if layer.name.startsWith('Koro')}
-					<Circle color="red" />
+					<Fa icon={faLightbulb} color="orange" />
 				{:else if layer.name.startsWith('Hist')}
-					<SquarePlay color="green" />
+					<Fa icon={faCirclePlay} color="green" />
 				{:else}
-					<MapPin color="white" />
+					<Fa icon={faMapMarkerAlt} color="white" />
 				{/if}
 			</div>
 		</div>

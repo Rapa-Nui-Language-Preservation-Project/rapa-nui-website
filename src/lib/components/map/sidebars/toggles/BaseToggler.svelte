@@ -9,7 +9,9 @@
 		onclick={() => (selectedBase = base)}
 		onkeydown={(e) => e.key === 'Enter' && (selectedBase = base)}
 		class={`flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-black/5 ${
-			selectedBase === base ? 'bg-orange-200 font-semibold text-orange-700' : ''
+			selectedBase === base
+				? 'bg-orange-700 font-semibold text-white hover:text-black'
+				: 'text-orange bg-orange-100'
 		}`}
 	>
 		<!-- Radio button style indicator -->
