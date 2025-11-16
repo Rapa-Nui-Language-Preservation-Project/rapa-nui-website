@@ -1,10 +1,16 @@
 <script lang="ts">
 	import type { ExpandedLocation } from '$lib/expanded-models';
-	let { location }: { location: ExpandedLocation } = $props();
+	import type { PruebasResponse } from '$lib/pocketbase-types';
+	import PruebasDefinitions from './PruebasDefinitions.svelte';
+	let { location, allPruebas }: { location: ExpandedLocation; allPruebas: PruebasResponse[] } =
+		$props();
 	let showSpanish = $state(false);
 	let selectedActividadIdx = $state<number | null>(null);
 	let showFull = $state(false);
 	let selectedFullImage = $state<string | null>(null);
+	let showDefinitions = $state(false);
+
+	console.log('KoronuiLayer allPruebas:', allPruebas);
 
 	const posClasses = [
 		'left-1/2 top-0  -translate-x-1/2 -translate-y-1/2',
@@ -194,14 +200,22 @@
 
 		<!-- Second Row - Description -->
 		<div class="rounded-lg border border-amber-200 bg-white/90 p-4 shadow-lg backdrop-blur-sm">
-			<h3 class="mb-2 text-lg font-semibold text-amber-800">Participantes</h3>
+			<h3 class="mb-2 text-xl font-semibold text-amber-800">Participantes</h3>
 			<p class="text-gray-700">{selectedActivity?.participantes}</p>
 		</div>
 
 		<!-- Third Row - Pruebas -->
 		<div class="rounded-lg border border-amber-200 bg-white/90 p-4 shadow-lg backdrop-blur-sm">
-			<h3 class="mb-4 text-lg font-semibold text-amber-800">Pruebas</h3>
-			<div class="grid-items-center grid grid-cols-2 gap-4 md:grid-cols-3">
+			<button
+				onclick={() => (showDefinitions = !showDefinitions)}
+				class="text-xl font-semibold text-amber-800 underline"
+			>
+				Pruebas
+			</button>
+			{#if showDefinitions}
+				<PruebasDefinitions {allPruebas} onClose={() => (showDefinitions = false)} />
+			{/if}
+			<div class="grid-items-center mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
 				{#if pruebas.length === 0}
 					<p class="text-gray-500">No hay pruebas disponibles para esta actividad.</p>
 				{/if}

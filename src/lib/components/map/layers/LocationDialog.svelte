@@ -8,7 +8,12 @@
 	import HistPerdidasLayer from './HistPerdidasLayer.svelte';
 	import AvesLayer from './AvesLayer.svelte';
 	import MicroCuentasLayer from './MicroCuentasLayer.svelte';
-	let { location, layerName }: { location: ExpandedLocation; layerName: string } = $props();
+	import type { PruebasResponse } from '$lib/pocketbase-types';
+	let {
+		location,
+		layerName,
+		pruebas
+	}: { location: ExpandedLocation; layerName: string; pruebas: PruebasResponse[] } = $props();
 </script>
 
 <Dialog.Root>
@@ -40,7 +45,7 @@
 		<ScrollArea>
 			<div class="flex flex-col items-center">
 				{#if layerName.startsWith('Koro')}
-					<KoronuiLayer {location} />
+					<KoronuiLayer {location} allPruebas={pruebas} />
 				{:else if layerName.startsWith('Aves')}
 					<AvesLayer {location} />
 				{:else if layerName.startsWith('A ‘AMU')}

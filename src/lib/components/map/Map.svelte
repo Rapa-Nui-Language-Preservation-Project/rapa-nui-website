@@ -26,8 +26,6 @@
 		bases,
 		pruebas
 	}: { layers: ExpandedLayer[]; bases: string[]; pruebas: PruebasResponse[] } = $props();
-	// TODO: here is pruebas, currently unused, this should be used as a tooltip for the corresponding prueba in the KoroNui layer
-	void pruebas;
 	let selectedLayers = $state(new Map<string, ExpandedLayer>());
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
@@ -98,7 +96,7 @@
 										class="absolute z-10"
 										style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
 									>
-										<LocationDialog {location} layerName={layer.name} />
+										<LocationDialog {location} layerName={layer.name} {pruebas} />
 									</div>
 								{/if}
 							{/each}
