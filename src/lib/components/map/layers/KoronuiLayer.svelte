@@ -10,8 +10,6 @@
 	let selectedFullImage = $state<string | null>(null);
 	let showDefinitions = $state(false);
 
-	console.log('KoronuiLayer allPruebas:', allPruebas);
-
 	const posClasses = [
 		'left-1/2 top-0  -translate-x-1/2 -translate-y-1/2',
 		'right-0  top-1/2  translate-x-1/2 -translate-y-1/2',
@@ -163,6 +161,9 @@
 
 	<!-- Main Content Area -->
 	<div class="space-y-3 p-2 text-center">
+		{#if showDefinitions}
+			<PruebasDefinitions {allPruebas} onClose={() => (showDefinitions = false)} />
+		{/if}
 		<!-- Title Section -->
 		<div class="py-2 text-center">
 			<h1 class="text-7xl font-bold text-amber-800">{selectedActivity?.title || 'ACTIVIDAD'}</h1>
@@ -212,9 +213,6 @@
 			>
 				Pruebas
 			</button>
-			{#if showDefinitions}
-				<PruebasDefinitions {allPruebas} onClose={() => (showDefinitions = false)} />
-			{/if}
 			<div class="grid-items-center mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
 				{#if pruebas.length === 0}
 					<p class="text-gray-500">No hay pruebas disponibles para esta actividad.</p>
