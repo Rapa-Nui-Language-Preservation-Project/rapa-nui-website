@@ -6,9 +6,8 @@
 	import { mode } from 'mode-watcher';
 	import MarkerPopup from './overlays/MarkerPopup.svelte';
 	import CalibrationTool from './tools/CalibrationTool.svelte';
-	import { transformLatLngToXY } from '$lib/utils/geoTransform';
-	import LocationDialog from './layers/LocationDialog.svelte';
 	import LeftSidebar from './sidebars/LeftSidebar.svelte';
+	import ArtisticBaseMap from './ArtisticBaseMap.svelte';
 	import RightSidebar from './sidebars/RightSidebar.svelte';
 	import SidebarControls from './sidebars/SidebarControls.svelte';
 	import type { PruebasResponse } from '$lib/pocketbase-types';
@@ -81,27 +80,7 @@
 				{#if calibrate}
 					<CalibrationTool />
 				{:else}
-					<div class="relative ml-80 mr-64 h-screen overflow-hidden">
-						<img
-							src={artisticMapSrc}
-							class="h-screen w-auto min-w-max"
-							alt="Map of Easter Island"
-						/>
-
-						{#each selectedLayers.values() as layer}
-							{#each layer.expand.locations || [] as location}
-								{#if location.latitude != null && location.longitude != null}
-									{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
-									<div
-										class="absolute z-10"
-										style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
-									>
-										<LocationDialog {location} layerName={layer.name} {pruebas} />
-									</div>
-								{/if}
-							{/each}
-						{/each}
-					</div>
+					<ArtisticBaseMap imageSrc={artisticMapSrc} bind:selectedLayers {pruebas} />
 				{/if}
 			{/if}
 		</div>

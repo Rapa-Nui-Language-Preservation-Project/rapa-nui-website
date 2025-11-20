@@ -6,6 +6,6 @@
 	let { children } = $props();
 </script>
 
-<ModeWatcher />
+<!-- <ModeWatcher /> -->
 <Header />
 {@render children()}
