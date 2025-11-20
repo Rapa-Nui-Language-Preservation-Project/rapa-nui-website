@@ -2,7 +2,7 @@
 	import type { ExpandedLayer } from '$lib/expanded-models';
 	import LayerToggler from './toggles/LayerToggler.svelte';
 	export let layers: ExpandedLayer[] = [];
-	export let selectedLayers: Map<string, ExpandedLayer>;
+	export let selectedLayerId: string | null;
 	export let visible = true;
 </script>
 
@@ -13,7 +13,7 @@
 >
 	<div class="p-6">
 		<div class="space-y-2">
-			<LayerToggler {layers} bind:selectedLayers />
+			<LayerToggler {layers} bind:selectedLayerId />
 		</div>
 	</div>
 </div>

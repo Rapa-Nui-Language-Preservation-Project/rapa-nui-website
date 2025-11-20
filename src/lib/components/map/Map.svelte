@@ -28,7 +28,7 @@
 	}: { layers: ExpandedLayer[]; bases: string[]; pruebas: PruebasResponse[] } = $props();
 	// TODO: here is pruebas, currently unused, this should be used as a tooltip for the corresponding prueba in the KoroNui layer
 	void pruebas;
-	let selectedLayers = $state(new Map<string, ExpandedLayer>());
+	let selectedLayerId = $state<string | null>(null);
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
 	let isMobile = $state(false);
@@ -77,7 +77,11 @@
 						{ lng: -109, lat: -26.96 }
 					]}
 				>
-					<MarkerPopup layers={[...selectedLayers.values()]} />
+					<MarkerPopup
+						layers={selectedLayerId
+							? [layers.find((l) => l.id === selectedLayerId)!].filter(Boolean)
+							: []}
+					/>
 				</MapLibre>
 			{:else if selectedBase === 'Rapa Nui'}
 				{#if calibrate}
@@ -90,19 +94,22 @@
 							alt="Map of Easter Island"
 						/>
 
-						{#each selectedLayers.values() as layer}
-							{#each layer.expand.locations || [] as location}
-								{#if location.latitude != null && location.longitude != null}
-									{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
-									<div
-										class="absolute z-10"
-										style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
-									>
-										<LocationDialog {location} layerName={layer.name} />
-									</div>
-								{/if}
-							{/each}
-						{/each}
+						{#if selectedLayerId}
+							{@const selectedLayer = layers.find((l) => l.id === selectedLayerId)}
+							{#if selectedLayer}
+								{#each selectedLayer.expand.locations || [] as location}
+									{#if location.latitude != null && location.longitude != null}
+										{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
+										<div
+											class="absolute z-10"
+											style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
+										>
+											<LocationDialog {location} layerName={selectedLayer.name} />
+										</div>
+									{/if}
+								{/each}
+							{/if}
+						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -113,7 +120,7 @@
 			bind:rightVisible={rightSidebarVisible}
 		/>
 		<!-- Left Sidebar - Layers -->
-		<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
+		<LeftSidebar {layers} bind:selectedLayerId visible={leftSidebarVisible} />
 		<!-- Right Sidebar - Map Style -->
 		<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
 	</div>
