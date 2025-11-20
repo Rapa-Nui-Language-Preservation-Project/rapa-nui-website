@@ -101,7 +101,7 @@
 									{#if location.latitude != null && location.longitude != null}
 										{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
 										<div
-											class="absolute z-10"
+											class="absolute z-20 focus-within:z-50 hover:z-50"
 											style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
 										>
 											<LocationDialog {location} layerName={selectedLayer.name} />
