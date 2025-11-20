@@ -20,8 +20,8 @@
 
 <Dialog.Root>
 	<Dialog.Trigger class="flex flex-col items-center">
-		<Tooltip.Provider delayDuration={0}>
-			<Tooltip.Root>
+		<Tooltip.Provider delayDuration={100}>
+			<Tooltip.Root disableHoverableContent>
 				<Tooltip.Trigger>
 					<span
 						class="relative inline-block transition-transform hover:z-20 hover:scale-125 hover:drop-shadow-[0_0_4px_black]"
@@ -39,7 +39,10 @@
 						{/if}
 					</span>
 				</Tooltip.Trigger>
-				<Tooltip.Content side="bottom" class="z-50 border-none bg-transparent shadow-none">
+				<Tooltip.Content
+					side="bottom"
+					class="pointer-events-none z-50 border-none bg-transparent shadow-none"
+				>
 					<div class="drop-shadow-xs font-bold text-white">{location.name}</div>
 				</Tooltip.Content>
 			</Tooltip.Root>

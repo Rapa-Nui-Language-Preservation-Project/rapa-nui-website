@@ -10,16 +10,14 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 
-	let { layers, selectedLayers = $bindable() } = $props();
+	let {
+		layers,
+		selectedLayerId = $bindable()
+	}: { layers: ExpandedLayer[]; selectedLayerId?: string | null } = $props();
 
 	const toggleLayer = (layer: ExpandedLayer) => {
-		const newSelectedLayers = new Map(selectedLayers);
-		if (newSelectedLayers.has(layer.id)) {
-			newSelectedLayers.delete(layer.id);
-		} else {
-			newSelectedLayers.set(layer.id, layer);
-		}
-		selectedLayers = newSelectedLayers;
+		// Single-select
+		selectedLayerId = selectedLayerId === layer.id ? null : layer.id;
 	};
 </script>
 
@@ -34,7 +32,7 @@
 		<!-- Color flow selection bar -->
 		<div
 			class={`absolute left-0 top-0 h-full w-1.5 bg-orange-600 transition-transform duration-300 ease-out ${
-				selectedLayers.has(layer.id) ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'
+				selectedLayerId === layer.id ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'
 			}`}
 		></div>
 
@@ -74,7 +72,7 @@
 					src={`${PUBLIC_POCKETBASE_URL}/files/layers/${layer.id}/${layer.cover_photo[0]}`}
 					alt={`Cover photo for ${layer.name}`}
 					class={`h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105 ${
-						selectedLayers.has(layer.id)
+						selectedLayerId === layer.id
 							? 'ring-2 ring-orange-500 ring-offset-2 ring-offset-amber-50'
 							: ''
 					}`}
