@@ -75,7 +75,7 @@
 						{ lng: -109, lat: -26.96 }
 					]}
 				>
-					<MarkerPopup layers={[...selectedLayers.values()]} />
+					<MarkerPopup layers={[...selectedLayers.values()]} {pruebas} />
 				</MapLibre>
 			{:else if selectedBase === 'Rapa Nui'}
 				{#if calibrate}

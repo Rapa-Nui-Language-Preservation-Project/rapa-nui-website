@@ -13,8 +13,10 @@
 		<!-- Definitions -->
 		<div class="max-h-96 space-y-4 overflow-y-auto">
 			{#each allPruebas as prueba}
+				<!-- Only display if there is a description in database -->
 				{#if prueba.description_espanol.length < 1}
 					<div></div>
+					<!-- TODO: Figure out which Pruebas are missing descriptions. -->
 				{:else}
 					<div class="rounded-lg border-2 border-amber-200 bg-white p-4 shadow-md">
 						<h3 class="mb-2 text-lg font-semibold text-amber-800">{prueba.title}</h3>
