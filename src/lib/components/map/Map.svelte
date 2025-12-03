@@ -26,8 +26,7 @@
 		bases,
 		pruebas
 	}: { layers: ExpandedLayer[]; bases: string[]; pruebas: PruebasResponse[] } = $props();
-	// TODO: here is pruebas, currently unused, this should be used as a tooltip for the corresponding prueba in the KoroNui layer
-	void pruebas;
+
 	let selectedLayerId = $state<string | null>(null);
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
@@ -80,7 +79,8 @@
 					<MarkerPopup
 						layers={selectedLayerId
 							? [layers.find((l) => l.id === selectedLayerId)!].filter(Boolean)
-							: []}
+							: [...layers]}
+						{pruebas}
 					/>
 				</MapLibre>
 			{:else if selectedBase === 'Rapa Nui'}
@@ -104,7 +104,7 @@
 											class="absolute z-20 focus-within:z-50 hover:z-50"
 											style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
 										>
-											<LocationDialog {location} layerName={selectedLayer.name} />
+											<LocationDialog {location} layerName={selectedLayer.name} {pruebas} />
 										</div>
 									{/if}
 								{/each}
