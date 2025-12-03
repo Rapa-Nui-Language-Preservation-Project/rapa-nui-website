@@ -8,6 +8,7 @@
 	import CalibrationTool from './tools/CalibrationTool.svelte';
 	import { transformLatLngToXY } from '$lib/utils/geoTransform';
 	import LocationDialog from './layers/LocationDialog.svelte';
+	import ArtisticBaseMap from './ArtisticBaseMap.svelte';
 	import LeftSidebar from './sidebars/LeftSidebar.svelte';
 	import RightSidebar from './sidebars/RightSidebar.svelte';
 	import SidebarControls from './sidebars/SidebarControls.svelte';
@@ -87,30 +88,7 @@
 				{#if calibrate}
 					<CalibrationTool />
 				{:else}
-					<div class="relative ml-80 mr-64 h-screen overflow-hidden">
-						<img
-							src={artisticMapSrc}
-							class="h-screen w-auto min-w-max"
-							alt="Map of Easter Island"
-						/>
-
-						{#if selectedLayerId}
-							{@const selectedLayer = layers.find((l) => l.id === selectedLayerId)}
-							{#if selectedLayer}
-								{#each selectedLayer.expand.locations || [] as location}
-									{#if location.latitude != null && location.longitude != null}
-										{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
-										<div
-											class="absolute z-20 focus-within:z-50 hover:z-50"
-											style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
-										>
-											<LocationDialog {location} layerName={selectedLayer.name} {pruebas} />
-										</div>
-									{/if}
-								{/each}
-							{/if}
-						{/if}
-					</div>
+					<ArtisticBaseMap imageSrc={artisticMapSrc} {layers} {selectedLayerId} {pruebas} />
 				{/if}
 			{/if}
 		</div>

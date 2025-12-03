@@ -6,11 +6,13 @@
 
 	let {
 		imageSrc,
-		selectedLayers = $bindable(),
+		layers,
+		selectedLayerId,
 		pruebas
 	}: {
 		imageSrc: string;
-		selectedLayers: Map<string, ExpandedLayer>;
+		layers: ExpandedLayer[];
+		selectedLayerId: string | null;
 		pruebas: PruebasResponse[];
 	} = $props();
 
@@ -56,6 +58,10 @@
 	function handleMouseLeave() {
 		isDragging = false;
 	}
+	//compute single selected layer
+	let selectedLayer = $derived(
+		selectedLayerId ? (layers.find((l) => l.id === selectedLayerId) ?? null) : null
+	);
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -77,18 +83,18 @@
 			draggable="false"
 		/>
 
-		{#each selectedLayers.values() as layer}
-			{#each layer.expand.locations || [] as location}
+		{#if selectedLayer}
+			{#each selectedLayer.expand.locations || [] as location}
 				{#if location.latitude != null && location.longitude != null}
 					{@const pos = transformLatLngToXY(location.latitude, location.longitude)}
 					<div
-						class="absolute z-10"
+						class="absolute z-20 focus-within:z-50 hover:z-50"
 						style={`top: ${pos.y}%; left: ${pos.x}%; transform: translate(-50%, -50%);`}
 					>
-						<LocationDialog {location} layerName={layer.name} {pruebas} />
+						<LocationDialog {location} layerName={selectedLayer.name} {pruebas} />
 					</div>
 				{/if}
 			{/each}
-		{/each}
+		{/if}
 	</div>
 </div>
