@@ -6,8 +6,6 @@
 	import { mode } from 'mode-watcher';
 	import MarkerPopup from './overlays/MarkerPopup.svelte';
 	import CalibrationTool from './tools/CalibrationTool.svelte';
-	import { transformLatLngToXY } from '$lib/utils/geoTransform';
-	import LocationDialog from './layers/LocationDialog.svelte';
 	import ArtisticBaseMap from './ArtisticBaseMap.svelte';
 	import LeftSidebar from './sidebars/LeftSidebar.svelte';
 	import RightSidebar from './sidebars/RightSidebar.svelte';
