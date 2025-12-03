@@ -25,7 +25,8 @@
 		bases,
 		pruebas
 	}: { layers: ExpandedLayer[]; bases: string[]; pruebas: PruebasResponse[] } = $props();
-	let selectedLayers = $state(new Map<string, ExpandedLayer>());
+
+	let selectedLayerId = $state<string | null>(null);
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
 	let isMobile = $state(false);
@@ -74,13 +75,18 @@
 						{ lng: -109, lat: -26.96 }
 					]}
 				>
-					<MarkerPopup layers={[...selectedLayers.values()]} {pruebas} />
+					<MarkerPopup
+						layers={selectedLayerId
+							? [layers.find((l) => l.id === selectedLayerId)!].filter(Boolean)
+							: [...layers]}
+						{pruebas}
+					/>
 				</MapLibre>
 			{:else if selectedBase === 'Rapa Nui'}
 				{#if calibrate}
 					<CalibrationTool />
 				{:else}
-					<ArtisticBaseMap imageSrc={artisticMapSrc} bind:selectedLayers {pruebas} />
+					<ArtisticBaseMap imageSrc={artisticMapSrc} {layers} {selectedLayerId} {pruebas} />
 				{/if}
 			{/if}
 		</div>
@@ -90,7 +96,7 @@
 			bind:rightVisible={rightSidebarVisible}
 		/>
 		<!-- Left Sidebar - Layers -->
-		<LeftSidebar {layers} bind:selectedLayers visible={leftSidebarVisible} />
+		<LeftSidebar {layers} bind:selectedLayerId visible={leftSidebarVisible} />
 		<!-- Right Sidebar - Map Style -->
 		<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
 	</div>
