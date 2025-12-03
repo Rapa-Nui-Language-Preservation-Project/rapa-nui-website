@@ -6,8 +6,8 @@
 	import { mode } from 'mode-watcher';
 	import MarkerPopup from './overlays/MarkerPopup.svelte';
 	import CalibrationTool from './tools/CalibrationTool.svelte';
-	import ArtisticBaseMap from './ArtisticBaseMap.svelte';
 	import LeftSidebar from './sidebars/LeftSidebar.svelte';
+	import ArtisticBaseMap from './ArtisticBaseMap.svelte';
 	import RightSidebar from './sidebars/RightSidebar.svelte';
 	import SidebarControls from './sidebars/SidebarControls.svelte';
 	import type { PruebasResponse } from '$lib/pocketbase-types';
