@@ -1,9 +1,13 @@
 <script lang="ts">
 	import BaseToggler from './toggles/BaseToggler.svelte';
+	import LayerToggler from './toggles/LayerToggler.svelte';
+	import type { ExpandedLayer } from '$lib/expanded-models';
 
 	export let bases: string[] = [];
 	export let selectedBase: string;
 	export let visible = true;
+	export let selectedLayerId: string | null;
+	export let layers: ExpandedLayer[] = [];
 </script>
 
 <div

@@ -98,6 +98,10 @@
 		<!-- Left Sidebar - Layers -->
 		<LeftSidebar {layers} bind:selectedLayerId visible={leftSidebarVisible} />
 		<!-- Right Sidebar - Map Style -->
-		<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
+		<RightSidebar {bases} {layers} 
+			bind:selectedBase
+			bind:selectedLayerId 
+			visible={rightSidebarVisible}
+		/>
 	</div>
 {/if}
