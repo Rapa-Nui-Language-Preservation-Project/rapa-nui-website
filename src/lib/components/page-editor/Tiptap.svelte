@@ -5,9 +5,13 @@
 	import BubbleMenu from '@tiptap/extension-bubble-menu';
 	import TextAlign from '@tiptap/extension-text-align';
 	import { Color, TextStyle } from '@tiptap/extension-text-style';
+	import './ImageResize.css';
 	import TextMenu from './TextMenu.svelte';
 	import AlignmentMenu from './AlignmentMenu.svelte';
 	import ColorMenu from './ColorMenu.svelte';
+	import Image from '@tiptap/extension-image';
+	import FileHandler from '@tiptap/extension-file-handler';
+	import { Dropcursor } from '@tiptap/extensions';
 
 	let bubbleMenu: HTMLElement | undefined = $state();
 	let element: HTMLElement | undefined = $state();
@@ -23,14 +27,74 @@
 			element: element,
 			extensions: [
 				StarterKit,
+				TextStyle,
+				Color,
+				Dropcursor,
+				Image.configure({
+					inline: true,
+					resize: {
+						enabled: true,
+						alwaysPreserveAspectRatio: true
+					},
+					HTMLAttributes: {
+						class: 'image'
+					}
+				}),
 				BubbleMenu.configure({
 					element: bubbleMenu
 				}),
 				TextAlign.configure({
-					types: ['heading', 'paragraph']
+					types: ['heading', 'paragraph', 'image'],
+					defaultAlignment: 'left'
 				}),
-				TextStyle,
-				Color
+				FileHandler.configure({
+					allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+					onDrop: (currentEditor, files, pos) => {
+						files.forEach((file) => {
+							const fileReader = new FileReader();
+
+							fileReader.readAsDataURL(file);
+							fileReader.onload = () => {
+								currentEditor
+									.chain()
+									.insertContentAt(pos, {
+										type: 'image',
+										attrs: {
+											src: fileReader.result
+										}
+									})
+									.focus()
+									.run();
+							};
+						});
+					},
+					onPaste: (currentEditor, files, htmlContent) => {
+						files.forEach((file) => {
+							if (htmlContent) {
+								// if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
+								// you could extract the pasted file from this url string and upload it to a server for example
+								console.log(htmlContent); // eslint-disable-line no-console
+								return false;
+							}
+
+							const fileReader = new FileReader();
+
+							fileReader.readAsDataURL(file);
+							fileReader.onload = () => {
+								currentEditor
+									.chain()
+									.insertContentAt(currentEditor.state.selection.anchor, {
+										type: 'image',
+										attrs: {
+											src: fileReader.result
+										}
+									})
+									.focus()
+									.run();
+							};
+						});
+					}
+				})
 			],
 			content: `
         <h1>Tiptap WYSIWYG editor </h1>
@@ -45,6 +109,7 @@
 			}
 		});
 	});
+
 	onDestroy(() => {
 		editorState.editor?.destroy();
 	});

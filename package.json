@@ -57,6 +57,8 @@
 		"@fortawesome/free-solid-svg-icons": "^7.1.0",
 		"@tiptap/core": "^3.15.3",
 		"@tiptap/extension-bubble-menu": "^3.15.3",
+		"@tiptap/extension-file-handler": "^3.15.3",
+		"@tiptap/extension-image": "^3.15.3",
 		"@tiptap/extension-text-align": "^3.15.3",
 		"@tiptap/extension-text-style": "^3.15.3",
 		"@tiptap/pm": "^3.15.3",

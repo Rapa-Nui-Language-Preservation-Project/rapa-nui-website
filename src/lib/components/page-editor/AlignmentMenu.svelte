@@ -44,7 +44,10 @@
 
 <style>
 	button.active {
-		text-decoration: underline;
-		color: #78350f;
+		background: #fde68a;
+		transition: background-color 0.2s ease;
+	}
+	button.active:hover {
+		background: #fef3c7;
 	}
 </style>
