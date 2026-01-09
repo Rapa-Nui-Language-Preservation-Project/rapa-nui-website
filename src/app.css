@@ -83,3 +83,22 @@
 		white-space: pre-wrap;
 	}
 }
+
+/* Add styling to Tiptap WYSIWYG editor here */
+.tiptap {
+	p {
+		@apply my-2 text-base leading-relaxed text-amber-900 first:mt-0 last:mb-0;
+	}
+
+	h1 {
+		@apply mb-4 mt-8 text-3xl font-bold text-amber-900 first:mt-0 last:mb-0;
+	}
+
+	h2 {
+		@apply mb-4 mt-4 text-xl font-semibold text-amber-900 first:mt-0 last:mb-0;
+	}
+
+	h5 {
+		@apply my-2 text-base text-stone-900;
+	}
+}
