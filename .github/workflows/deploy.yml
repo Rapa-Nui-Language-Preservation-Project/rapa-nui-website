@@ -24,7 +24,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Log deployment reason
-        run: echo "Deploying to production - Reason: ${{ inputs.reason }}"
+        run: |
+          echo "Deploying to production - Reason: ${{ inputs.reason }}"
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
