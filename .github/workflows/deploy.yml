@@ -25,7 +25,7 @@ jobs:
 
       - name: Log deployment reason
         run: |
-          echo "Deploying to production - Reason: ${{ inputs.reason }}"
+          echo "Deploying to production"
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.2.4
