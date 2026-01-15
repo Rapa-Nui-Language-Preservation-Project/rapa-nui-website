@@ -95,12 +95,14 @@
 			bind:leftVisible={leftSidebarVisible}
 			bind:rightVisible={rightSidebarVisible}
 		/>
-		<!-- Left Sidebar - Layers -->
+		<!-- Left Sidebar - Left Layers -->
 		<LeftSidebar {layers} bind:selectedLayerId visible={leftSidebarVisible} />
-		<!-- Right Sidebar - Map Style -->
-		<RightSidebar {bases} {layers} 
+		<!-- Right Sidebar - Map Style & Layers -->
+		<RightSidebar
+			{bases}
+			{layers}
 			bind:selectedBase
-			bind:selectedLayerId 
+			bind:selectedLayerId
 			visible={rightSidebarVisible}
 		/>
 	</div>
