@@ -7,7 +7,8 @@
 		faMapMarkerAlt,
 		faCrow,
 		faCirclePlay,
-		faBook
+		faBook,
+		faLeaf
 	} from '@fortawesome/free-solid-svg-icons';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
@@ -17,6 +18,7 @@
 	import AvesLayer from './AvesLayer.svelte';
 	import MicroCuentasLayer from './MicroCuentasLayer.svelte';
 	import MacroCuentosLayer from './MacroCuentosLayer.svelte';
+	import AgroecologyPopup from './AgroecologyPopup.svelte';
 	import type { PruebasResponse } from '$lib/pocketbase-types';
 	let {
 		location,
@@ -43,6 +45,8 @@
 							<Fa icon={faCirclePlay} color="green" size="2x" />
 						{:else if layerName.startsWith('Macro')}
 							<Fa icon={faBook} color="black" size="2x" />
+						{:else if layerName.startsWith('Agro')}
+							<Fa icon={faLeaf} color="#15803d" size="2x" />
 						{:else}
 							<Fa icon={faMapMarkerAlt} color="white" size="2x" />
 						{/if}
@@ -72,6 +76,8 @@
 					<HistPerdidasLayer {location} />
 				{:else if layerName.startsWith('Macro')}
 					<MacroCuentosLayer {location} />
+				{:else if layerName.startsWith('Agro')}
+					<AgroecologyPopup {location} />
 				{/if}
 			</div>
 		</ScrollArea>
