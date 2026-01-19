@@ -22,7 +22,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	// Fetch all collections in parallel for efficiency
 	const [layers, pruebas] = await Promise.all([
 		locals.pb.collection(Collections.Layers).getFullList({
-			expand: 'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media,locations.agroecology,locations.agroecology.images,locations.agroecology.taxonomy_rows'
+			expand:
+				'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media,locations.agroecology,locations.agroecology.images,locations.agroecology.taxonomy_rows'
 		}) as Promise<ExpandedLayer[]>,
 		locals.pb.collection(Collections.Pruebas).getFullList()
 	]);

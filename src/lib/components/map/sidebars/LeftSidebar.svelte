@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { ExpandedLayer } from '$lib/expanded-models';
 	import LayerToggler from './toggles/LayerToggler.svelte';
 
 	let { layers = [], selectedLayerId = $bindable(), visible = true } = $props();

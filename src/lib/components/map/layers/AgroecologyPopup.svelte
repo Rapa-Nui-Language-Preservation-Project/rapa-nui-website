@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { X } from 'lucide-svelte';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import type { CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import type { ExpandedLocation } from '$lib/expanded-models';
