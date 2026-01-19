@@ -17,7 +17,6 @@
 	import HistPerdidasLayer from './HistPerdidasLayer.svelte';
 	import AvesLayer from './AvesLayer.svelte';
 	import MicroCuentasLayer from './MicroCuentasLayer.svelte';
-	import MacroCuentosLayer from './MacroCuentosLayer.svelte';
 	import AgroecologyPopup from './AgroecologyPopup.svelte';
 	import type { PruebasResponse } from '$lib/pocketbase-types';
 	let {
@@ -74,8 +73,6 @@
 					<MicroCuentasLayer {location} />
 				{:else if layerName.startsWith('Hist')}
 					<HistPerdidasLayer {location} />
-				{:else if layerName.startsWith('Macro')}
-					<MacroCuentosLayer {location} />
 				{:else if layerName.startsWith('Agro')}
 					<AgroecologyPopup {location} />
 				{/if}

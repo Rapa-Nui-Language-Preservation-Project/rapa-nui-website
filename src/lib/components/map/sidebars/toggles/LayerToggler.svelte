@@ -7,7 +7,6 @@
 		faMapMarkerAlt,
 		faCrow,
 		faCirclePlay,
-		faBook,
 		faLeaf
 	} from '@fortawesome/free-solid-svg-icons';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
@@ -54,8 +53,6 @@
 					<Fa icon={faLightbulb} color="orange" />
 				{:else if layer.name.startsWith('Hist')}
 					<Fa icon={faCirclePlay} color="green" />
-				{:else if layer.name.startsWith('Macro')}
-					<Fa icon={faBook} color="black" />
 				{:else if layer.name.startsWith('Agro')}
 					<Fa icon={faLeaf} color="#15803d" />
 				{:else}
