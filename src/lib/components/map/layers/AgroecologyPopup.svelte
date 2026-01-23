@@ -29,6 +29,21 @@
 	// Tab state
 	let activeTab = $state<'info' | 'taxonomy' | 'citations'>('info');
 
+	// Image modal state
+	let showImageModal = $state(false);
+	let modalImageSrc = $state('');
+	let modalImageTitle = $state('');
+
+	function openImageModal(src: string, title: string) {
+		modalImageSrc = src;
+		modalImageTitle = title;
+		showImageModal = true;
+	}
+
+	function closeImageModal() {
+		showImageModal = false;
+	}
+
 	// Get agroecology data from expanded relation
 	const agroPage = $derived(location.expand?.agroecology);
 	const images = $derived(
@@ -66,15 +81,39 @@
 					<Carousel.Content class="h-full">
 						{#each images as image}
 							<Carousel.Item class="flex h-full items-center justify-center">
-								<div class="relative h-full w-full">
-									<img
-										src={image.file}
-										alt={image.title || ''}
-										class="h-full w-full rounded-lg object-contain"
-									/>
+								<div class="relative h-[400px] w-full md:h-[500px]">
+									<button
+										onclick={() => openImageModal(image.file ?? '', image.title ?? '')}
+										class="group relative h-full w-full cursor-pointer"
+										title="Clic para ver imagen completa"
+									>
+										<img
+											src={image.file}
+											alt={image.title || ''}
+											class="h-full w-full rounded-lg object-contain transition-transform group-hover:scale-[1.02]"
+										/>
+										<div
+											class="absolute right-2 top-2 rounded-full bg-amber-900/70 p-2 opacity-0 transition-opacity group-hover:opacity-100"
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="h-5 w-5 text-white"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+												/>
+											</svg>
+										</div>
+									</button>
 									{#if image.title}
 										<div
-											class="absolute bottom-0 left-0 right-0 rounded-b-lg bg-gradient-to-t from-amber-900/80 to-transparent p-4"
+											class="pointer-events-none absolute bottom-0 left-0 right-0 rounded-b-lg bg-gradient-to-t from-amber-900/80 to-transparent p-4"
 										>
 											<p class="font-serif text-sm text-amber-50">{image.title}</p>
 										</div>
@@ -162,7 +201,7 @@
 		</div>
 
 		<!-- Tab Content -->
-		<div class="flex-1 overflow-y-auto overflow-x-hidden p-6">
+		<div class="flex-1 overflow-x-hidden p-6">
 			{#if activeTab === 'info'}
 				{#if agroPage?.description}
 					<p class="break-words leading-relaxed text-amber-900">{agroPage.description}</p>
@@ -241,3 +280,52 @@
 		</div>
 	</div>
 </div>
+
+<!-- Image Modal -->
+{#if showImageModal}
+	<div
+		class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 p-4"
+		onclick={closeImageModal}
+		role="button"
+		tabindex="0"
+		onkeydown={(e) => e.key === 'Escape' && closeImageModal()}
+	>
+		<button
+			onclick={closeImageModal}
+			class="absolute right-4 top-4 rounded-full bg-amber-900/80 p-2 text-white transition-colors hover:bg-amber-800"
+			title="Cerrar"
+			aria-label="Cerrar"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M6 18L18 6M6 6l12 12"
+				/>
+			</svg>
+		</button>
+		<div
+			class="max-h-full max-w-full"
+			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.stopPropagation()}
+			role="button"
+			tabindex="0"
+		>
+			<img
+				src={modalImageSrc}
+				alt={modalImageTitle}
+				class="max-h-[90vh] max-w-full object-contain"
+			/>
+			{#if modalImageTitle}
+				<p class="mt-4 text-center font-serif text-lg text-white">{modalImageTitle}</p>
+			{/if}
+		</div>
+	</div>
+{/if}
