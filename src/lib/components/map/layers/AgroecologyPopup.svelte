@@ -47,12 +47,12 @@
 	const currentTaxonomyRow = $derived(() => {
 		const img = currentImage();
 		if (!img) return null;
-		
+
 		// If image has a linked taxonomy, find it
 		if (img.taxonomy && taxonomyRows.length > 0) {
 			return taxonomyRows.find((row) => row.id === img.taxonomy) || null;
 		}
-		
+
 		return null;
 	});
 </script>
