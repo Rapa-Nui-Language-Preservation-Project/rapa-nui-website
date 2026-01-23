@@ -31,8 +31,30 @@
 
 	// Get agroecology data from expanded relation
 	const agroPage = $derived(location.expand?.agroecology);
-	const images = $derived(agroPage?.expand?.images || []);
+	const images = $derived(
+		(agroPage?.expand?.images || []).slice().sort((a, b) => (a.order || 0) - (b.order || 0))
+	);
 	const taxonomyRows = $derived(agroPage?.expand?.taxonomy_rows || []);
+
+	// Get the current image
+	const currentImage = $derived(() => {
+		if (images.length === 0) return null;
+		const index = imageCurrent - 1; // imageCurrent is 1-indexed
+		return images[index] || images[0];
+	});
+
+	// Get the current taxonomy row based on the current image's linked taxonomy
+	const currentTaxonomyRow = $derived(() => {
+		const img = currentImage();
+		if (!img) return null;
+		
+		// If image has a linked taxonomy, find it
+		if (img.taxonomy && taxonomyRows.length > 0) {
+			return taxonomyRows.find((row) => row.id === img.taxonomy) || null;
+		}
+		
+		return null;
+	});
 </script>
 
 <div class="flex h-full max-w-full flex-col overflow-hidden md:flex-row">
@@ -86,16 +108,16 @@
 		<!-- Header -->
 		<div class="overflow-hidden border-b border-amber-200 p-6">
 			<!-- Rapa Nui Name (Large Title) -->
-			{#if agroPage?.locationArea}
+			{#if agroPage?.plantName}
 				<h2 class="break-words font-serif text-3xl font-bold text-amber-900">
-					{agroPage.locationArea}
+					{agroPage.plantName}
 				</h2>
 			{/if}
 
 			<!-- Spanish Name -->
-			{#if agroPage?.locationName}
+			{#if agroPage?.spanishName}
 				<p class="mt-3 text-sm font-medium text-amber-700">ʻInoa Paniora</p>
-				<p class="break-words text-lg font-semibold text-amber-800">{agroPage.locationName}</p>
+				<p class="break-words text-lg font-semibold text-amber-800">{agroPage.spanishName}</p>
 			{/if}
 
 			<!-- Scientific Name -->
@@ -115,7 +137,7 @@
 						: 'text-amber-600 hover:text-amber-900'
 				}`}
 			>
-				Información
+				Descripción de la Planta
 			</button>
 			<button
 				onclick={() => (activeTab = 'taxonomy')}
@@ -125,7 +147,7 @@
 						: 'text-amber-600 hover:text-amber-900'
 				}`}
 			>
-				Clasificación
+				Clasificación de Plagas
 			</button>
 			<button
 				onclick={() => (activeTab = 'citations')}
@@ -148,59 +170,63 @@
 					<p class="text-amber-600">No hay información disponible</p>
 				{/if}
 			{:else if activeTab === 'taxonomy'}
-				{#if taxonomyRows.length > 0}
+				{@const row = currentTaxonomyRow()}
+				{#if row}
 					<div class="space-y-4">
 						{#if agroPage?.taxonomyTitle}
 							<div class="rounded-t bg-orange-600 py-2 text-center text-sm font-medium text-white">
 								{agroPage.taxonomyTitle}
 							</div>
 						{/if}
-						<div class="space-y-6">
-							{#each taxonomyRows as row}
-								<div class="rounded border border-amber-200 bg-amber-50/50 p-4">
-									<div class="space-y-2 text-sm">
-										{#if row.nombreComun}
-											<div class="flex justify-between">
-												<span class="font-medium text-amber-700">Nombre común</span>
-												<span class="text-amber-900">{row.nombreComun}</span>
-											</div>
-										{/if}
-										{#if row.tipo}
-											<div class="flex justify-between">
-												<span class="font-medium text-amber-700">Tipo</span>
-												<span class="text-amber-900">{row.tipo}</span>
-											</div>
-										{/if}
-										{#if row.orden}
-											<div class="flex justify-between">
-												<span class="font-medium text-amber-700">Orden</span>
-												<span class="text-amber-900">{row.orden}</span>
-											</div>
-										{/if}
-										{#if row.familia}
-											<div class="flex justify-between">
-												<span class="font-medium text-amber-700">Familia</span>
-												<span class="text-amber-900">{row.familia}</span>
-											</div>
-										{/if}
-										{#if row.genero}
-											<div class="flex justify-between">
-												<span class="font-medium text-amber-700">Género</span>
-												<span class="text-amber-900">{row.genero}</span>
-											</div>
-										{/if}
-										{#if row.especie}
-											<div class="flex justify-between">
-												<span class="font-medium text-amber-700">Especie</span>
-												<span class="italic text-amber-900">{row.especie}</span>
-											</div>
-										{/if}
+						<div class="rounded border border-amber-200 bg-amber-50/50 p-4">
+							<div class="space-y-2 text-sm">
+								{#if row.nombreComun}
+									<div class="flex justify-between">
+										<span class="font-medium text-amber-700">Nombre común</span>
+										<span class="text-amber-900">{row.nombreComun}</span>
 									</div>
-								</div>
-							{/each}
+								{/if}
+								{#if row.tipo}
+									<div class="flex justify-between">
+										<span class="font-medium text-amber-700">Tipo</span>
+										<span class="text-amber-900">{row.tipo}</span>
+									</div>
+								{/if}
+								{#if row.orden}
+									<div class="flex justify-between">
+										<span class="font-medium text-amber-700">Orden</span>
+										<span class="text-amber-900">{row.orden}</span>
+									</div>
+								{/if}
+								{#if row.familia}
+									<div class="flex justify-between">
+										<span class="font-medium text-amber-700">Familia</span>
+										<span class="text-amber-900">{row.familia}</span>
+									</div>
+								{/if}
+								{#if row.genero}
+									<div class="flex justify-between">
+										<span class="font-medium text-amber-700">Género</span>
+										<span class="text-amber-900">{row.genero}</span>
+									</div>
+								{/if}
+								{#if row.especie}
+									<div class="flex justify-between">
+										<span class="font-medium text-amber-700">Especie</span>
+										<span class="italic text-amber-900">{row.especie}</span>
+									</div>
+								{/if}
+							</div>
 						</div>
 					</div>
 				{:else}
+					<div class="flex h-full items-center justify-center p-6">
+						<p class="text-center leading-relaxed text-amber-700">
+							Esta es la planta. Ve a una imagen de plaga para ver la clasificación de plagas.
+						</p>
+					</div>
+				{/if}
+				{#if taxonomyRows.length === 0}
 					<p class="text-amber-600">No hay información de clasificación disponible</p>
 				{/if}
 			{:else if activeTab === 'citations'}

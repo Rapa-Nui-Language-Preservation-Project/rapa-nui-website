@@ -118,8 +118,8 @@ export type AgroecologyRecord = {
 	description?: string;
 	id: string;
 	images?: RecordIdString[];
-	locationArea?: string;
-	locationName?: string;
+	plantName?: string;
+	spanishName?: string;
 	scientificName?: string;
 	taxonomyTitle?: string;
 	taxonomy_rows?: RecordIdString[];
@@ -132,6 +132,7 @@ export type AgroecologyImagesRecord = {
 	image?: string;
 	order?: number;
 	page?: RecordIdString;
+	taxonomy?: RecordIdString;
 	title?: string;
 	updated?: IsoDateString;
 };
