@@ -7,7 +7,6 @@
 		faMapMarkerAlt,
 		faCrow,
 		faCirclePlay,
-		faBook,
 		faLeaf
 	} from '@fortawesome/free-solid-svg-icons';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
@@ -42,8 +41,6 @@
 							<Fa icon={faLightbulb} color="orange" size="2x" />
 						{:else if layerName.startsWith('Hist')}
 							<Fa icon={faCirclePlay} color="green" size="2x" />
-						{:else if layerName.startsWith('Macro')}
-							<Fa icon={faBook} color="black" size="2x" />
 						{:else if layerName.startsWith('Agro')}
 							<Fa icon={faLeaf} color="#15803d" size="2x" />
 						{:else}
