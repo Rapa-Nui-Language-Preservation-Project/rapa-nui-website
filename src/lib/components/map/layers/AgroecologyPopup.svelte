@@ -25,7 +25,8 @@
 			canScrollPrev = imageAPI.canScrollPrev();
 			canScrollNext = imageAPI.canScrollNext();
 
-			return () => { //Cleanup function to prevent memory leaks
+			return () => {
+				//Cleanup function to prevent memory leaks
 				imageAPI!.off('select', handleSelect);
 			};
 		}
@@ -74,6 +75,16 @@
 		}
 
 		return null;
+	});
+
+	// Check if current image has taxonomy data (for showing/hiding the tab)
+	const hasTaxonomy = $derived(() => currentTaxonomyRow() !== null);
+
+	// Auto-switch to info tab if taxonomy tab is active but no taxonomy exists
+	$effect(() => {
+		if (activeTab === 'taxonomy' && !hasTaxonomy()) {
+			activeTab = 'info';
+		}
 	});
 </script>
 
@@ -183,16 +194,18 @@
 			>
 				Descripción de la Planta
 			</button>
-			<button
-				onclick={() => (activeTab = 'taxonomy')}
-				class={`flex-1 py-3 text-sm font-medium transition-colors ${
-					activeTab === 'taxonomy'
-						? 'border-b-2 border-orange-600 text-orange-600'
-						: 'text-amber-600 hover:text-amber-900'
-				}`}
-			>
-				Clasificación de Plagas
-			</button>
+			{#if hasTaxonomy()}
+				<button
+					onclick={() => (activeTab = 'taxonomy')}
+					class={`flex-1 py-3 text-sm font-medium transition-colors ${
+						activeTab === 'taxonomy'
+							? 'border-b-2 border-orange-600 text-orange-600'
+							: 'text-amber-600 hover:text-amber-900'
+					}`}
+				>
+					Clasificación de Plagas
+				</button>
+			{/if}
 			<button
 				onclick={() => (activeTab = 'citations')}
 				class={`flex-1 py-3 text-sm font-medium transition-colors ${
@@ -263,15 +276,6 @@
 							</div>
 						</div>
 					</div>
-				{:else}
-					<div class="flex h-full items-center justify-center p-6">
-						<p class="text-center leading-relaxed text-amber-700">
-							Esta es la planta. Ve a una imagen de plaga para ver la clasificación de plagas.
-						</p>
-					</div>
-				{/if}
-				{#if taxonomyRows.length === 0}
-					<p class="text-amber-600">No hay información de clasificación disponible</p>
 				{/if}
 			{:else if activeTab === 'citations'}
 				{#if agroPage?.citations}
