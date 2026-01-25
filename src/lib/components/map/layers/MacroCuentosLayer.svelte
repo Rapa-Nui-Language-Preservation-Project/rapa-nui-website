@@ -2,7 +2,6 @@
 	import type { ExpandedLocation } from '$lib/expanded-models';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import type { CarouselAPI } from '$lib/components/ui/carousel/context.js';
-	import { formatTextWithBreaks } from '$lib/formatText';
 
 	let { location }: { location: ExpandedLocation } = $props();
 	let storyAPI = $state<CarouselAPI>();
@@ -49,10 +48,8 @@
 			{location.expand.story[0].author}
 		</h2>
 
-		<p class="mt-2 max-w-prose px-4 text-justify text-lg">
-			{@html formatTextWithBreaks(
-				showSpanish ? location.expand.story[0].text_spanish : location.expand.story[0].text_rapanui
-			)}
+		<p class="mt-2 max-w-prose whitespace-pre-line px-4 text-justify text-lg">
+			{showSpanish ? location.expand.story[0].text_spanish : location.expand.story[0].text_rapanui}
 		</p>
 	</div>
 {:else if location.expand.story?.length > 1}
