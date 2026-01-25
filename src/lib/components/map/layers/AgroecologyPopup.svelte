@@ -58,15 +58,15 @@
 	const taxonomyRows = $derived(agroPage?.expand?.taxonomy_rows || []);
 
 	// Get the current image
-	const currentImage = $derived(() => {
+	const currentImage = $derived.by(() => {
 		if (images.length === 0) return null;
 		const index = imageCurrent - 1; // imageCurrent is 1-indexed
 		return images[index] || images[0];
 	});
 
 	// Get the current taxonomy row based on the current image's linked taxonomy
-	const currentTaxonomyRow = $derived(() => {
-		const img = currentImage();
+	const currentTaxonomyRow = $derived.by(() => {
+		const img = currentImage;
 		if (!img) return null;
 
 		// If image has a linked taxonomy, find it
@@ -78,11 +78,11 @@
 	});
 
 	// Check if current image has taxonomy data (for showing/hiding the tab)
-	const hasTaxonomy = $derived(() => currentTaxonomyRow() !== null);
+	const hasTaxonomy = $derived(currentTaxonomyRow !== null);
 
 	// Auto-switch to info tab if taxonomy tab is active but no taxonomy exists
 	$effect(() => {
-		if (activeTab === 'taxonomy' && !hasTaxonomy()) {
+		if (activeTab === 'taxonomy' && !hasTaxonomy) {
 			activeTab = 'info';
 		}
 	});
@@ -194,7 +194,7 @@
 			>
 				Descripción de la Planta
 			</button>
-			{#if hasTaxonomy()}
+			{#if hasTaxonomy}
 				<button
 					onclick={() => (activeTab = 'taxonomy')}
 					class={`flex-1 py-3 text-sm font-medium transition-colors ${
@@ -227,7 +227,7 @@
 					<p class="text-amber-600">No hay información disponible</p>
 				{/if}
 			{:else if activeTab === 'taxonomy'}
-				{@const row = currentTaxonomyRow()}
+				{@const row = currentTaxonomyRow}
 				{#if row}
 					<div class="space-y-4">
 						{#if agroPage?.taxonomyTitle}
