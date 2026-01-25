@@ -54,7 +54,7 @@
 				{:else if layer.name.startsWith('Hist')}
 					<Fa icon={faCirclePlay} color="green" />
 				{:else if layer.name.startsWith('Macro')}
-					<Fa icon={faBook} color="black" />
+					<Fa icon={faBook} color="purple" />
 				{:else}
 					<Fa icon={faMapMarkerAlt} color="white" />
 				{/if}

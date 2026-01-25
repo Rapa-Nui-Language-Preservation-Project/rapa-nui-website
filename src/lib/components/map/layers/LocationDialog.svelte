@@ -42,7 +42,7 @@
 						{:else if layerName.startsWith('Hist')}
 							<Fa icon={faCirclePlay} color="green" size="2x" />
 						{:else if layerName.startsWith('Macro')}
-							<Fa icon={faBook} color="black" size="2x" />
+							<Fa icon={faBook} color="purple" size="2x" />
 						{:else}
 							<Fa icon={faMapMarkerAlt} color="white" size="2x" />
 						{/if}

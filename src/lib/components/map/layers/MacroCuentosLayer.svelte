@@ -21,7 +21,10 @@
 </script>
 
 {#if location.expand.story?.length == 1}
-	<div class="relative flex flex-col items-center justify-center text-center">
+	<div
+		class="relative flex flex-col items-center justify-center text-center"
+		style="font-family: 'Merriweather', serif;"
+	>
 		<img
 			src={location.expand.story[0].field}
 			alt={location.expand.story[0].image_title}
@@ -38,12 +41,15 @@
 			{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
 		</button>
 
-		<h2 class="mt-4 text-xl font-semibold">
+		<h class="mt-4 text-4xl font-bold">
 			{showSpanish ? location.expand.story[0].title_spanish : location.expand.story[0].title}
+		</h>
+
+		<h2 class="mb-4 mt-2 text-xl font-semibold text-amber-800">
+			{location.expand.story[0].author}
 		</h2>
 
-		<!-- Option 1: max-w-prose; Option 2: max-w-2xl -->
-		<p class="mt-2 max-w-2xl px-4 text-justify">
+		<p class="mt-2 max-w-prose px-4 text-justify text-lg">
 			{@html formatTextWithBreaks(
 				showSpanish ? location.expand.story[0].text_spanish : location.expand.story[0].text_rapanui
 			)}
