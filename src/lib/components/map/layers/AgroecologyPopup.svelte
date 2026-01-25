@@ -14,15 +14,20 @@
 
 	$effect(() => {
 		if (imageAPI) {
+			const handleSelect = () => {
+				imageCurrent = imageAPI!.selectedScrollSnap() + 1;
+				canScrollPrev = imageAPI!.canScrollPrev();
+				canScrollNext = imageAPI!.canScrollNext();
+			};
+
+			imageAPI.on('select', handleSelect);
 			imageCurrent = imageAPI.selectedScrollSnap() + 1;
 			canScrollPrev = imageAPI.canScrollPrev();
 			canScrollNext = imageAPI.canScrollNext();
 
-			imageAPI.on('select', () => {
-				imageCurrent = imageAPI!.selectedScrollSnap() + 1;
-				canScrollPrev = imageAPI!.canScrollPrev();
-				canScrollNext = imageAPI!.canScrollNext();
-			});
+			return () => { //Cleanup function to prevent memory leaks
+				imageAPI!.off('select', handleSelect);
+			};
 		}
 	});
 
@@ -72,7 +77,7 @@
 	});
 </script>
 
-<div class="flex h-full max-w-full flex-col overflow-hidden md:flex-row">
+<div class="agroecology-wrapper flex h-full max-w-full flex-col overflow-hidden md:flex-row">
 	<!-- Left Panel - Images -->
 	<div class="flex flex-col bg-amber-100/50 p-6 md:w-1/2 md:self-start">
 		{#if images.length > 0}
