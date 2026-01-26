@@ -127,6 +127,7 @@
 		role="dialog"
 		aria-modal="true"
 		aria-label="Fullscreen image viewer"
+		tabindex="-1"
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
 		onclick={closeFullImage}
 		onkeydown={(e) => {
@@ -162,8 +163,6 @@
 			src={selectedImageUrl}
 			alt={selectedImageTitle || 'Full size image'}
 			class="max-h-full max-w-full object-contain"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
 		/>
 	</div>
 {/if}
