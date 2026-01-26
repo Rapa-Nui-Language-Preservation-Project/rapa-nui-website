@@ -62,7 +62,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 				}
 
 				// Handle agroecology images
-				if (location.expand.agroecology?.expand?.images) {
+				if (location.expand?.agroecology?.expand?.images) {
 					for (const image of location.expand.agroecology.expand.images) {
 						if (image.image) {
 							image.file = getPublicFileURL(image, image.image);
