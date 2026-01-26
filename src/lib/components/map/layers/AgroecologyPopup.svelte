@@ -320,15 +320,14 @@
 				/>
 			</svg>
 		</button>
-		<div
-			class="max-h-full max-w-full"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
-		>
+		<div class="max-h-full max-w-full">
 			<img
 				src={modalImageSrc}
 				alt={modalImageTitle}
 				class="max-h-[90vh] max-w-full object-contain"
+				onclick={(e) => e.stopPropagation()}
+				onkeydown={(e) => e.stopPropagation()}
+				role="presentation"
 			/>
 			{#if modalImageTitle}
 				<p class="mt-4 text-center font-serif text-lg text-white">{modalImageTitle}</p>
