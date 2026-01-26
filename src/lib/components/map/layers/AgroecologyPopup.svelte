@@ -27,7 +27,7 @@
 
 			return () => {
 				//Cleanup function to prevent memory leaks
-				imageAPI!.off('select', handleSelect);
+				imageAPI?.off('select', handleSelect);
 			};
 		}
 	});
