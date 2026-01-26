@@ -324,8 +324,6 @@
 			class="max-h-full max-w-full"
 			onclick={(e) => e.stopPropagation()}
 			onkeydown={(e) => e.stopPropagation()}
-			role="button"
-			tabindex="0"
 		>
 			<img
 				src={modalImageSrc}
