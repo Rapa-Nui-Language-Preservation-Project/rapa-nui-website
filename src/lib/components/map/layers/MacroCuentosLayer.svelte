@@ -9,17 +9,20 @@
 	let storyCurrent = $state(0);
 	let showSpanish = $state(false);
 
+	function handleSelect() {
+		if (!storyAPI) return;
+		storyCurrent = storyAPI.selectedScrollSnap() + 1;
+	}
+
 	$effect(() => {
 		if (!storyAPI) return;
-		const onSelect = () => {
-			if (!storyAPI) return;
-			storyCurrent = storyAPI.selectedScrollSnap() + 1;
-		};
+
 		storyCurrent = storyAPI.selectedScrollSnap() + 1;
-		storyAPI.on('select', onSelect);
+		storyAPI.on('select', handleSelect);
+
 		return () => {
 			if (!storyAPI) return;
-			storyAPI.off('select', onSelect);
+			storyAPI.off('select', handleSelect);
 		};
 	});
 </script>
