@@ -54,7 +54,8 @@
 			/>
 			<div
 				class="absolute right-2 top-2 rounded-full bg-blue-600/70 p-2 opacity-0 transition-opacity group-hover:opacity-100"
-			> <!-- magnifying glass icon -->
+			>
+				<!-- magnifying glass icon -->
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-5 w-5 text-white"
@@ -123,18 +124,21 @@
 <!-- Fullscreen Image Modal -->
 {#if showFullImage && selectedImageUrl}
 	<div
-		role="button"
-		tabindex="0"
+		role="dialog"
+		aria-modal="true"
+		aria-label="Fullscreen image viewer"
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
 		onclick={closeFullImage}
 		onkeydown={(e) => {
-			if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+			if (e.key === 'Escape') {
+				e.preventDefault();
 				closeFullImage();
 			}
 		}}
 	>
 		<button
 			type="button"
+			aria-label="Close fullscreen image"
 			class="absolute right-4 top-4 rounded-full bg-white p-2 text-black hover:bg-gray-200"
 			onclick={closeFullImage}
 		>
@@ -148,6 +152,7 @@
 				stroke-width="2"
 				stroke-linecap="round"
 				stroke-linejoin="round"
+				aria-hidden="true"
 			>
 				<line x1="18" y1="6" x2="6" y2="18"></line>
 				<line x1="6" y1="6" x2="18" y2="18"></line>
@@ -158,6 +163,7 @@
 			alt={selectedImageTitle || 'Full size image'}
 			class="max-h-full max-w-full object-contain"
 			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.stopPropagation()}
 		/>
 	</div>
 {/if}
