@@ -10,12 +10,17 @@
 	let showSpanish = $state(false);
 
 	$effect(() => {
-		if (storyAPI) {
+		if (!storyAPI) return;
+		const onSelect = () => {
+			if (!storyAPI) return;
 			storyCurrent = storyAPI.selectedScrollSnap() + 1;
-			storyAPI.on('select', () => {
-				storyCurrent = storyAPI!.selectedScrollSnap() + 1;
-			});
-		}
+		};
+		storyCurrent = storyAPI.selectedScrollSnap() + 1;
+		storyAPI.on('select', onSelect);
+		return () => {
+			if (!storyAPI) return;
+			storyAPI.off('select', onSelect);
+		};
 	});
 </script>
 
@@ -40,9 +45,9 @@
 			{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
 		</button>
 
-		<h class="mt-4 text-4xl font-bold">
+		<h1 class="mt-4 text-4xl font-bold">
 			{showSpanish ? location.expand.story[0].title_spanish : location.expand.story[0].title}
-		</h>
+		</h1>
 
 		<h2 class="mb-4 mt-2 text-xl font-semibold text-amber-800">
 			{location.expand.story[0].author}
