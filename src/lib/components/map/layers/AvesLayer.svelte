@@ -12,6 +12,7 @@
 	let showFullImage = $state(false);
 	let selectedImageUrl = $state<string | null>(null);
 	let selectedImageTitle = $state<string | null>(null);
+	let closeButtonElement: HTMLButtonElement;
 
 	function openFullImage(url: string, title?: string) {
 		selectedImageUrl = url;
@@ -24,6 +25,13 @@
 		selectedImageUrl = null;
 		selectedImageTitle = null;
 	}
+
+	// Focus management for modal
+	$effect(() => {
+		if (showFullImage && closeButtonElement) {
+			closeButtonElement.focus();
+		}
+	});
 
 	$effect(() => {
 		if (mediaAPI) {
@@ -135,15 +143,17 @@
 		onkeydown={(e) => {
 			if (e.key === 'Escape') {
 				e.preventDefault();
+				e.stopPropagation();
 				closeFullImage();
 			}
 		}}
 	>
 		<button
+			bind:this={closeButtonElement}
 			type="button"
 			aria-label="Close fullscreen image"
 			class="absolute right-4 top-4 rounded-full bg-white p-2 text-black hover:bg-gray-200"
-			onclick={closeFullImage}
+			onclick={(e) => { e.stopPropagation(); closeFullImage(); }}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -165,6 +175,7 @@
 			src={selectedImageUrl}
 			alt={selectedImageTitle || 'Full size image'}
 			class="max-h-full max-w-full object-contain"
+			onclick={(e) => e.stopPropagation()}
 		/>
 	</div>
 {/if}
