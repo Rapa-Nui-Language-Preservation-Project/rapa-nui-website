@@ -153,7 +153,10 @@
 			type="button"
 			aria-label="Close fullscreen image"
 			class="absolute right-4 top-4 rounded-full bg-white p-2 text-black hover:bg-gray-200"
-			onclick={(e) => { e.stopPropagation(); closeFullImage(); }}
+			onclick={(e) => {
+				e.stopPropagation();
+				closeFullImage();
+			}}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

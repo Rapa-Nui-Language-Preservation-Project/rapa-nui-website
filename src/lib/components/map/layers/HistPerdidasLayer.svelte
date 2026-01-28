@@ -5,6 +5,7 @@
 
 	// Video modal state
 	let showLargeVideo = $state(false);
+	let closeButtonElement: HTMLButtonElement;
 
 	function openLargeVideo() {
 		showLargeVideo = true;
@@ -13,6 +14,13 @@
 	function closeLargeVideo() {
 		showLargeVideo = false;
 	}
+
+	// Focus management for modal
+	$effect(() => {
+		if (showLargeVideo && closeButtonElement) {
+			closeButtonElement.focus();
+		}
+	});
 </script>
 
 <h1 class="text-xl font-bold">{location.name}</h1>
@@ -21,14 +29,21 @@
 </p>
 {#if !showLargeVideo}
 	<div class="flex items-center justify-center px-4">
-		<button
-			type="button"
+		<div
+			role="button"
+			tabindex="0"
 			onclick={openLargeVideo}
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					openLargeVideo();
+				}
+			}}
 			class="group relative w-full cursor-pointer"
 			style="max-width: min(100%, 75vh * 16 / 9);"
 			title="Clic para ver video más grande"
 		>
-			<div>
+			<div style="pointer-events: none;">
 				<Youtube id={location.description_rapa_nui} thumbnail={undefined} play_button={undefined} />
 			</div>
 			<div
@@ -47,7 +62,7 @@
 					<path d="M7 17L17 7M17 7H8M17 7V16" />
 				</svg>
 			</div>
-		</button>
+		</div>
 	</div>
 {/if}
 
@@ -63,15 +78,20 @@
 		onkeydown={(e) => {
 			if (e.key === 'Escape') {
 				e.preventDefault();
+				e.stopPropagation();
 				closeLargeVideo();
 			}
 		}}
 	>
 		<button
+			bind:this={closeButtonElement}
 			type="button"
 			aria-label="Close video"
 			class="absolute right-4 top-4 rounded-full bg-white p-2 text-black hover:bg-gray-200"
-			onclick={closeLargeVideo}
+			onclick={(e) => {
+				e.stopPropagation();
+				closeLargeVideo();
+			}}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
