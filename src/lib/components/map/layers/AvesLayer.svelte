@@ -12,7 +12,7 @@
 	let showFullImage = $state(false);
 	let selectedImageUrl = $state<string | null>(null);
 	let selectedImageTitle = $state<string | null>(null);
-	let closeButtonElement: HTMLButtonElement;
+	let closeButtonElement = $state<HTMLButtonElement>();
 
 	function openFullImage(url: string, title?: string) {
 		selectedImageUrl = url;
@@ -178,7 +178,6 @@
 			src={selectedImageUrl}
 			alt={selectedImageTitle || 'Full size image'}
 			class="max-h-full max-w-full object-contain"
-			onclick={(e) => e.stopPropagation()}
 		/>
 	</div>
 {/if}
