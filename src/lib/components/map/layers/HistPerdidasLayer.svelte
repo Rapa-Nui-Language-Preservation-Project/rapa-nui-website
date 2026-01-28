@@ -6,13 +6,17 @@
 	// Video modal state
 	let showLargeVideo = $state(false);
 	let closeButtonElement: HTMLButtonElement;
+	let previouslyFocusedElement: HTMLElement | null = null;
 
 	function openLargeVideo() {
+		previouslyFocusedElement = document.activeElement as HTMLElement;
 		showLargeVideo = true;
 	}
 
 	function closeLargeVideo() {
 		showLargeVideo = false;
+		previouslyFocusedElement?.focus();
+		previouslyFocusedElement = null;
 	}
 
 	// Focus management for modal
