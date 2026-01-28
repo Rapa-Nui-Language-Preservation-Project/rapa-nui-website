@@ -40,17 +40,18 @@
 	{location.description_espanol}
 </p>
 {#if location.expand.media?.length == 1}
-	<div class="flex flex-col items-center justify-center text-center">
+	<div class="flex flex-col items-center justify-center px-4 text-center">
 		<button
 			type="button"
 			onclick={() => openFullImage(location.expand.media[0].file, location.expand.media[0].title)}
 			class="group relative cursor-pointer"
+			style="max-width: min(100%, 70vh * 4 / 3);"
 			title="Clic para ver imagen completa"
 		>
 			<img
 				src={location.expand.media[0].file}
 				alt={location.expand.media[0].description}
-				class="max-h-[400px] w-auto object-contain transition-transform group-hover:scale-[1.02]"
+				class="max-h-[70vh] w-auto object-contain transition-transform group-hover:scale-[1.02]"
 			/>
 			<div
 				class="absolute right-2 top-2 rounded-full bg-blue-600/70 p-2 opacity-0 transition-opacity group-hover:opacity-100"
@@ -77,6 +78,7 @@
 		<Carousel.Root
 			setApi={(emblaApi) => (mediaAPI = emblaApi)}
 			class="flex w-fit flex-col items-center justify-center text-center"
+			style="max-width: min(100%, 70vh * 4 / 3);"
 		>
 			<Carousel.Content>
 				{#each location.expand.media || [] as media}
@@ -90,7 +92,7 @@
 							<img
 								src={media.file}
 								alt={media.description}
-								class="max-h-[400px] w-auto object-contain transition-transform group-hover:scale-[1.02]"
+								class="max-h-[70vh] w-auto object-contain transition-transform group-hover:scale-[1.02]"
 							/>
 							<div
 								class="absolute right-2 top-2 rounded-full bg-blue-600/70 p-2 opacity-0 transition-opacity group-hover:opacity-100"
