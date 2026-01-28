@@ -5,7 +5,7 @@
 
 	// Video modal state
 	let showLargeVideo = $state(false);
-	let closeButtonElement: HTMLButtonElement;
+	let closeButtonElement = $state<HTMLButtonElement>();
 	let previouslyFocusedElement: HTMLElement | null = null;
 
 	function openLargeVideo() {
