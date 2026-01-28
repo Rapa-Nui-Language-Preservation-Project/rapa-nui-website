@@ -20,14 +20,15 @@
 	{location.description_espanol}
 </p>
 {#if !showLargeVideo}
-	<div class="flex items-center justify-center">
+	<div class="flex items-center justify-center px-4">
 		<button
 			type="button"
 			onclick={openLargeVideo}
-			class="group relative w-full max-w-2xl cursor-pointer"
+			class="group relative w-full cursor-pointer"
+			style="max-width: min(100%, 75vh * 16 / 9);"
 			title="Clic para ver video más grande"
 		>
-			<div class="max-h-[400px] overflow-hidden">
+			<div>
 				<Youtube id={location.description_rapa_nui} thumbnail={undefined} play_button={undefined} />
 			</div>
 			<div
