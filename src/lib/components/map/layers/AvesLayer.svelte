@@ -13,8 +13,10 @@
 	let selectedImageUrl = $state<string | null>(null);
 	let selectedImageTitle = $state<string | null>(null);
 	let closeButtonElement = $state<HTMLButtonElement>();
+	let previousFocusedElement: HTMLElement | null = null;
 
 	function openFullImage(url: string, title?: string) {
+		previousFocusedElement = document.activeElement as HTMLElement;
 		selectedImageUrl = url;
 		selectedImageTitle = title || null;
 		showFullImage = true;
@@ -24,6 +26,10 @@
 		showFullImage = false;
 		selectedImageUrl = null;
 		selectedImageTitle = null;
+		if (previousFocusedElement && document.contains(previousFocusedElement)) {
+			previousFocusedElement.focus();
+		}
+		previousFocusedElement = null;
 	}
 
 	// Focus management for modal
