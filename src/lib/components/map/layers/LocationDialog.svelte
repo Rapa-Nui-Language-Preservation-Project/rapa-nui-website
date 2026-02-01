@@ -7,7 +7,7 @@
 		faMapMarkerAlt,
 		faCrow,
 		faCirclePlay,
-		faLeaf
+		faLeaf,
 		faBook
 	} from '@fortawesome/free-solid-svg-icons';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
