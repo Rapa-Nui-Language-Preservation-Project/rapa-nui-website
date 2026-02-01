@@ -47,9 +47,9 @@
 				{#if layer.name.startsWith('Aves')}
 					<Fa icon={faCrow} color="blue" />
 				{:else if layer.name.startsWith('A ‘AMU')}
-					<Fa icon={faBookOpen} color="purple" />
+					<Fa icon={faBookOpen} color="black" />
 				{:else if layer.name.startsWith('Koro')}
-					<Fa icon={faLightbulb} color="orange" />
+					<Fa icon={faLightbulb} color="#0872C9" />
 				{:else if layer.name.startsWith('Hist')}
 					<Fa icon={faCirclePlay} color="green" />
 				{:else}
