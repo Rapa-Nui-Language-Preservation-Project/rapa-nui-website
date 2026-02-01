@@ -7,7 +7,7 @@
 		faMapMarkerAlt,
 		faCrow,
 		faCirclePlay,
-		faLeaf
+		faLeaf,
 		faBook
 	} from '@fortawesome/free-solid-svg-icons';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
