@@ -12,6 +12,9 @@ export enum Collections {
 	Otps = '_otps',
 	Superusers = '_superusers',
 	Actividad = 'actividad',
+	Agroecology = 'agroecology',
+	AgroecologyImages = 'agroecology_images',
+	AgroecologyTaxonomyRows = 'agroecology_taxonomy_rows',
 	Layers = 'layers',
 	Locations = 'locations',
 	Media = 'media',
@@ -109,11 +112,51 @@ export type ActividadRecord<Tpruebas = unknown> = {
 	updated?: IsoDateString;
 };
 
+export type AgroecologyRecord = {
+	citations?: string;
+	created?: IsoDateString;
+	description?: string;
+	id: string;
+	images?: RecordIdString[];
+	plantName?: string;
+	spanishName?: string;
+	scientificName?: string;
+	taxonomyTitle?: string;
+	taxonomy_rows?: RecordIdString[];
+	updated?: IsoDateString;
+};
+
+export type AgroecologyImagesRecord = {
+	created?: IsoDateString;
+	id: string;
+	image?: string;
+	order?: number;
+	page?: RecordIdString;
+	taxonomy?: RecordIdString;
+	title?: string;
+	updated?: IsoDateString;
+};
+
+export type AgroecologyTaxonomyRowsRecord = {
+	created?: IsoDateString;
+	especie?: string;
+	familia?: string;
+	genero?: string;
+	id: string;
+	nombreComun?: string;
+	orden?: string;
+	order?: number;
+	page?: RecordIdString;
+	tipo?: string;
+	updated?: IsoDateString;
+};
+
 export type LayersRecord = {
 	cover_photo?: string[];
 	created?: IsoDateString;
 	description?: string;
 	id: string;
+	isRight?: boolean;
 	locations?: RecordIdString[];
 	name?: string;
 	updated?: IsoDateString;
@@ -130,6 +173,7 @@ export enum LocationsTypeOptions {
 }
 export type LocationsRecord = {
 	actividad?: RecordIdString[];
+	agroecology?: RecordIdString;
 	created?: IsoDateString;
 	description_espanol?: string;
 	description_rapa_nui?: string;
@@ -209,6 +253,12 @@ export type ActividadResponse<Tpruebas = unknown, Texpand = unknown> = Required<
 	ActividadRecord<Tpruebas>
 > &
 	BaseSystemFields<Texpand>;
+export type AgroecologyResponse<Texpand = unknown> = Required<AgroecologyRecord> &
+	BaseSystemFields<Texpand>;
+export type AgroecologyImagesResponse<Texpand = unknown> = Required<AgroecologyImagesRecord> &
+	BaseSystemFields<Texpand>;
+export type AgroecologyTaxonomyRowsResponse<Texpand = unknown> =
+	Required<AgroecologyTaxonomyRowsRecord> & BaseSystemFields<Texpand>;
 export type LayersResponse<Texpand = unknown> = Required<LayersRecord> & BaseSystemFields<Texpand>;
 export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> &
 	BaseSystemFields<Texpand>;
@@ -228,6 +278,9 @@ export type CollectionRecords = {
 	_otps: OtpsRecord;
 	_superusers: SuperusersRecord;
 	actividad: ActividadRecord;
+	agroecology: AgroecologyRecord;
+	agroecology_images: AgroecologyImagesRecord;
+	agroecology_taxonomy_rows: AgroecologyTaxonomyRowsRecord;
 	layers: LayersRecord;
 	locations: LocationsRecord;
 	media: MediaRecord;
@@ -243,6 +296,9 @@ export type CollectionResponses = {
 	_otps: OtpsResponse;
 	_superusers: SuperusersResponse;
 	actividad: ActividadResponse;
+	agroecology: AgroecologyResponse;
+	agroecology_images: AgroecologyImagesResponse;
+	agroecology_taxonomy_rows: AgroecologyTaxonomyRowsResponse;
 	layers: LayersResponse;
 	locations: LocationsResponse;
 	media: MediaResponse;
@@ -261,6 +317,9 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: '_otps'): RecordService<OtpsResponse>;
 	collection(idOrName: '_superusers'): RecordService<SuperusersResponse>;
 	collection(idOrName: 'actividad'): RecordService<ActividadResponse>;
+	collection(idOrName: 'agroecology'): RecordService<AgroecologyResponse>;
+	collection(idOrName: 'agroecology_images'): RecordService<AgroecologyImagesResponse>;
+	collection(idOrName: 'agroecology_taxonomy_rows'): RecordService<AgroecologyTaxonomyRowsResponse>;
 	collection(idOrName: 'layers'): RecordService<LayersResponse>;
 	collection(idOrName: 'locations'): RecordService<LocationsResponse>;
 	collection(idOrName: 'media'): RecordService<MediaResponse>;
