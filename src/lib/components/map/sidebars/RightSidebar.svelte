@@ -27,7 +27,10 @@
 		</div>
 		<div class="mt-4 space-y-1 text-center">
 			<p class="text-sm font-semibold text-amber-800">Mai ki hāpi tātou</p>
-			<a href="/language" class="group relative my-2 block aspect-[16/10] overflow-hidden rounded bg-white">
+			<a
+				href="/language"
+				class="group relative my-2 block aspect-[16/10] overflow-hidden rounded bg-white"
+			>
 				<img
 					src="/language/mai-ki-hapi-tatou-salmon-cover.png"
 					alt="Mai ki hāpi tātou - Materiales de aprendizaje de Rapa Nui"
@@ -36,7 +39,10 @@
 			</a>
 		</div>
 		<div class="mt-4">
-			<a href="/InaKoMou.pdf" class="group relative my-2 block aspect-[16/10] overflow-hidden rounded bg-white">
+			<a
+				href="/InaKoMou.pdf"
+				class="group relative my-2 block aspect-[16/10] overflow-hidden rounded bg-white"
+			>
 				<img
 					src="/InaKoMouCover.png"
 					alt="Ina Ko Mou Cover"
