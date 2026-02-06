@@ -75,12 +75,12 @@
 						{ lng: -109, lat: -26.96 }
 					]}
 				>
-					<MarkerPopup
-						layers={selectedLayerId
-							? [layers.find((l) => l.id === selectedLayerId)!].filter(Boolean)
-							: [...layers]}
-						{pruebas}
-					/>
+					{#if selectedLayerId}
+						{@const selectedLayer = layers.find((l) => l.id === selectedLayerId)}
+						{#if selectedLayer}
+							<MarkerPopup layers={[selectedLayer]} {pruebas} />
+						{/if}
+					{/if}
 				</MapLibre>
 			{:else if selectedBase === 'Rapa Nui'}
 				{#if calibrate}
