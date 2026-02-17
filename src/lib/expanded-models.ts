@@ -4,13 +4,27 @@ import type {
 	MediaResponse,
 	StoriesResponse,
 	ActividadResponse,
-	PruebasResponse
+	PruebasResponse,
+	AgroecologyResponse,
+	AgroecologyImagesResponse,
+	AgroecologyTaxonomyRowsResponse
 } from '$lib/pocketbase-types';
+
+// Custom type for agroecology images with transformed file URL
+export type ExpandedAgroecologyImage = AgroecologyImagesResponse & {
+	file?: string; // Transformed URL from image field
+};
+
+type AgroecologyExpand = {
+	images: ExpandedAgroecologyImage[];
+	taxonomy_rows: AgroecologyTaxonomyRowsResponse[];
+};
 
 type LocationExpand = {
 	media: MediaResponse[];
 	story: StoriesResponse[];
 	actividad: ActividadResponse<unknown, ActividadExpand>[];
+	agroecology?: AgroecologyResponse<AgroecologyExpand>;
 };
 
 type LayerExpand = {

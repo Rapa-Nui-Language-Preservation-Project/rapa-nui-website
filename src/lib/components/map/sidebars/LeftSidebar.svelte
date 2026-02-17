@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { ExpandedLayer } from '$lib/expanded-models';
 	import LayerToggler from './toggles/LayerToggler.svelte';
-	export let layers: ExpandedLayer[] = [];
-	export let selectedLayerId: string | null;
-	export let visible = true;
+
+	let { layers = [], selectedLayerId = $bindable(), visible = true } = $props();
+
+	const leftLayers = $derived(layers.filter((layer) => !layer.isRight));
 </script>
 
 <div
@@ -13,7 +13,7 @@
 >
 	<div class="p-6">
 		<div class="space-y-2">
-			<LayerToggler {layers} bind:selectedLayerId />
+			<LayerToggler layers={leftLayers} bind:selectedLayerId />
 		</div>
 	</div>
 </div>

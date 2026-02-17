@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const [layers, pruebas] = await Promise.all([
 		locals.pb.collection(Collections.Layers).getFullList({
 			expand:
-				'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media'
+				'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media,locations.agroecology,locations.agroecology.images,locations.agroecology.taxonomy_rows'
 		}) as Promise<ExpandedLayer[]>,
 		locals.pb.collection(Collections.Pruebas).getFullList()
 	]);
@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	// This loop is necessary to resolve the file URLs for all your media.
 	// We use getPublicFileURL to ensure URLs work for client-side browsers.
 	for (const layer of layers) {
-		if (layer.expand.locations) {
+		if (layer.expand?.locations) {
 			for (const location of layer.expand.locations) {
 				// Handle media directly on the location
 				if (location.expand.media) {
@@ -57,6 +57,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 							for (const mediaItem of actividad.expand.media) {
 								mediaItem.file = getPublicFileURL(mediaItem, mediaItem.file);
 							}
+						}
+					}
+				}
+
+				// Handle agroecology images
+				if (location.expand?.agroecology?.expand?.images) {
+					for (const image of location.expand.agroecology.expand.images) {
+						if (image.image) {
+							image.file = getPublicFileURL(image, image.image);
 						}
 					}
 				}

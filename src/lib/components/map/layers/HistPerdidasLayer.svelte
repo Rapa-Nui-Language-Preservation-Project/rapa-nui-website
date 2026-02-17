@@ -2,12 +2,123 @@
 	import type { ExpandedLocation } from '$lib/expanded-models';
 	import Youtube from 'svelte-youtube-embed';
 	let { location }: { location: ExpandedLocation } = $props();
+
+	// Video modal state
+	let showLargeVideo = $state(false);
+	let closeButtonElement = $state<HTMLButtonElement>();
+	let previouslyFocusedElement: HTMLElement | null = null;
+
+	function openLargeVideo() {
+		previouslyFocusedElement = document.activeElement as HTMLElement;
+		showLargeVideo = true;
+	}
+
+	function closeLargeVideo() {
+		showLargeVideo = false;
+		previouslyFocusedElement?.focus();
+		previouslyFocusedElement = null;
+	}
+
+	// Focus management for modal
+	$effect(() => {
+		if (showLargeVideo && closeButtonElement) {
+			closeButtonElement.focus();
+		}
+	});
 </script>
 
 <h1 class="text-xl font-bold">{location.name}</h1>
 <p class="text-md preserve-whitespace text-center font-normal">
 	{location.description_espanol}
 </p>
-<div class="h-full w-full">
-	<Youtube id={location.description_rapa_nui} thumbnail={undefined} play_button={undefined} />
-</div>
+{#if !showLargeVideo}
+	<div class="flex items-center justify-center px-4">
+		<div
+			role="button"
+			tabindex="0"
+			onclick={openLargeVideo}
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					openLargeVideo();
+				}
+			}}
+			class="group relative w-full cursor-pointer"
+			style="max-width: min(100%, 75vh * 16 / 9);"
+			title="Clic para ver video más grande"
+		>
+			<div style="pointer-events: none;">
+				<Youtube id={location.description_rapa_nui} thumbnail={undefined} play_button={undefined} />
+			</div>
+			<div
+				class="absolute right-2 top-2 rounded-full bg-green-600/70 p-2 opacity-0 transition-opacity group-hover:opacity-100"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5 text-white"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M7 17L17 7M17 7H8M17 7V16" />
+				</svg>
+			</div>
+		</div>
+	</div>
+{/if}
+
+<!-- Large Video Modal -->
+{#if showLargeVideo}
+	<div
+		role="dialog"
+		aria-modal="true"
+		aria-label="Large video player"
+		tabindex="-1"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+		onclick={closeLargeVideo}
+		onkeydown={(e) => {
+			if (e.key === 'Escape') {
+				e.preventDefault();
+				e.stopPropagation();
+				closeLargeVideo();
+			}
+		}}
+	>
+		<button
+			bind:this={closeButtonElement}
+			type="button"
+			aria-label="Close video"
+			class="absolute right-4 top-4 rounded-full bg-white p-2 text-black hover:bg-gray-200"
+			onclick={(e) => {
+				e.stopPropagation();
+				closeLargeVideo();
+			}}
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<line x1="18" y1="6" x2="6" y2="18"></line>
+				<line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+		<div
+			class="aspect-video w-[90vw] max-w-4xl"
+			onclick={(e) => e.stopPropagation()}
+			role="presentation"
+		>
+			<Youtube id={location.description_rapa_nui} thumbnail={undefined} play_button={undefined} />
+		</div>
+	</div>
+{/if}

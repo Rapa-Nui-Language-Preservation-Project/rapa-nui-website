@@ -52,7 +52,7 @@
 		<!-- Map Container -->
 		<div class="relative flex-1 bg-gray-900 transition-all duration-500 ease-in-out">
 			<div
-				class="pointer-events-none absolute left-1/2 top-8 z-10 -translate-x-[-50%] scale-90 transform rounded-lg bg-gradient-to-b from-amber-50 to-orange-50 px-6 py-3 font-serif text-amber-900 shadow-lg"
+				class="pointer-events-none absolute left-1/2 top-8 z-10 -translate-x-[-15%] scale-90 transform rounded-lg bg-gradient-to-b from-amber-50 to-orange-50 px-6 py-3 font-serif text-amber-900 shadow-lg"
 				style="font-family: 'Merriweather', serif;"
 			>
 				<h1 class="text-xl font-semibold tracking-wide md:text-3xl">
@@ -75,12 +75,12 @@
 						{ lng: -109, lat: -26.96 }
 					]}
 				>
-					<MarkerPopup
-						layers={selectedLayerId
-							? [layers.find((l) => l.id === selectedLayerId)!].filter(Boolean)
-							: [...layers]}
-						{pruebas}
-					/>
+					{#if selectedLayerId}
+						{@const selectedLayer = layers.find((l) => l.id === selectedLayerId)}
+						{#if selectedLayer}
+							<MarkerPopup layers={[selectedLayer]} {pruebas} />
+						{/if}
+					{/if}
 				</MapLibre>
 			{:else if selectedBase === 'Rapa Nui'}
 				{#if calibrate}
@@ -95,9 +95,15 @@
 			bind:leftVisible={leftSidebarVisible}
 			bind:rightVisible={rightSidebarVisible}
 		/>
-		<!-- Left Sidebar - Layers -->
+		<!-- Left Sidebar - Left Layers -->
 		<LeftSidebar {layers} bind:selectedLayerId visible={leftSidebarVisible} />
-		<!-- Right Sidebar - Map Style -->
-		<RightSidebar {bases} bind:selectedBase visible={rightSidebarVisible} />
+		<!-- Right Sidebar - Map Style & Layers -->
+		<RightSidebar
+			{bases}
+			{layers}
+			bind:selectedBase
+			bind:selectedLayerId
+			visible={rightSidebarVisible}
+		/>
 	</div>
 {/if}
