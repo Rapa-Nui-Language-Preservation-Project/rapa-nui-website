@@ -38,17 +38,17 @@
 						{#if layerName.startsWith('Aves')}
 							<Fa icon={faCrow} color="blue" size="2x" />
 						{:else if layerName.startsWith('A ‘AMU')}
-							<Fa icon={faBookOpen} color="purple" size="2x" />
+							<Fa icon={faBookOpen} color="blue" size="2x" />
 						{:else if layerName.startsWith('Koro')}
-							<Fa icon={faLightbulb} color="orange" size="2x" />
+							<Fa icon={faLightbulb} color="blue" size="2x" />
 						{:else if layerName.startsWith('Hist')}
-							<Fa icon={faCirclePlay} color="green" size="2x" />
+							<Fa icon={faCirclePlay} color="blue" size="2x" />
 						{:else if layerName.startsWith('Agro')}
-							<Fa icon={faLeaf} color="#15803d" size="2x" />
+							<Fa icon={faLeaf} color="blue" size="2x" />
 						{:else if layerName.startsWith('Macro')}
-							<Fa icon={faBook} color="purple" size="2x" />
+							<Fa icon={faBook} color="blue" size="2x" />
 						{:else}
-							<Fa icon={faMapMarkerAlt} color="white" size="2x" />
+							<Fa icon={faMapMarkerAlt} color="blue" size="2x" />
 						{/if}
 					</span>
 				</Tooltip.Trigger>

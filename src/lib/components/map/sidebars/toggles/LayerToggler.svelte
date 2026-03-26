@@ -49,17 +49,17 @@
 				{#if layer.name.startsWith('Aves')}
 					<Fa icon={faCrow} color="blue" />
 				{:else if layer.name.startsWith('A ‘AMU')}
-					<Fa icon={faBookOpen} color="purple" />
+					<Fa icon={faBookOpen} color="blue" />
 				{:else if layer.name.startsWith('Koro')}
-					<Fa icon={faLightbulb} color="orange" />
+					<Fa icon={faLightbulb} color="blue" />
 				{:else if layer.name.startsWith('Hist')}
-					<Fa icon={faCirclePlay} color="green" />
+					<Fa icon={faCirclePlay} color="blue" />
 				{:else if layer.name.startsWith('Agro')}
-					<Fa icon={faLeaf} color="#15803d" />
+					<Fa icon={faLeaf} color="blue" />
 				{:else if layer.name.startsWith('Macro')}
-					<Fa icon={faBook} color="purple" />
+					<Fa icon={faBook} color="blue" />
 				{:else}
-					<Fa icon={faMapMarkerAlt} color="white" />
+					<Fa icon={faMapMarkerAlt} color="blue" />
 				{/if}
 			</div>
 		</div>
