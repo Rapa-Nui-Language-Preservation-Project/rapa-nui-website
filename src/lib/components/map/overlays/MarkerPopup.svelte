@@ -5,7 +5,6 @@
 	import type { PruebasResponse } from '$lib/pocketbase-types';
 
 	let { layers, pruebas }: { layers: ExpandedLayer[]; pruebas: PruebasResponse[] } = $props();
-
 </script>
 
 {#each layers as layer (layer.id)}
