@@ -25,27 +25,22 @@
 		<div class="space-y-2">
 			<LayerToggler layers={rightLayers} bind:selectedLayerId />
 		</div>
-		<div class="mt-4 space-y-1 text-center">
-			<p class="text-sm font-semibold text-amber-800">Mai ki hāpi tātou</p>
+		<div class="group relative mt-4 overflow-hidden rounded-lg px-6 py-1">
+			<div
+				class="absolute left-0 top-0 h-full w-1.5 scale-y-0 bg-orange-600 transition-transform duration-300 ease-out group-hover:scale-y-100"
+			></div>
+			<p
+				class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
+			>
+				Mai ki Hāpī Tātou
+			</p>
 			<a
 				href="/language"
 				class="group relative my-2 block aspect-[16/10] overflow-hidden rounded bg-white"
 			>
 				<img
 					src="/language/mai-ki-hapi-tatou-salmon-cover.png"
-					alt="Mai ki hāpi tātou - Materiales de aprendizaje de Rapa Nui"
-					class="h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105"
-				/>
-			</a>
-		</div>
-		<div class="mt-4">
-			<a
-				href="/InaKoMou.pdf"
-				class="group relative my-2 block aspect-[16/10] overflow-hidden rounded bg-white"
-			>
-				<img
-					src="/InaKoMouCover.png"
-					alt="Ina Ko Mou Cover"
+					alt="Mai ki Hāpī Tātou - Materiales de aprendizaje de Rapa Nui"
 					class="h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105"
 				/>
 			</a>

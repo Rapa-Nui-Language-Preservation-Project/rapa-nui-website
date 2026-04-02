@@ -11,48 +11,12 @@
 		books: Book[];
 	}
 
-	const sections: Section[] = [
-		{
-			label: 'Serie Salmón',
-			books: [
-				{
-					title: 'Mai ki Hāpī Tātou',
-					subtitle: 'Repaso',
-					cover: '/language/salmon-1-cover.png',
-					pdf: '/language/mai ki hapi tatou salmon-1.pdf'
-				},
-				{
-					title: 'Mai ki Hāpī Tātou',
-					subtitle: 'Te Rua Puka',
-					cover: '/language/salmon-2-cover.png',
-					pdf: '/language/mai ki hapi tatou salmon-2.pdf'
-				},
-				{
-					title: 'Mai ki Hāpī Tātou',
-					subtitle: 'Te Rua Puka 2 — Segundo Libro',
-					cover: '/language/salmon-2-7-cover.png',
-					pdf: '/language/mai ki hapi tatou salmon-2-7.pdf'
-				},
-				{
-					title: 'Mai ki Hāpī Tātou',
-					subtitle: 'Guía Didáctica',
-					cover: '/language/salmon-3-cover.png',
-					pdf: '/language/mai ki hapi tatou salmon-3pdf.pdf'
-				}
-			]
-		},
-		{
-			label: 'Edición Verde',
-			books: [
-				{
-					title: 'Mai ki Hāpi Tātou',
-					subtitle: 'Edición Verde',
-					cover: '/language/verde-cover.png',
-					pdf: '/language/mai ki hapi tatou verde.pdf'
-				}
-			]
-		}
-	];
+	let { data } = $props<{
+		data: {
+			inaKoMouPdfUrl: string | null;
+			inaKoMouCoverUrl: string | null;
+		};
+	}>();
 
 	const defaultPosClasses = [
 		'left-1/2 top-0 -translate-x-1/2 -translate-y-1/2',
@@ -63,7 +27,67 @@
 		'left-0 top-1/2 -translate-x-1/2 -translate-y-1/2',
 		'right-0 top-1/2 translate-x-1/2 -translate-y-1/2'
 	];
-	const posClasses = sections.length === 2 ? twoItemPosClasses : defaultPosClasses;
+	const sections = $derived.by((): Section[] => {
+		const derivedSections: Section[] = [
+			{
+				label: 'Serie Salmón',
+				books: [
+					{
+						title: 'Mai ki Hāpī Tātou',
+						subtitle: 'Repaso',
+						cover: '/language/salmon-1-cover.png',
+						pdf: '/language/mai ki hapi tatou salmon-1.pdf'
+					},
+					{
+						title: 'Mai ki Hāpī Tātou',
+						subtitle: 'Te Rua Puka',
+						cover: '/language/salmon-2-cover.png',
+						pdf: '/language/mai ki hapi tatou salmon-2.pdf'
+					},
+					{
+						title: 'Mai ki Hāpī Tātou',
+						subtitle: 'Te Rua Puka 2 — Segundo Libro',
+						cover: '/language/salmon-2-7-cover.png',
+						pdf: '/language/mai ki hapi tatou salmon-2-7.pdf'
+					},
+					{
+						title: 'Mai ki Hāpī Tātou',
+						subtitle: 'Guía Didáctica',
+						cover: '/language/salmon-3-cover.png',
+						pdf: '/language/mai ki hapi tatou salmon-3pdf.pdf'
+					}
+				]
+			},
+			{
+				label: 'Edición Verde',
+				books: [
+					{
+						title: 'Mai ki Hāpi Tātou',
+						subtitle: 'Edición Verde',
+						cover: '/language/verde-cover.png',
+						pdf: '/language/mai ki hapi tatou verde.pdf'
+					}
+				]
+			}
+		];
+
+		if (data.inaKoMouPdfUrl && data.inaKoMouCoverUrl) {
+			derivedSections.push({
+				label: 'Ina Ko Mou',
+				books: [
+					{
+						title: 'Ina Ko Mou',
+						cover: data.inaKoMouCoverUrl,
+						pdf: data.inaKoMouPdfUrl
+					}
+				]
+			});
+		}
+
+		return derivedSections;
+	});
+
+	const posClasses = $derived(sections.length === 2 ? twoItemPosClasses : defaultPosClasses);
 
 	let selectedSection = $state<number | null>(null);
 
