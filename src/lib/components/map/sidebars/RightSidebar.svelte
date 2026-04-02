@@ -35,7 +35,7 @@
 				Mai ki Hāpī Tātou
 			</p>
 			<a
-				href="/language"
+				href="/lenguaje"
 				class="group relative my-2 block aspect-[16/10] overflow-hidden rounded bg-white"
 			>
 				<img
