@@ -13,45 +13,45 @@
 		books: Book[];
 	}
 
-	const inaKoMouPdfUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/276m0wd30iu1xp5/ina_ko_mou_1_3_mdgmi59ed8.pdf`;
-	const inaKoMouCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/u24d71rwu6d8j95/ina_ko_mou_cover_oktmhe09vb.png`;
-	const edicionVerdeCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/8618z00yx3v4108/split_cover_l3dc0dwrqu.png`;
+	const inaKoMouPdfUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/8h81y8mc6a383b0/ina_ko_mou_4sldmkhoy3.pdf`;
+	const inaKoMouCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/1i6369q9ycgt5bb/ina_ko_mou_cover_dohrxxb7d9.png`;
+	const edicionVerdeCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/4k64e964m3ha51m/split_cover_lzji5nxdd7.png`;
 	const edicionVerdeBooks: Book[] = [
 		{
 			title: 'Mai ki Hāpi Tātou',
 			subtitle: 'Prefacio',
 			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/uvbgwubsxmko4a3/split_prefacio_yrzylus89n.pdf`
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/895p172k69878jz/split_prefacio_9p5od7ksbv.pdf`
 		},
 		{
 			title: 'Mai ki Hāpi Tātou',
 			subtitle: 'Unidades 1-10',
 			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/5ff60wrh742539b/split_units_1_10_d7y5ofn47i.pdf`
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/7s2iz3ol44d849t/split_units_1_10_6bxx4kr71t.pdf`
 		},
 		{
 			title: 'Mai ki Hāpi Tātou',
 			subtitle: 'Unidades 11-17',
 			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/rg836w6n3a57jye/split_units_11_17_19dqqzzbpp.pdf`
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/4vp5mcwoc6l62gl/split_units_11_17_i0ey1tyarl.pdf`
 		},
 		{
 			title: 'Mai ki Hāpi Tātou',
 			subtitle: 'Unidades 18-25',
 			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/otcfo3nqmc6m9pw/split_units_18_25_ekt6av0iqq.pdf`
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/64fi8kr44a49oey/split_units_18_25_efm0t71ugr.pdf`
 		},
 		{
 			title: 'Mai ki Hāpi Tātou',
 			subtitle: 'Repaso',
 			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/h2acz561cq328ot/split_repaso_pxwejyzq5g.pdf`
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/17zxyl4sdy646wc/split_repaso_spl1ankflj.pdf`
 		},
 		{
 			title: 'Mai ki Hāpi Tātou',
 			subtitle: 'Guía Didáctica',
 			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/qoxoh21n8gp095y/split_guia_didactica_x9og4598co.pdf`
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/985c4678wj5no07/split_guia_didactica_br2cd9vv5h.pdf`
 		}
 	];
 
