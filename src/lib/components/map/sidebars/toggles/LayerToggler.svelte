@@ -14,12 +14,19 @@
 
 	let {
 		layers,
-		selectedLayerId = $bindable()
-	}: { layers: ExpandedLayer[]; selectedLayerId?: string | null } = $props();
+		selectedLayerId = $bindable(),
+		showMacroInfo = $bindable(false)
+	}: { layers: ExpandedLayer[]; selectedLayerId?: string | null; showMacroInfo?: boolean } =
+		$props();
 
 	const toggleLayer = (layer: ExpandedLayer) => {
+		const isSelecting = selectedLayerId !== layer.id;
 		// Single-select
-		selectedLayerId = selectedLayerId === layer.id ? null : layer.id;
+		selectedLayerId = isSelecting ? layer.id : null;
+		// Open info dialog when activating the Macrocuentos layer
+		if (isSelecting && layer.name.startsWith('Macro')) {
+			showMacroInfo = true;
+		}
 	};
 </script>
 
