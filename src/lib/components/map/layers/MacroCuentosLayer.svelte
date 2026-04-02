@@ -25,39 +25,47 @@
 			storyAPI.off('select', handleSelect);
 		};
 	});
+
+	$effect(() => {
+		const story = location.expand.story?.[0];
+		const hasSpanishText = Boolean(story?.text_spanish?.trim());
+		if (!hasSpanishText) {
+			showSpanish = false;
+		}
+	});
 </script>
 
 {#if location.expand.story?.length == 1}
+	{@const story = location.expand.story[0]}
+	{@const hasSpanishText = Boolean(story.text_spanish?.trim())}
 	<div
 		class="relative flex flex-col items-center justify-center text-center"
 		style="font-family: 'Merriweather', serif;"
 	>
-		<img
-			src={location.expand.story[0].field}
-			alt={location.expand.story[0].image_title}
-			class="max-w-[100%] rounded-lg shadow-lg"
-		/>
+		<img src={story.field} alt={story.image_title} class="max-w-[100%] rounded-lg shadow-lg" />
 		<p class="mt-1 text-xs italic text-muted-foreground">
-			{location.expand.story[0].image_title}
+			{story.image_title}
 		</p>
 
-		<button
-			onclick={() => (showSpanish = !showSpanish)}
-			class="mt-4 rounded-full bg-primary px-4 py-2 text-white shadow hover:bg-primary/80"
-		>
-			{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
-		</button>
+		{#if hasSpanishText}
+			<button
+				onclick={() => (showSpanish = !showSpanish)}
+				class="mt-4 rounded-full bg-primary px-4 py-2 text-white shadow hover:bg-primary/80"
+			>
+				{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
+			</button>
+		{/if}
 
 		<h1 class="mt-4 text-4xl font-bold">
-			{showSpanish ? location.expand.story[0].title_spanish : location.expand.story[0].title}
+			{showSpanish && story.title_spanish?.trim() ? story.title_spanish : story.title}
 		</h1>
 
 		<h2 class="mb-4 mt-2 text-xl font-semibold text-amber-800">
-			{location.expand.story[0].author}
+			{story.author}
 		</h2>
 
 		<p class="mt-2 max-w-prose whitespace-pre-line px-4 text-justify text-lg">
-			{showSpanish ? location.expand.story[0].text_spanish : location.expand.story[0].text_rapanui}
+			{showSpanish && hasSpanishText ? story.text_spanish : story.text_rapanui}
 		</p>
 	</div>
 {:else if location.expand.story?.length > 1}

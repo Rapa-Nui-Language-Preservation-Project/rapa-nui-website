@@ -8,8 +8,8 @@
 </script>
 
 {#each layers as layer (layer.id)}
-	{#each layer.expand.locations || [] as location (location.id)}
-		<Marker lnglat={{ lng: location.longitude || 0, lat: location.latitude || 0 }}>
+	{#each (layer.expand?.locations || []).filter((l) => l.latitude != null && l.longitude != null) as location (location.id)}
+		<Marker lnglat={{ lng: location.longitude, lat: location.latitude }}>
 			{#snippet content()}
 				<LocationDialog {location} layerName={layer.name} {pruebas} />
 			{/snippet}
