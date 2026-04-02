@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+
 	interface Book {
 		title: string;
 		subtitle?: string;
@@ -11,12 +13,8 @@
 		books: Book[];
 	}
 
-	let { data } = $props<{
-		data: {
-			inaKoMouPdfUrl: string | null;
-			inaKoMouCoverUrl: string | null;
-		};
-	}>();
+	const inaKoMouPdfUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/276m0wd30iu1xp5/ina_ko_mou_1_3_mdgmi59ed8.pdf`;
+	const inaKoMouCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/u24d71rwu6d8j95/ina_ko_mou_cover_oktmhe09vb.png`;
 
 	const defaultPosClasses = [
 		'left-1/2 top-0 -translate-x-1/2 -translate-y-1/2',
@@ -71,18 +69,16 @@
 			}
 		];
 
-		if (data.inaKoMouPdfUrl && data.inaKoMouCoverUrl) {
-			derivedSections.push({
-				label: 'Ina Ko Mou',
-				books: [
-					{
-						title: 'Ina Ko Mou',
-						cover: data.inaKoMouCoverUrl,
-						pdf: data.inaKoMouPdfUrl
-					}
-				]
-			});
-		}
+		derivedSections.push({
+			label: 'Ina Ko Mou',
+			books: [
+				{
+					title: 'Ina Ko Mou',
+					cover: inaKoMouCoverUrl,
+					pdf: inaKoMouPdfUrl
+				}
+			]
+		});
 
 		return derivedSections;
 	});
