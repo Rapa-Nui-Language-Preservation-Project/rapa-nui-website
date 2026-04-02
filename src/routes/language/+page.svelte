@@ -15,6 +15,45 @@
 
 	const inaKoMouPdfUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/276m0wd30iu1xp5/ina_ko_mou_1_3_mdgmi59ed8.pdf`;
 	const inaKoMouCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/u24d71rwu6d8j95/ina_ko_mou_cover_oktmhe09vb.png`;
+	const edicionVerdeCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/8618z00yx3v4108/split_cover_l3dc0dwrqu.png`;
+	const edicionVerdeBooks: Book[] = [
+		{
+			title: 'Mai ki Hāpi Tātou',
+			subtitle: 'Prefacio',
+			cover: edicionVerdeCoverUrl,
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/uvbgwubsxmko4a3/split_prefacio_yrzylus89n.pdf`
+		},
+		{
+			title: 'Mai ki Hāpi Tātou',
+			subtitle: 'Unidades 1-10',
+			cover: edicionVerdeCoverUrl,
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/5ff60wrh742539b/split_units_1_10_d7y5ofn47i.pdf`
+		},
+		{
+			title: 'Mai ki Hāpi Tātou',
+			subtitle: 'Unidades 11-17',
+			cover: edicionVerdeCoverUrl,
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/rg836w6n3a57jye/split_units_11_17_19dqqzzbpp.pdf`
+		},
+		{
+			title: 'Mai ki Hāpi Tātou',
+			subtitle: 'Unidades 18-25',
+			cover: edicionVerdeCoverUrl,
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/otcfo3nqmc6m9pw/split_units_18_25_ekt6av0iqq.pdf`
+		},
+		{
+			title: 'Mai ki Hāpi Tātou',
+			subtitle: 'Repaso',
+			cover: edicionVerdeCoverUrl,
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/h2acz561cq328ot/split_repaso_pxwejyzq5g.pdf`
+		},
+		{
+			title: 'Mai ki Hāpi Tātou',
+			subtitle: 'Guía Didáctica',
+			cover: edicionVerdeCoverUrl,
+			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/qoxoh21n8gp095y/split_guia_didactica_x9og4598co.pdf`
+		}
+	];
 
 	const defaultPosClasses = [
 		'left-1/2 top-0 -translate-x-1/2 -translate-y-1/2',
@@ -58,14 +97,7 @@
 			},
 			{
 				label: 'Edición Verde',
-				books: [
-					{
-						title: 'Mai ki Hāpi Tātou',
-						subtitle: 'Edición Verde',
-						cover: '/language/verde-cover.png',
-						pdf: '/language/mai ki hapi tatou verde.pdf'
-					}
-				]
+				books: edicionVerdeBooks
 			}
 		];
 
@@ -106,7 +138,11 @@
 		</a>
 	</div>
 
-	<div class="mx-auto max-w-5xl px-6 py-10">
+	<div
+		class="mx-auto px-6 py-10"
+		class:max-w-5xl={selectedSection === null}
+		class:max-w-7xl={selectedSection !== null}
+	>
 		{#if selectedSection === null}
 			<!-- Landing view with circular navigation -->
 			<div class="text-center">
@@ -149,20 +185,13 @@
 				{sections[selectedSection].label}
 			</h2>
 
-			<div
-				class="grid gap-6"
-				class:grid-cols-2={sections[selectedSection].books.length > 1}
-				class:md:grid-cols-4={sections[selectedSection].books.length > 2}
-				class:md:grid-cols-2={sections[selectedSection].books.length === 2}
-				class:max-w-xs={sections[selectedSection].books.length === 1}
-				class:mx-auto={sections[selectedSection].books.length === 1}
-			>
+			<div class="mx-auto flex max-w-7xl flex-wrap justify-center gap-6">
 				{#each sections[selectedSection].books as book}
 					<a
 						href={book.pdf}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="group block overflow-hidden rounded-lg bg-white shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+						class="group block w-full max-w-[14rem] overflow-hidden rounded-lg bg-white shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl sm:max-w-[15rem] md:max-w-[16rem]"
 					>
 						<div class="aspect-[3/4] overflow-hidden bg-gray-100">
 							<img
