@@ -14,9 +14,6 @@
 	import { watchMediaQuery } from '$lib/utils/media-query';
 	import MobileMap from './MobileMap.svelte';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
-	import MacroCuentosInfoDialog from './layers/MacroCuentosInfoDialog.svelte';
-	import Fa from 'svelte-fa';
-	import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
@@ -45,10 +42,7 @@
 	let leftSidebarVisible = $state(true);
 	let rightSidebarVisible = $state(true);
 
-	let showMacroInfo = $state(false);
-	const isMacroSelected = $derived(
-		layers.find((l) => l.id === selectedLayerId)?.name.startsWith('Macro') ?? false
-	);
+
 </script>
 
 {#if isMobile}
@@ -97,21 +91,8 @@
 					<ArtisticBaseMap imageSrc={artisticMapSrc} {layers} {selectedLayerId} {pruebas} />
 				{/if}
 			{/if}
+
 		</div>
-
-		<!-- Floating Macrocuentos info button -->
-		{#if isMacroSelected}
-			<button
-				onclick={() => (showMacroInfo = true)}
-				class="absolute bottom-8 left-8 z-10 flex items-center gap-2 rounded-full bg-gradient-to-b from-amber-50 to-orange-50 px-4 py-2 font-serif text-amber-900 shadow-lg transition-transform hover:scale-105 hover:shadow-xl"
-				style="font-family: 'Merriweather', serif;"
-			>
-				<Fa icon={faBook} />
-				<span class="text-sm font-medium">Sobre el libro</span>
-			</button>
-		{/if}
-
-		<MacroCuentosInfoDialog bind:open={showMacroInfo} />
 
 		<SidebarControls
 			bind:leftVisible={leftSidebarVisible}
@@ -125,7 +106,6 @@
 			{layers}
 			bind:selectedBase
 			bind:selectedLayerId
-			bind:showMacroInfo
 			visible={rightSidebarVisible}
 		/>
 	</div>

@@ -4,17 +4,17 @@
 
 	let { open = $bindable(false) }: { open?: boolean } = $props();
 
-	type Tab = 'descripcion' | 'publicacion' | 'autores' | 'traduccion' | 'ortografia';
+	type Tab = 'descripcion' | 'autores' | 'traduccion' | 'ortografia';
 	let activeTab = $state<Tab>('descripcion');
 	let showSpanish = $state(false);
 
 	const tabs: { id: Tab; labelRN: string; labelEs: string }[] = [
-		{ id: 'descripcion', labelRN: 'Kōrero i te Kaiga', labelEs: 'Descripción del Proyecto' },
-		{ id: 'publicacion', labelRN: 'Māhoe Tuhuga', labelEs: 'Información de Publicación' },
-		{ id: 'autores', labelRN: 'Ingoa o te Mau Tangata', labelEs: 'Autores' },
-		{ id: 'traduccion', labelRN: 'Haka Reo', labelEs: 'Trabajo de Traducción' },
-		{ id: 'ortografia', labelRN: 'Ārea o te Reo', labelEs: 'Ortografía y Pronunciación' }
+		{ id: 'descripcion', labelRN: "He Tallere o te Nuʼu Papaʼi Rapa Nui", labelEs: 'Taller de Escritores Rapa Nui' },
+		{ id: 'autores', labelRN: "Tag̈ata Nuʼu Papaʼi", labelEs: 'Autores' },
+		{ id: 'traduccion', labelRN: "He Haʼa Auraʼa ki te Vanag̈a Tire", labelEs: 'Traducción al Español' },
+		{ id: 'ortografia', labelRN: "He Papaʼi Hāga ʼe he Kī Hāga", labelEs: 'Ortografía y Pronunciación' }
 	];
+	const currentTab = $derived(tabs.find(t => t.id === activeTab));
 </script>
 
 <Dialog.Root bind:open>
@@ -25,13 +25,13 @@
 		<!-- Header -->
 		<div class="flex flex-col items-center gap-3 px-8 pt-8 pb-4">
 			<Dialog.Title class="text-center text-2xl font-bold tracking-wide md:text-3xl">
-				{showSpanish ? 'Macrocuentos de Rapa Nui' : 'Macrocuentos o Rapa Nui'}
+				{showSpanish ? 'Relatos de la Isla de Pascua' : 'Aʼamu o Rapa Nui'}
 			</Dialog.Title>
 
 			<!-- Language toggle -->
 			<button
 				onclick={() => (showSpanish = !showSpanish)}
-				class="rounded-full border border-amber-700 px-4 py-1 text-sm font-medium text-amber-800 transition-colors hover:bg-amber-700 hover:text-white"
+				class="mt-4 rounded-full bg-primary px-4 py-2 text-white shadow hover:bg-primary/80"
 			>
 				{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
 			</button>
@@ -56,9 +56,11 @@
 		<!-- Tab content -->
 		<ScrollArea class="flex-1 px-8 pb-8">
 			<div class="max-w-prose mx-auto py-4 text-base leading-relaxed">
+				<h2 class="mb-4 text-xl font-bold text-amber-900">
+					{showSpanish ? currentTab?.labelEs : currentTab?.labelRN}
+				</h2>
 				{#if activeTab === 'descripcion'}
 					{#if showSpanish}
-						<h2 class="mb-4 text-xl font-semibold">Descripción del Proyecto</h2>
 						<p class="mb-4">
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Este es texto de relleno para
 							la descripción del proyecto de Macrocuentos de Rapa Nui. El proyecto tiene como objetivo
@@ -69,7 +71,6 @@
 							veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 						</p>
 					{:else}
-						<h2 class="mb-4 text-xl font-semibold">Kōrero i te Kaiga</h2>
 						<p class="mb-4">
 							Lorem ipsum kōrero i te kaiga o Rapa Nui. He teksto haka ū i te kōrero o te Macrocuentos
 							o Rapa Nui. Ko te hāpuku o tēnei kaiga ko te tiaki e te ākina i te mau kōrero tārito.
@@ -79,35 +80,8 @@
 							reo me te tikanga o te hōnui.
 						</p>
 					{/if}
-				{:else if activeTab === 'publicacion'}
-					<h2 class="mb-4 text-xl font-semibold">
-						{showSpanish ? 'Información de Publicación' : 'Māhoe Tuhuga'}
-					</h2>
-					<dl class="space-y-3">
-						<div>
-							<dt class="font-semibold text-amber-900">
-								{showSpanish ? 'Año de publicación' : 'Māhoe'}
-							</dt>
-							<dd class="text-amber-800">XXXX</dd>
-						</div>
-						<div>
-							<dt class="font-semibold text-amber-900">Editorial</dt>
-							<dd class="text-amber-800">Lorem ipsum Editorial</dd>
-						</div>
-						<div>
-							<dt class="font-semibold text-amber-900">ISBN</dt>
-							<dd class="text-amber-800">XXX-X-XXXXX-XXX-X</dd>
-						</div>
-						<div>
-							<dt class="font-semibold text-amber-900">
-								{showSpanish ? 'Lugar de publicación' : 'Kaiga'}
-							</dt>
-							<dd class="text-amber-800">Rapa Nui / Isla de Pascua</dd>
-						</div>
-					</dl>
 				{:else if activeTab === 'autores'}
 					{#if showSpanish}
-						<h2 class="mb-4 text-xl font-semibold">Autores</h2>
 						<p class="mb-3">
 							Lorem ipsum nombre del autor uno. Descripción breve del autor y su contribución al
 							proyecto.
@@ -121,7 +95,6 @@
 							proyecto.
 						</p>
 					{:else}
-						<h2 class="mb-4 text-xl font-semibold">Ingoa o te Mau Tangata</h2>
 						<p class="mb-3">
 							Lorem ipsum ingoa o te tangata kotahi. Kōrero poto i te tangata me tōna āvanga ki te
 							kaiga.
@@ -136,7 +109,6 @@
 					{/if}
 				{:else if activeTab === 'traduccion'}
 					{#if showSpanish}
-						<h2 class="mb-4 text-xl font-semibold">Trabajo de Traducción</h2>
 						<p class="mb-4">
 							Lorem ipsum descripción del proceso de traducción. Este texto explica cómo se llevó a
 							cabo la traducción de los textos del rapa nui al español y viceversa.
@@ -146,7 +118,6 @@
 							estructuras lingüísticas propias de la lengua polinesia.
 						</p>
 					{:else}
-						<h2 class="mb-4 text-xl font-semibold">Haka Reo</h2>
 						<p class="mb-4">
 							Lorem ipsum kōrero i te haka reo. Ko tēnei teksto he whakamārama i te āhua o te haka
 							reo mai i te reo Rapa Nui ki te reo Hīpānia.
@@ -158,7 +129,6 @@
 					{/if}
 				{:else if activeTab === 'ortografia'}
 					{#if showSpanish}
-						<h2 class="mb-4 text-xl font-semibold">Ortografía y Pronunciación</h2>
 						<p class="mb-4">
 							Lorem ipsum guía de ortografía y pronunciación. Este texto explica las convenciones
 							ortográficas utilizadas en el libro y cómo pronunciar correctamente las palabras en rapa
@@ -170,7 +140,6 @@
 						</p>
 						<p>Lorem ipsum información adicional sobre glotales y vocales largas.</p>
 					{:else}
-						<h2 class="mb-4 text-xl font-semibold">Ārea o te Reo</h2>
 						<p class="mb-4">
 							Lorem ipsum ārea o te tuhuga reo. Ko tēnei teksto he whakamārama i ngā tikanga tuhuga e
 							whakamahia ana i roto i te pukapuka.
@@ -183,6 +152,20 @@
 					{/if}
 				{/if}
 			</div>
+
 		</ScrollArea>
+
+		<!-- Static publication info -->
+		<div class="border-t border-amber-300 px-6 py-2 text-center text-[11px] text-amber-700">
+			<p class="flex flex-wrap justify-center gap-x-3 gap-y-0.5">
+				<span>© INTENDENCIA DE LA V REGION</span>
+				<span>© EDITORIAL ANDRES BELLO</span>
+				<span>Av. Ricardo Lyon 946, Santiago de Chile</span>
+				<span>Inscripción N° 61.021</span>
+				<span>Se terminó de imprimir esta primera edición de 2.000 ejemplares en el mes de Marzo de 1986</span>
+				<span>IMPRESORES: Imprenta Mueller S.A.</span>
+				<span>IMPRESO EN CHILE / PRINTED IN CHILE</span>
+			</p>
+		</div>
 	</Dialog.Content>
 </Dialog.Root>

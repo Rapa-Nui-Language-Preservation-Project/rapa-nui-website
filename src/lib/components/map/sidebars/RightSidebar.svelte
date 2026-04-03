@@ -7,7 +7,6 @@
 		bases = [],
 		layers = [],
 		selectedLayerId = $bindable(),
-		showMacroInfo = $bindable(false),
 		visible = true
 	} = $props();
 
@@ -24,7 +23,7 @@
 			<BaseToggler {bases} bind:selectedBase />
 		</div>
 		<div class="space-y-2">
-			<LayerToggler layers={rightLayers} bind:selectedLayerId bind:showMacroInfo />
+			<LayerToggler layers={rightLayers} bind:selectedLayerId />
 		</div>
 		<div class="group relative mt-4 overflow-hidden rounded-lg px-6 py-1">
 			<div
