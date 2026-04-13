@@ -12,6 +12,7 @@ export enum Collections {
 	Otps = '_otps',
 	Superusers = '_superusers',
 	Actividad = 'actividad',
+	Authors = 'authors',
 	Agroecology = 'agroecology',
 	AgroecologyImages = 'agroecology_images',
 	AgroecologyTaxonomyRows = 'agroecology_taxonomy_rows',
@@ -99,6 +100,18 @@ export type SuperusersRecord = {
 	verified?: boolean;
 };
 
+export type AuthorsRecord = {
+	bio_en?: string;
+	bio_rn?: string;
+	created?: IsoDateString;
+	dedication_en?: string;
+	dedication_rn?: string;
+	id: string;
+	name?: string;
+	stories?: RecordIdString[];
+	updated?: IsoDateString;
+};
+
 export type ActividadRecord<Tpruebas = unknown> = {
 	created?: IsoDateString;
 	description_espanol?: string;
@@ -183,6 +196,7 @@ export type LocationsRecord = {
 	longitude?: number;
 	media?: RecordIdString[];
 	name?: string;
+	author?: RecordIdString;
 	story?: RecordIdString[];
 	type?: LocationsTypeOptions;
 	updated?: IsoDateString;
@@ -249,6 +263,8 @@ export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemF
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>;
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> &
 	AuthSystemFields<Texpand>;
+export type AuthorsResponse<Texpand = unknown> = Required<AuthorsRecord> &
+	BaseSystemFields<Texpand>;
 export type ActividadResponse<Tpruebas = unknown, Texpand = unknown> = Required<
 	ActividadRecord<Tpruebas>
 > &
@@ -278,6 +294,7 @@ export type CollectionRecords = {
 	_otps: OtpsRecord;
 	_superusers: SuperusersRecord;
 	actividad: ActividadRecord;
+	authors: AuthorsRecord;
 	agroecology: AgroecologyRecord;
 	agroecology_images: AgroecologyImagesRecord;
 	agroecology_taxonomy_rows: AgroecologyTaxonomyRowsRecord;
@@ -296,6 +313,7 @@ export type CollectionResponses = {
 	_otps: OtpsResponse;
 	_superusers: SuperusersResponse;
 	actividad: ActividadResponse;
+	authors: AuthorsResponse;
 	agroecology: AgroecologyResponse;
 	agroecology_images: AgroecologyImagesResponse;
 	agroecology_taxonomy_rows: AgroecologyTaxonomyRowsResponse;
@@ -317,6 +335,7 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: '_otps'): RecordService<OtpsResponse>;
 	collection(idOrName: '_superusers'): RecordService<SuperusersResponse>;
 	collection(idOrName: 'actividad'): RecordService<ActividadResponse>;
+	collection(idOrName: 'authors'): RecordService<AuthorsResponse>;
 	collection(idOrName: 'agroecology'): RecordService<AgroecologyResponse>;
 	collection(idOrName: 'agroecology_images'): RecordService<AgroecologyImagesResponse>;
 	collection(idOrName: 'agroecology_taxonomy_rows'): RecordService<AgroecologyTaxonomyRowsResponse>;

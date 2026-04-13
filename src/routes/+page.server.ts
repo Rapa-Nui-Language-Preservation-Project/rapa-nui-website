@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const [layers, pruebas] = await Promise.all([
 		locals.pb.collection(Collections.Layers).getFullList({
 			expand:
-				'locations,locations.media,locations.story,locations.actividad,locations.actividad.pruebas,locations.actividad.media,locations.agroecology,locations.agroecology.images,locations.agroecology.taxonomy_rows'
+				'locations,locations.media,locations.story,locations.author,locations.author.stories,locations.actividad,locations.actividad.pruebas,locations.actividad.media,locations.agroecology,locations.agroecology.images,locations.agroecology.taxonomy_rows'
 		}) as Promise<ExpandedLayer[]>,
 		locals.pb.collection(Collections.Pruebas).getFullList()
 	]);
@@ -40,9 +40,16 @@ export const load: PageServerLoad = async ({ locals }) => {
 					}
 				}
 
-				// Handle images within stories
+				// Handle images within stories (used by MicroCuentas)
 				if (location.expand.story) {
 					for (const story of location.expand.story) {
+						story.field = getPublicFileURL(story, story.field);
+					}
+				}
+
+				// Handle stories via author relation (used by MacroCuentos)
+				if (location.expand.author?.expand?.stories) {
+					for (const story of location.expand.author.expand.stories) {
 						story.field = getPublicFileURL(story, story.field);
 					}
 				}
