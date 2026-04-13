@@ -69,8 +69,11 @@
 					<div class="flex items-center gap-2">
 						{#if selectedLayerId === layer.id}
 							<button
-								onclick={(e) => { e.stopPropagation(); showMacroInfo = true; }}
-								class="text-amber-600 hover:text-orange-600 transition-colors"
+								onclick={(e) => {
+									e.stopPropagation();
+									showMacroInfo = true;
+								}}
+								class="text-amber-600 transition-colors hover:text-orange-600"
 								title="Sobre el libro"
 							>
 								<Fa icon={faCircleInfo} size="lg" />

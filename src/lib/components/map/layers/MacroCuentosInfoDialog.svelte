@@ -175,10 +175,34 @@
 							<table class="mx-auto font-mono text-sm">
 								<tbody>
 									<tr>
-										<td class="px-1.5 text-center">a</td><td class="px-1.5 text-center">ā</td><td class="px-1.5 text-center">e</td><td class="px-1.5 text-center">ē</td><td class="px-1.5 text-center">h</td><td class="px-1.5 text-center">i</td><td class="px-1.5 text-center">ī</td><td class="px-1.5 text-center">k</td><td class="px-1.5 text-center">ʼ</td><td class="px-1.5 text-center">m</td><td class="px-1.5 text-center">n</td><td class="px-1.5 text-center">g̈</td><td class="px-1.5 text-center">o</td><td class="px-1.5 text-center">ō</td><td class="px-1.5 text-center">p</td><td class="px-1.5 text-center">r</td><td class="px-1.5 text-center">t</td><td class="px-1.5 text-center">u</td><td class="px-1.5 text-center">ū</td><td class="px-1.5 text-center">v</td>
+										<td class="px-1.5 text-center">a</td><td class="px-1.5 text-center">ā</td><td
+											class="px-1.5 text-center">e</td
+										><td class="px-1.5 text-center">ē</td><td class="px-1.5 text-center">h</td><td
+											class="px-1.5 text-center">i</td
+										><td class="px-1.5 text-center">ī</td><td class="px-1.5 text-center">k</td><td
+											class="px-1.5 text-center">ʼ</td
+										><td class="px-1.5 text-center">m</td><td class="px-1.5 text-center">n</td><td
+											class="px-1.5 text-center">g̈</td
+										><td class="px-1.5 text-center">o</td><td class="px-1.5 text-center">ō</td><td
+											class="px-1.5 text-center">p</td
+										><td class="px-1.5 text-center">r</td><td class="px-1.5 text-center">t</td><td
+											class="px-1.5 text-center">u</td
+										><td class="px-1.5 text-center">ū</td><td class="px-1.5 text-center">v</td>
 									</tr>
 									<tr>
-										<td class="px-1.5 text-center">A</td><td class="px-1.5 text-center">Ā</td><td class="px-1.5 text-center">E</td><td class="px-1.5 text-center">Ē</td><td class="px-1.5 text-center">H</td><td class="px-1.5 text-center">I</td><td class="px-1.5 text-center">Ī</td><td class="px-1.5 text-center">K</td><td class="px-1.5 text-center text-amber-400">—</td><td class="px-1.5 text-center">M</td><td class="px-1.5 text-center">N</td><td class="px-1.5 text-center">G̈</td><td class="px-1.5 text-center">O</td><td class="px-1.5 text-center">Ō</td><td class="px-1.5 text-center">P</td><td class="px-1.5 text-center">R</td><td class="px-1.5 text-center">T</td><td class="px-1.5 text-center">U</td><td class="px-1.5 text-center">Ū</td><td class="px-1.5 text-center">V</td>
+										<td class="px-1.5 text-center">A</td><td class="px-1.5 text-center">Ā</td><td
+											class="px-1.5 text-center">E</td
+										><td class="px-1.5 text-center">Ē</td><td class="px-1.5 text-center">H</td><td
+											class="px-1.5 text-center">I</td
+										><td class="px-1.5 text-center">Ī</td><td class="px-1.5 text-center">K</td><td
+											class="px-1.5 text-center text-amber-400">—</td
+										><td class="px-1.5 text-center">M</td><td class="px-1.5 text-center">N</td><td
+											class="px-1.5 text-center">G̈</td
+										><td class="px-1.5 text-center">O</td><td class="px-1.5 text-center">Ō</td><td
+											class="px-1.5 text-center">P</td
+										><td class="px-1.5 text-center">R</td><td class="px-1.5 text-center">T</td><td
+											class="px-1.5 text-center">U</td
+										><td class="px-1.5 text-center">Ū</td><td class="px-1.5 text-center">V</td>
 									</tr>
 								</tbody>
 							</table>
@@ -286,10 +310,34 @@
 							<table class="mx-auto font-mono text-sm">
 								<tbody>
 									<tr>
-										<td class="px-1.5 text-center">a</td><td class="px-1.5 text-center">ā</td><td class="px-1.5 text-center">e</td><td class="px-1.5 text-center">ē</td><td class="px-1.5 text-center">h</td><td class="px-1.5 text-center">i</td><td class="px-1.5 text-center">Ī</td><td class="px-1.5 text-center">k</td><td class="px-1.5 text-center">ʼ</td><td class="px-1.5 text-center">m</td><td class="px-1.5 text-center">n</td><td class="px-1.5 text-center">g̈</td><td class="px-1.5 text-center">o</td><td class="px-1.5 text-center">ō</td><td class="px-1.5 text-center">p</td><td class="px-1.5 text-center">r</td><td class="px-1.5 text-center">t</td><td class="px-1.5 text-center">u</td><td class="px-1.5 text-center">ū</td><td class="px-1.5 text-center">v</td>
+										<td class="px-1.5 text-center">a</td><td class="px-1.5 text-center">ā</td><td
+											class="px-1.5 text-center">e</td
+										><td class="px-1.5 text-center">ē</td><td class="px-1.5 text-center">h</td><td
+											class="px-1.5 text-center">i</td
+										><td class="px-1.5 text-center">Ī</td><td class="px-1.5 text-center">k</td><td
+											class="px-1.5 text-center">ʼ</td
+										><td class="px-1.5 text-center">m</td><td class="px-1.5 text-center">n</td><td
+											class="px-1.5 text-center">g̈</td
+										><td class="px-1.5 text-center">o</td><td class="px-1.5 text-center">ō</td><td
+											class="px-1.5 text-center">p</td
+										><td class="px-1.5 text-center">r</td><td class="px-1.5 text-center">t</td><td
+											class="px-1.5 text-center">u</td
+										><td class="px-1.5 text-center">ū</td><td class="px-1.5 text-center">v</td>
 									</tr>
 									<tr>
-										<td class="px-1.5 text-center">A</td><td class="px-1.5 text-center">Ā</td><td class="px-1.5 text-center">E</td><td class="px-1.5 text-center">Ē</td><td class="px-1.5 text-center">H</td><td class="px-1.5 text-center">I</td><td class="px-1.5 text-center">Ī</td><td class="px-1.5 text-center">K</td><td class="px-1.5 text-center text-amber-400">—</td><td class="px-1.5 text-center">M</td><td class="px-1.5 text-center">N</td><td class="px-1.5 text-center">G̈</td><td class="px-1.5 text-center">O</td><td class="px-1.5 text-center">Ō</td><td class="px-1.5 text-center">P</td><td class="px-1.5 text-center">R</td><td class="px-1.5 text-center">T</td><td class="px-1.5 text-center">U</td><td class="px-1.5 text-center">Ū</td><td class="px-1.5 text-center">V</td>
+										<td class="px-1.5 text-center">A</td><td class="px-1.5 text-center">Ā</td><td
+											class="px-1.5 text-center">E</td
+										><td class="px-1.5 text-center">Ē</td><td class="px-1.5 text-center">H</td><td
+											class="px-1.5 text-center">I</td
+										><td class="px-1.5 text-center">Ī</td><td class="px-1.5 text-center">K</td><td
+											class="px-1.5 text-center text-amber-400">—</td
+										><td class="px-1.5 text-center">M</td><td class="px-1.5 text-center">N</td><td
+											class="px-1.5 text-center">G̈</td
+										><td class="px-1.5 text-center">O</td><td class="px-1.5 text-center">Ō</td><td
+											class="px-1.5 text-center">P</td
+										><td class="px-1.5 text-center">R</td><td class="px-1.5 text-center">T</td><td
+											class="px-1.5 text-center">U</td
+										><td class="px-1.5 text-center">Ū</td><td class="px-1.5 text-center">V</td>
 									</tr>
 								</tbody>
 							</table>

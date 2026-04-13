@@ -41,8 +41,6 @@
 	// Sidebar visibility states
 	let leftSidebarVisible = $state(true);
 	let rightSidebarVisible = $state(true);
-
-
 </script>
 
 {#if isMobile}
@@ -91,7 +89,6 @@
 					<ArtisticBaseMap imageSrc={artisticMapSrc} {layers} {selectedLayerId} {pruebas} />
 				{/if}
 			{/if}
-
 		</div>
 
 		<SidebarControls
