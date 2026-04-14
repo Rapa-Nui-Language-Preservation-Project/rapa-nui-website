@@ -116,6 +116,7 @@ export type AgroecologyRecord = {
 	citations?: string;
 	created?: IsoDateString;
 	description?: string;
+	rapa_nui_description?: string;
 	id: string;
 	images?: RecordIdString[];
 	plantName?: string;

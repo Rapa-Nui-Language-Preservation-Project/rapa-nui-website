@@ -11,6 +11,7 @@
 	const imageCount = $derived(imageAPI ? imageAPI.scrollSnapList().length : 0);
 	let canScrollPrev = $state(false);
 	let canScrollNext = $state(false);
+	let showSpanish = $state(false);
 
 	$effect(() => {
 		if (imageAPI) {
@@ -88,9 +89,9 @@
 	});
 </script>
 
-<div class="agroecology-wrapper flex h-full max-w-full flex-col overflow-hidden md:flex-row">
+<div class="agroecology-wrapper flex h-screen max-w-full flex-col overflow-hidden md:flex-row">
 	<!-- Left Panel - Images -->
-	<div class="flex flex-col bg-amber-100/50 p-6 md:w-1/2 md:self-start">
+	<div class="d:h-full flex flex-col bg-amber-100/50 p-6 md:w-1/2 md:self-start md:overflow-y-auto">
 		{#if images.length > 0}
 			<div class="relative mb-4">
 				<Carousel.Root setApi={(emblaApi) => (imageAPI = emblaApi)} class="w-full">
@@ -159,15 +160,27 @@
 	</div>
 
 	<!-- Right Panel - Content -->
-	<div class="flex min-w-0 max-w-full flex-col overflow-hidden md:w-1/2">
+	<div class="flex min-w-0 max-w-full flex-col overflow-hidden md:h-full md:w-1/2">
 		<!-- Header -->
-		<div class="overflow-hidden border-b border-amber-200 p-6">
-			<!-- Rapa Nui Name (Large Title) -->
-			{#if agroPage?.plantName}
-				<h2 class="break-words font-serif text-3xl font-bold text-amber-900">
-					{agroPage.plantName}
-				</h2>
-			{/if}
+		<div class="flex-shrink-0 overflow-hidden border-b border-amber-200 p-6">
+			<!-- Flex container for title and button -->
+			<div class="flex items-center justify-between gap-0">
+				<!-- Rapa Nui Name (Large Title) -->
+				{#if agroPage?.plantName}
+					<h2 class="break-words font-serif text-3xl font-bold text-amber-900">
+						{agroPage.plantName}
+					</h2>
+				{/if}
+				<!-- Button to switch between Rapa Nui & Spanish -->
+				{#if agroPage?.rapa_nui_description}
+					<button
+						onclick={() => (showSpanish = !showSpanish)}
+						class="rounded-full bg-primary px-4 py-2 text-white shadow transition duration-100 hover:bg-primary/80"
+					>
+						{showSpanish ? 'Ver en Rapa Nui' : 'Ver en Español'}
+					</button>
+				{/if}
+			</div>
 
 			<!-- Spanish Name -->
 			{#if agroPage?.spanishName}
@@ -183,7 +196,7 @@
 		</div>
 
 		<!-- Tabs -->
-		<div class="flex border-b border-amber-200">
+		<div class="flex flex-shrink-0 border-b border-amber-200">
 			<button
 				onclick={() => (activeTab = 'info')}
 				class={`flex-1 py-3 text-sm font-medium transition-colors ${
@@ -219,10 +232,17 @@
 		</div>
 
 		<!-- Tab Content -->
-		<div class="flex-1 overflow-x-hidden p-6">
+		<!-- This container is scrollable -->
+		<div class="min-h-0 flex-1 overflow-y-auto p-6">
 			{#if activeTab === 'info'}
-				{#if agroPage?.description}
-					<p class="break-words leading-relaxed text-amber-900">{agroPage.description}</p>
+				{#if agroPage?.rapa_nui_description && !showSpanish}
+					<p class="whitespace-pre-line break-words leading-relaxed text-amber-900">
+						{agroPage.rapa_nui_description}
+					</p>
+				{:else if agroPage?.description}
+					<p class="whitespace-pre-line break-words leading-relaxed text-amber-900">
+						{agroPage.description}
+					</p>
 				{:else}
 					<p class="text-amber-600">No hay información disponible</p>
 				{/if}
