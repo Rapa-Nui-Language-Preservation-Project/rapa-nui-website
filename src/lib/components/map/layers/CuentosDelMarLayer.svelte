@@ -47,7 +47,9 @@
 			<div
 				class="absolute inset-0 flex items-end justify-center rounded-lg bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
 			>
-				<span class="mb-4 rounded-full bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow">
+				<span
+					class="mb-4 rounded-full bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow"
+				>
 					Abrir flipbook →
 				</span>
 			</div>
@@ -58,7 +60,7 @@
 		</p>
 	</div>
 
-<!-- ── NEWSLETTER ─────────────────────────────────────────────────────────── -->
+	<!-- ── NEWSLETTER ─────────────────────────────────────────────────────────── -->
 {:else if isNews}
 	<div class="flex w-full flex-col items-center gap-4 px-4 py-2">
 		<h1 class="text-xl font-bold">{location.name}</h1>
@@ -72,10 +74,7 @@
 				class="h-[65vh] w-full rounded-lg border border-amber-200 shadow-lg"
 			></iframe>
 		{:else if pdfMedia.length > 1}
-			<Carousel.Root
-				setApi={(emblaApi) => (newsAPI = emblaApi)}
-				class="w-full"
-			>
+			<Carousel.Root setApi={(emblaApi) => (newsAPI = emblaApi)} class="w-full">
 				<Carousel.Content>
 					{#each pdfMedia as pdf}
 						<Carousel.Item class="flex flex-col items-center gap-2">
@@ -97,7 +96,7 @@
 		{/if}
 	</div>
 
-<!-- ── SHORT STORY ────────────────────────────────────────────────────────── -->
+	<!-- ── SHORT STORY ────────────────────────────────────────────────────────── -->
 {:else}
 	<div class="flex w-full flex-col items-center gap-3 px-4 py-2">
 		<div class="text-center">
