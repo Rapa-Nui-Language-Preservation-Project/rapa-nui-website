@@ -8,20 +8,29 @@
 		faCrow,
 		faCirclePlay,
 		faLeaf,
-		faBook
+		faBook,
+		faCircleInfo
 	} from '@fortawesome/free-solid-svg-icons';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+	import MacroCuentosInfoDialog from '$lib/components/map/layers/MacroCuentosInfoDialog.svelte';
 
 	let {
 		layers,
 		selectedLayerId = $bindable()
 	}: { layers: ExpandedLayer[]; selectedLayerId?: string | null } = $props();
 
+	let showMacroInfo = $state(false);
+
 	const toggleLayer = (layer: ExpandedLayer) => {
-		// Single-select
-		selectedLayerId = selectedLayerId === layer.id ? null : layer.id;
+		const isSelecting = selectedLayerId !== layer.id;
+		selectedLayerId = isSelecting ? layer.id : null;
+		if (isSelecting && layer.name.startsWith('Macro')) {
+			showMacroInfo = true;
+		}
 	};
 </script>
+
+<MacroCuentosInfoDialog bind:open={showMacroInfo} />
 
 {#each layers as layer}
 	<div
@@ -57,7 +66,21 @@
 				{:else if layer.name.startsWith('Agro')}
 					<Fa icon={faLeaf} color="blue" />
 				{:else if layer.name.startsWith('Macro')}
-					<Fa icon={faBook} color="blue" />
+					<div class="flex items-center gap-2">
+						{#if selectedLayerId === layer.id}
+							<button
+								onclick={(e) => {
+									e.stopPropagation();
+									showMacroInfo = true;
+								}}
+								class="text-amber-600 transition-colors hover:text-orange-600"
+								title="Sobre el libro"
+							>
+								<Fa icon={faCircleInfo} size="lg" />
+							</button>
+						{/if}
+						<Fa icon={faBook} color="blue" />
+					</div>
 				{:else}
 					<Fa icon={faMapMarkerAlt} color="blue" />
 				{/if}

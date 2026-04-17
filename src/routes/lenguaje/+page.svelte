@@ -1,59 +1,13 @@
 <script lang="ts">
-	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+	import type { PageData } from './$types';
+	import type { LanguageBook } from './+page.server';
 
-	interface Book {
-		title: string;
-		subtitle?: string;
-		cover: string;
-		pdf: string;
-	}
+	let { data }: { data: PageData } = $props();
 
 	interface Section {
 		label: string;
-		books: Book[];
+		books: LanguageBook[];
 	}
-
-	const inaKoMouPdfUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/8h81y8mc6a383b0/ina_ko_mou_4sldmkhoy3.pdf`;
-	const inaKoMouCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/1i6369q9ycgt5bb/ina_ko_mou_cover_dohrxxb7d9.png`;
-	const edicionVerdeCoverUrl = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/4k64e964m3ha51m/split_cover_lzji5nxdd7.png`;
-	const edicionVerdeBooks: Book[] = [
-		{
-			title: 'Mai ki Hāpi Tātou',
-			subtitle: 'Prefacio',
-			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/895p172k69878jz/split_prefacio_9p5od7ksbv.pdf`
-		},
-		{
-			title: 'Mai ki Hāpi Tātou',
-			subtitle: 'Unidades 1-10',
-			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/7s2iz3ol44d849t/split_units_1_10_6bxx4kr71t.pdf`
-		},
-		{
-			title: 'Mai ki Hāpi Tātou',
-			subtitle: 'Unidades 11-17',
-			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/4vp5mcwoc6l62gl/split_units_11_17_i0ey1tyarl.pdf`
-		},
-		{
-			title: 'Mai ki Hāpi Tātou',
-			subtitle: 'Unidades 18-25',
-			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/64fi8kr44a49oey/split_units_18_25_efm0t71ugr.pdf`
-		},
-		{
-			title: 'Mai ki Hāpi Tātou',
-			subtitle: 'Repaso',
-			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/17zxyl4sdy646wc/split_repaso_spl1ankflj.pdf`
-		},
-		{
-			title: 'Mai ki Hāpi Tātou',
-			subtitle: 'Guía Didáctica',
-			cover: edicionVerdeCoverUrl,
-			pdf: `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/985c4678wj5no07/split_guia_didactica_br2cd9vv5h.pdf`
-		}
-	];
 
 	const defaultPosClasses = [
 		'left-1/2 top-0 -translate-x-1/2 -translate-y-1/2',
@@ -64,8 +18,9 @@
 		'left-0 top-1/2 -translate-x-1/2 -translate-y-1/2',
 		'right-0 top-1/2 translate-x-1/2 -translate-y-1/2'
 	];
+
 	const sections = $derived.by((): Section[] => {
-		const derivedSections: Section[] = [
+		const result: Section[] = [
 			{
 				label: 'Serie Salmón',
 				books: [
@@ -97,22 +52,18 @@
 			},
 			{
 				label: 'Edición Verde',
-				books: edicionVerdeBooks
+				books: data.edicionVerdeBooks
 			}
 		];
 
-		derivedSections.push({
-			label: 'Ina Ko Mou',
-			books: [
-				{
-					title: 'Ina Ko Mou',
-					cover: inaKoMouCoverUrl,
-					pdf: inaKoMouPdfUrl
-				}
-			]
-		});
+		if (data.inaKoMouBook) {
+			result.push({
+				label: 'Ina Ko Mou',
+				books: [data.inaKoMouBook]
+			});
+		}
 
-		return derivedSections;
+		return result;
 	});
 
 	const posClasses = $derived(sections.length === 2 ? twoItemPosClasses : defaultPosClasses);
@@ -193,12 +144,23 @@
 						rel="noopener noreferrer"
 						class="group block w-full max-w-[14rem] overflow-hidden rounded-lg bg-white shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl sm:max-w-[15rem] md:max-w-[16rem]"
 					>
-						<div class="aspect-[3/4] overflow-hidden bg-gray-100">
-							<img
-								src={book.cover}
-								alt={book.title}
-								class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-							/>
+						<div class="aspect-[3/4] overflow-hidden bg-amber-100">
+							{#if book.cover}
+								<img
+									src={book.cover}
+									alt={book.title}
+									class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+								/>
+							{:else}
+								<!-- Placeholder when no cover image is available -->
+								<div
+									class="flex h-full w-full items-center justify-center bg-gradient-to-b from-amber-200 to-amber-300"
+								>
+									<span class="px-4 text-center text-sm font-semibold text-amber-900">
+										{book.title}
+									</span>
+								</div>
+							{/if}
 						</div>
 						<div class="p-3">
 							<p class="text-sm font-semibold text-amber-900">{book.title}</p>
