@@ -17,6 +17,15 @@
 	const selectedStory = $derived(selectedStoryIdx !== null ? stories[selectedStoryIdx] : null);
 	const hasStorySpanish = $derived(Boolean(selectedStory?.text_spanish?.trim()));
 
+	// Split stories into chunks of 4 for multiple cycles
+	const storyCycles = $derived.by(() => {
+		const cycles: (typeof stories)[] = [];
+		for (let i = 0; i < stories.length; i += 4) {
+			cycles.push(stories.slice(i, i + 4));
+		}
+		return cycles;
+	});
+
 	// Same circular positioning as KoronuiLayer
 	const posClasses = [
 		'left-1/2 top-0 -translate-x-1/2 -translate-y-1/2',
@@ -59,9 +68,6 @@
 
 				{#if hasDedication}
 					<div class="mt-2 w-full border-l-4 border-amber-700 pl-4 text-left italic text-amber-900">
-						<p class="mb-1 text-sm font-semibold">
-							{showSpanish ? 'Dedicatoria' : 'Tuku i roto i te manava'}
-						</p>
 						<p class="whitespace-pre-line text-sm">
 							{showSpanish && author.dedication_en?.trim()
 								? author.dedication_en
@@ -71,23 +77,25 @@
 				{/if}
 			</div>
 
-			<!-- Story cycle selector -->
-			{#if stories.length > 0}
-				<div class="relative mx-auto mb-20 mt-24 h-40 w-80">
-					<div class="absolute inset-0 rounded-full border-2 border-amber-500 opacity-30"></div>
+			<!-- Story cycle selector(s) -->
+			<div class="mb-20 mt-24 flex flex-wrap items-center justify-center gap-0">
+				{#each storyCycles as cycle, cycleIdx}
+					<div class={`relative ${storyCycles.length > 1 ? 'mx-16 my-10 h-28 w-56' : 'h-40 w-80'}`}>
+						<div class="absolute inset-0 rounded-full border-2 border-amber-500 opacity-30"></div>
 
-					{#each stories as story, i (story.id)}
-						<button
-							class={`absolute ${posClasses[i % posClasses.length]}
-								max-w-[10rem] rounded-full bg-amber-700 px-5
-								py-3 text-center text-sm leading-tight text-white shadow-lg hover:bg-amber-800`}
-							onclick={() => selectStory(i)}
-						>
-							{story.title}
-						</button>
-					{/each}
-				</div>
-			{/if}
+						{#each cycle as story, i (story.id)}
+							<button
+								class={`absolute ${posClasses[i % posClasses.length]}
+									${storyCycles.length > 1 ? 'max-w-[7rem] px-3 py-2 text-xs' : 'max-w-[10rem] px-5 py-3 text-sm'}
+									rounded-full bg-amber-700 text-center leading-tight text-white shadow-lg hover:bg-amber-800`}
+								onclick={() => selectStory(cycleIdx * 4 + i)}
+							>
+								{showSpanish && story.title_spanish?.trim() ? story.title_spanish : story.title}
+							</button>
+						{/each}
+					</div>
+				{/each}
+			</div>
 		</div>
 	{:else if selectedStory}
 		<!-- Story detail view -->
