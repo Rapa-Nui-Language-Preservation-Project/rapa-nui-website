@@ -47,7 +47,7 @@
 							<Fa icon={faCirclePlay} color="blue" size="2x" />
 						{:else if layerName.startsWith('Agro')}
 							<Fa icon={faLeaf} color="blue" size="2x" />
-						{:else if layerName.startsWith('Macro')}
+						{:else if layerName.startsWith('Macro') || layerName.startsWith('\u02BCA\u02BCAMU')}
 							<Fa icon={faBook} color="blue" size="2x" />
 						{:else if layerName.startsWith('Cuentos')}
 							<Fa icon={faFish} color="blue" size="2x" />
@@ -80,7 +80,7 @@
 					<HistPerdidasLayer {location} />
 				{:else if layerName.startsWith('Agro')}
 					<AgroecologyPopup {location} />
-				{:else if layerName.startsWith('Macro')}
+				{:else if layerName.startsWith('Macro') || layerName.startsWith('\u02BCA\u02BCAMU')}
 					<MacroCuentosLayer {location} />
 				{:else if layerName.startsWith('Cuentos')}
 					<CuentosDelMarLayer {location} />

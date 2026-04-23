@@ -24,7 +24,7 @@
 	const toggleLayer = (layer: ExpandedLayer) => {
 		const isSelecting = selectedLayerId !== layer.id;
 		selectedLayerId = isSelecting ? layer.id : null;
-		if (isSelecting && layer.name.startsWith('Macro')) {
+		if (isSelecting && (layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU'))) {
 			showMacroInfo = true;
 		}
 	};
@@ -65,7 +65,7 @@
 					<Fa icon={faCirclePlay} color="blue" />
 				{:else if layer.name.startsWith('Agro')}
 					<Fa icon={faLeaf} color="blue" />
-				{:else if layer.name.startsWith('Macro')}
+				{:else if layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU')}
 					<div class="flex items-center gap-2">
 						{#if selectedLayerId === layer.id}
 							<button

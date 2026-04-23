@@ -50,7 +50,7 @@
 			class="flex flex-col items-center gap-6 text-center"
 			style="font-family: 'Merriweather', serif;"
 		>
-			<div class="mx-auto flex w-full max-w-2xl flex-col items-center gap-3 px-6">
+			<div class="mx-auto flex w-full max-w-[60%] flex-col items-center gap-3 px-6">
 				<h1 class="text-3xl font-bold">{author.name}</h1>
 
 				{#if hasBioSpanish}
@@ -142,7 +142,7 @@
 				{author.name}
 			</h2>
 
-			<div class="mx-auto w-full max-w-2xl px-6">
+			<div class="mx-auto w-full max-w-[60%] px-6">
 				<p class="mt-2 whitespace-pre-line text-justify text-lg leading-relaxed">
 					{showSpanish && hasStorySpanish ? selectedStory.text_spanish : selectedStory.text_rapanui}
 				</p>
