@@ -37,7 +37,7 @@
 		<!-- Header -->
 		<div class="flex flex-col items-center gap-3 px-8 pb-4 pt-8">
 			<Dialog.Title class="text-center text-2xl font-bold tracking-wide md:text-3xl">
-				{showSpanish ? 'Relatos de la Isla de Pascua' : 'Aʼamu o Rapa Nui'}
+				{showSpanish ? 'Relatos de la Isla de Pascua' : 'ʼAʼAMU O RAPA NUI'}
 			</Dialog.Title>
 
 			<!-- Language toggle -->

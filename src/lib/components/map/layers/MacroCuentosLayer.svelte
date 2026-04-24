@@ -17,22 +17,8 @@
 	const selectedStory = $derived(selectedStoryIdx !== null ? stories[selectedStoryIdx] : null);
 	const hasStorySpanish = $derived(Boolean(selectedStory?.text_spanish?.trim()));
 
-	// Split stories into chunks of 4 for multiple cycles
-	const storyCycles = $derived.by(() => {
-		const cycles: (typeof stories)[] = [];
-		for (let i = 0; i < stories.length; i += 4) {
-			cycles.push(stories.slice(i, i + 4));
-		}
-		return cycles;
-	});
-
-	// Same circular positioning as KoronuiLayer
-	const posClasses = [
-		'left-1/2 top-0 -translate-x-1/2 -translate-y-1/2',
-		'right-0 top-1/2 translate-x-1/2 -translate-y-1/2',
-		'left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2',
-		'left-0 top-1/2 -translate-x-1/2 -translate-y-1/2'
-	];
+	const storyTitle = (story: (typeof stories)[number]) =>
+		showSpanish && story.title_spanish?.trim() ? story.title_spanish : story.title;
 
 	function selectStory(index: number) {
 		selectedStoryIdx = index;
@@ -50,7 +36,7 @@
 			class="flex flex-col items-center gap-6 text-center"
 			style="font-family: 'Merriweather', serif;"
 		>
-			<div class="mx-auto flex w-full max-w-2xl flex-col items-center gap-3 px-6">
+			<div class="mx-auto flex w-full max-w-[60%] flex-col items-center gap-3 px-6">
 				<h1 class="text-3xl font-bold">{author.name}</h1>
 
 				{#if hasBioSpanish}
@@ -75,26 +61,18 @@
 						</p>
 					</div>
 				{/if}
-			</div>
 
-			<!-- Story cycle selector(s) -->
-			<div class="mb-20 mt-24 flex flex-wrap items-center justify-center gap-0">
-				{#each storyCycles as cycle, cycleIdx}
-					<div class={`relative ${storyCycles.length > 1 ? 'mx-16 my-10 h-28 w-56' : 'h-40 w-80'}`}>
-						<div class="absolute inset-0 rounded-full border-2 border-amber-500 opacity-30"></div>
-
-						{#each cycle as story, i (story.id)}
-							<button
-								class={`absolute ${posClasses[i % posClasses.length]}
-									${storyCycles.length > 1 ? 'max-w-[7rem] px-3 py-2 text-xs' : 'max-w-[10rem] px-5 py-3 text-sm'}
-									rounded-full bg-amber-700 text-center leading-tight text-white shadow-lg hover:bg-amber-800`}
-								onclick={() => selectStory(cycleIdx * 4 + i)}
-							>
-								{showSpanish && story.title_spanish?.trim() ? story.title_spanish : story.title}
-							</button>
-						{/each}
-					</div>
-				{/each}
+				<!-- Story selector grid -->
+				<div class="mt-6 flex w-full flex-wrap justify-center gap-4">
+					{#each stories as story, i (story.id)}
+						<button
+							class="rounded-xl border-2 border-amber-500/30 bg-amber-700 px-4 py-3 text-sm leading-snug text-white shadow-md transition-all hover:scale-105 hover:bg-amber-800 hover:shadow-lg"
+							onclick={() => selectStory(i)}
+						>
+							{storyTitle(story)}
+						</button>
+					{/each}
+				</div>
 			</div>
 		</div>
 	{:else if selectedStory}
@@ -142,7 +120,7 @@
 				{author.name}
 			</h2>
 
-			<div class="mx-auto w-full max-w-2xl px-6">
+			<div class="mx-auto w-full max-w-[60%] px-6">
 				<p class="mt-2 whitespace-pre-line text-justify text-lg leading-relaxed">
 					{showSpanish && hasStorySpanish ? selectedStory.text_spanish : selectedStory.text_rapanui}
 				</p>
