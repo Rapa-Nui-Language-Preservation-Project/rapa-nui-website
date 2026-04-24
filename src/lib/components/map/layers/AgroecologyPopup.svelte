@@ -303,7 +303,14 @@
 						{agroPage.citations}
 					</div>
 				{:else}
-					<p class="text-amber-600">No hay citas disponibles</p>
+					<p class="min-w-96 whitespace-pre-line leading-relaxed text-amber-600">
+						No hay citas disponibles
+					</p>
+					<!-- This line prevents the visual bug with how the image is displayed for most pins -->
+					<p class="invisible">
+						PREVENTS VISUAL BUG PREVENTS VISUAL BUG PREVENTS VISUAL BUG PREVENTS VISUAL BUG PREVENTS
+						VISUAL BUG
+					</p>
 				{/if}
 			{/if}
 		</div>

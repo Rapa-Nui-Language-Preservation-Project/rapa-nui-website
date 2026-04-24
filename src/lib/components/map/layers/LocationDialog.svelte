@@ -8,6 +8,7 @@
 		faCrow,
 		faCirclePlay,
 		faLeaf,
+		faSeedling,
 		faBook
 	} from '@fortawesome/free-solid-svg-icons';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
@@ -25,6 +26,26 @@
 		layerName,
 		pruebas
 	}: { location: ExpandedLocation; layerName: string; pruebas: PruebasResponse[] } = $props();
+
+	// particular plants for the agroecology layer, from the 'Plantas Primera' and 'Plantas Segunda' documents
+	// declared here so they have a different icon from regular agroecology pins
+	let medicinalPlants = [
+		"Matu'a Pua'a",
+		'Pua',
+		'Kava-Kava Atua',
+		'Pua Nako-Nako',
+		'Tia Pito',
+		'Pato',
+		"Ra'a Kau",
+		'Hitu Hua Hua',
+		'Miri Vaihi',
+		'Llantén',
+		'Tiare Toki',
+		'Pikano',
+		'Perejil',
+		'Miro Tahiti',
+		'Numera'
+	];
 </script>
 
 <Dialog.Root>
@@ -44,7 +65,13 @@
 						{:else if layerName.startsWith('Hist')}
 							<Fa icon={faCirclePlay} color="blue" size="2x" />
 						{:else if layerName.startsWith('Agro')}
-							<Fa icon={faLeaf} color="blue" size="2x" />
+							{#if location.name == 'Mana Vai'}
+								<img src="mana-vai-icon.png" alt="Mana Vai" style="width: 3em; height: 3em;" />
+							{:else if medicinalPlants.includes(location.name)}
+								<Fa icon={faSeedling} color="blue" size="2x" />
+							{:else}
+								<Fa icon={faLeaf} color="blue" size="2x" />
+							{/if}
 						{:else if layerName.startsWith('Macro')}
 							<Fa icon={faBook} color="blue" size="2x" />
 						{:else}
