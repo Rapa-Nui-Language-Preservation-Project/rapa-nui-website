@@ -13,6 +13,7 @@
 	} from '@fortawesome/free-solid-svg-icons';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 	import MacroCuentosInfoDialog from '$lib/components/map/layers/MacroCuentosInfoDialog.svelte';
+	import AgroecologyKey from '$lib/components/map/layers/AgroecologyKey.svelte';
 
 	let {
 		layers,
@@ -20,17 +21,29 @@
 	}: { layers: ExpandedLayer[]; selectedLayerId?: string | null } = $props();
 
 	let showMacroInfo = $state(false);
+	let showAgroKey = $state(false); // for displaying Agroecology Key Dialog
+	let hasSeenAgroKey = $state(false); // flag so that the key doesn't open every time user selects agroecology layer
 
 	const toggleLayer = (layer: ExpandedLayer) => {
 		const isSelecting = selectedLayerId !== layer.id;
 		selectedLayerId = isSelecting ? layer.id : null;
-		if (isSelecting && (layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU'))) {
+		if (isSelecting && layer.name.startsWith('Agro') && !hasSeenAgroKey) {
+			showAgroKey = true;
+			hasSeenAgroKey = true;
+		} else if (isSelecting && (layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU'))) {
 			showMacroInfo = true;
 		}
+	};
+
+	// user can manually reopen agroecology key using the 'info' circle button
+	const openAgroKey = (e: MouseEvent) => {
+		e.stopPropagation();
+		showAgroKey = true;
 	};
 </script>
 
 <MacroCuentosInfoDialog bind:open={showMacroInfo} />
+<AgroecologyKey bind:open={showAgroKey} />
 
 {#each layers as layer}
 	<div
@@ -64,7 +77,18 @@
 				{:else if layer.name.startsWith('Hist')}
 					<Fa icon={faCirclePlay} color="blue" />
 				{:else if layer.name.startsWith('Agro')}
-					<Fa icon={faLeaf} color="blue" />
+					<div class="flex items-center gap-2">
+						{#if selectedLayerId === layer.id}
+							<button
+								onclick={openAgroKey}
+								class="text-amber-600 transition-colors hover:text-orange-600"
+								title="Clave"
+							>
+								<Fa icon={faCircleInfo} size="lg" />
+							</button>
+						{/if}
+						<Fa icon={faLeaf} color="blue" />
+					</div>
 				{:else if layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU')}
 					<div class="flex items-center gap-2">
 						{#if selectedLayerId === layer.id}
