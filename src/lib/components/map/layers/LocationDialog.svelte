@@ -8,8 +8,7 @@
 		faCrow,
 		faCirclePlay,
 		faLeaf,
-		faBook,
-		faFish
+		faFish,
 		faSeedling,
 		faBook
 	} from '@fortawesome/free-solid-svg-icons';
