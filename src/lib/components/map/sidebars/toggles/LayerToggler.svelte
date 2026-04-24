@@ -31,8 +31,7 @@
 		if (isSelecting && layer.name.startsWith('Agro') && !hasSeenAgroKey) {
 			showAgroKey = true;
 			hasSeenAgroKey = true;
-		}
-		else if (isSelecting && layer.name.startsWith('Macro')) {
+		} else if (isSelecting && layer.name.startsWith('Macro')) {
 			showMacroInfo = true;
 		}
 	};
