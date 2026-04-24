@@ -1,4 +1,5 @@
 import type {
+	AuthorsResponse,
 	LayersResponse,
 	LocationsResponse,
 	MediaResponse,
@@ -20,9 +21,16 @@ type AgroecologyExpand = {
 	taxonomy_rows: AgroecologyTaxonomyRowsResponse[];
 };
 
+type AuthorExpand = {
+	stories: StoriesResponse[];
+};
+
+export type ExpandedAuthor = AuthorsResponse<AuthorExpand>;
+
 type LocationExpand = {
 	media: MediaResponse[];
 	story: StoriesResponse[];
+	author?: AuthorsResponse<AuthorExpand>;
 	actividad: ActividadResponse<unknown, ActividadExpand>[];
 	agroecology?: AgroecologyResponse<AgroecologyExpand>;
 };
