@@ -21,24 +21,37 @@
 	}: { layers: ExpandedLayer[]; selectedLayerId?: string | null } = $props();
 
 	let showMacroInfo = $state(false);
-	let showAgroKey = $state(false); // for displaying Agroecology Key Dialog
-	let hasSeenAgroKey = $state(false); // flag so that the key doesn't open every time user selects agroecology layer
+	let showAgroKey = $state(false);
+	let hasAutoOpenedMacroInfo = $state(false);
+	let hasAutoOpenedAgroKey = $state(false);
+
+	const isAgroecologyLayer = (layer: ExpandedLayer) => layer.name.startsWith('Agro');
+
+	const isMacroCuentosLayer = (layer: ExpandedLayer) =>
+		layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU');
+
+	const openMacroInfo = (event?: MouseEvent) => {
+		event?.stopPropagation();
+		showMacroInfo = true;
+	};
+
+	const openAgroKey = (event?: MouseEvent) => {
+		event?.stopPropagation();
+		showAgroKey = true;
+	};
 
 	const toggleLayer = (layer: ExpandedLayer) => {
 		const isSelecting = selectedLayerId !== layer.id;
 		selectedLayerId = isSelecting ? layer.id : null;
-		if (isSelecting && layer.name.startsWith('Agro') && !hasSeenAgroKey) {
-			showAgroKey = true;
-			hasSeenAgroKey = true;
-		} else if (isSelecting && (layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU'))) {
-			showMacroInfo = true;
-		}
-	};
+		if (!isSelecting) return;
 
-	// user can manually reopen agroecology key using the 'info' circle button
-	const openAgroKey = (e: MouseEvent) => {
-		e.stopPropagation();
-		showAgroKey = true;
+		if (isAgroecologyLayer(layer) && !hasAutoOpenedAgroKey) {
+			openAgroKey();
+			hasAutoOpenedAgroKey = true;
+		} else if (isMacroCuentosLayer(layer) && !hasAutoOpenedMacroInfo) {
+			openMacroInfo();
+			hasAutoOpenedMacroInfo = true;
+		}
 	};
 </script>
 
@@ -76,7 +89,7 @@
 					<Fa icon={faLightbulb} color="blue" />
 				{:else if layer.name.startsWith('Hist')}
 					<Fa icon={faCirclePlay} color="blue" />
-				{:else if layer.name.startsWith('Agro')}
+				{:else if isAgroecologyLayer(layer)}
 					<div class="flex items-center gap-2">
 						{#if selectedLayerId === layer.id}
 							<button
@@ -89,14 +102,11 @@
 						{/if}
 						<Fa icon={faLeaf} color="blue" />
 					</div>
-				{:else if layer.name.startsWith('Macro') || layer.name.startsWith('ʼAʼAMU')}
+				{:else if isMacroCuentosLayer(layer)}
 					<div class="flex items-center gap-2">
 						{#if selectedLayerId === layer.id}
 							<button
-								onclick={(e) => {
-									e.stopPropagation();
-									showMacroInfo = true;
-								}}
+								onclick={openMacroInfo}
 								class="text-amber-600 transition-colors hover:text-orange-600"
 								title="Sobre el libro"
 							>
