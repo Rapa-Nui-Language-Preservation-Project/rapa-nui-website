@@ -68,7 +68,7 @@
 							<Fa icon={faCirclePlay} color="blue" size="2x" />
 						{:else if layerName.startsWith('Agro')}
 							{#if location.name == 'Mana Vai'}
-								<img src="mana-vai-icon.png" alt="Mana Vai" style="width: 3em; height: 3em;" />
+								<img src="/mana-vai-icon.png" alt="Mana Vai" style="width: 3em; height: 3em;" />
 							{:else if medicinalPlants.includes(location.name)}
 								<Fa icon={faSeedling} color="blue" size="2x" />
 							{:else}

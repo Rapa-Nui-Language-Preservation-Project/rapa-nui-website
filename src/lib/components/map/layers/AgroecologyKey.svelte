@@ -21,7 +21,7 @@ key for the different Agroecology icons*/
 		};
 
 		try {
-			await preloadImage('mana-vai-icon.png');
+			await preloadImage('/mana-vai-icon.png');
 		} catch (error) {
 			console.error('Failed to preload Mana Vai Icon:', error);
 		}
@@ -63,7 +63,7 @@ key for the different Agroecology icons*/
 			<div class="flex max-w-xs flex-col items-center gap-2">
 				<div class="flex w-16 justify-center">
 					<!-- Mana Vai Icon Source: flaticon.com  -->
-					<img src="mana-vai-icon.png" alt="Mana Vai" style="width: 4rem; height: 4rem;" />
+					<img src="/mana-vai-icon.png" alt="Mana Vai" style="width: 4rem; height: 4rem;" />
 				</div>
 				<div class="text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Mana Vai</h3>
