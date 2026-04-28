@@ -2,6 +2,7 @@
 	import type { ExpandedLocation } from '$lib/expanded-models';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import type { CarouselAPI } from '$lib/components/ui/carousel/context.js';
+	import PdfViewer from '$lib/components/pdf/PdfViewer.svelte';
 
 	let { location }: { location: ExpandedLocation } = $props();
 
@@ -17,12 +18,19 @@
 	let newsCurrent = $state(0);
 
 	$effect(() => {
-		if (newsAPI) {
-			newsCurrent = newsAPI.selectedScrollSnap() + 1;
-			newsAPI.on('select', () => {
-				newsCurrent = newsAPI!.selectedScrollSnap() + 1;
-			});
-		}
+		const api = newsAPI;
+		if (!api) return;
+
+		const handleSelect = () => {
+			newsCurrent = api.selectedScrollSnap() + 1;
+		};
+
+		handleSelect();
+		api.on('select', handleSelect);
+
+		return () => {
+			api.off('select', handleSelect);
+		};
 	});
 </script>
 
@@ -67,23 +75,13 @@
 		<p class="text-sm text-amber-700">{location.description_espanol}</p>
 
 		{#if pdfMedia.length === 1}
-			<p class="text-xs italic text-muted-foreground">{pdfMedia[0].title}</p>
-			<iframe
-				src={pdfMedia[0].file}
-				title={pdfMedia[0].title}
-				class="h-[65vh] w-full rounded-lg border border-amber-200 shadow-lg"
-			></iframe>
+			<PdfViewer src={pdfMedia[0].file} title={pdfMedia[0].title || location.name} />
 		{:else if pdfMedia.length > 1}
 			<Carousel.Root setApi={(emblaApi) => (newsAPI = emblaApi)} class="w-full">
 				<Carousel.Content>
 					{#each pdfMedia as pdf}
 						<Carousel.Item class="flex flex-col items-center gap-2">
-							<p class="text-xs italic text-muted-foreground">{pdf.title}</p>
-							<iframe
-								src={pdf.file}
-								title={pdf.title}
-								class="h-[65vh] w-full rounded-lg border border-amber-200 shadow-lg"
-							></iframe>
+							<PdfViewer src={pdf.file} title={pdf.title || location.name} />
 						</Carousel.Item>
 					{/each}
 				</Carousel.Content>
@@ -107,11 +105,7 @@
 		</div>
 
 		{#if pdfMedia.length > 0}
-			<iframe
-				src={pdfMedia[0].file}
-				title={location.name}
-				class="h-[70vh] w-full rounded-lg border border-amber-200 shadow-lg"
-			></iframe>
+			<PdfViewer src={pdfMedia[0].file} title={pdfMedia[0].title || location.name} />
 		{/if}
 	</div>
 {/if}
