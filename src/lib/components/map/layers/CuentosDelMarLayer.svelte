@@ -18,17 +18,18 @@
 	let newsCurrent = $state(0);
 
 	$effect(() => {
-		if (!newsAPI) return;
+		const api = newsAPI;
+		if (!api) return;
 
 		const handleSelect = () => {
-			newsCurrent = newsAPI!.selectedScrollSnap() + 1;
+			newsCurrent = api.selectedScrollSnap() + 1;
 		};
 
 		handleSelect();
-		newsAPI.on('select', handleSelect);
+		api.on('select', handleSelect);
 
 		return () => {
-			newsAPI?.off('select', handleSelect);
+			api.off('select', handleSelect);
 		};
 	});
 </script>

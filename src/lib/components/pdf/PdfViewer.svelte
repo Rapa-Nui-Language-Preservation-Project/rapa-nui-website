@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import type { PDFDocumentProxy } from 'pdfjs-dist';
+	import type { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdfjs-dist';
 
 	let { src, title }: { src: string; title: string } = $props();
 
@@ -11,8 +10,11 @@
 	const workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).toString();
 	const maxRenderScale = 1.4;
 
-	onMount(() => {
-		let cancelled = false;
+	$effect(() => {
+		if (!container) return;
+
+		let isCancelled = false;
+		let loadingTask: PDFDocumentLoadingTask | undefined;
 
 		const render = async () => {
 			try {
@@ -21,18 +23,21 @@
 				container.replaceChildren();
 
 				const pdfjs = await import('pdfjs-dist');
+				if (isCancelled) return;
+
 				pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
+				loadingTask = pdfjs.getDocument(src);
 
-				const pdf = await pdfjs.getDocument(src).promise;
-				if (cancelled) return;
+				const pdf = await loadingTask.promise;
+				if (isCancelled) return;
 
-				await renderPdf(pdf, () => cancelled);
+				await renderPdf(pdf, () => isCancelled);
 			} catch {
-				if (!cancelled) {
+				if (!isCancelled) {
 					error = 'No se pudo cargar el PDF.';
 				}
 			} finally {
-				if (!cancelled) {
+				if (!isCancelled) {
 					loading = false;
 				}
 			}
@@ -41,8 +46,12 @@
 		render();
 
 		return () => {
-			cancelled = true;
+			isCancelled = true;
 			container.replaceChildren();
+
+			if (loadingTask && !loadingTask.destroyed) {
+				void loadingTask.destroy();
+			}
 		};
 	});
 
