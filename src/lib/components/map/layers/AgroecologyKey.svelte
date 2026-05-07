@@ -39,35 +39,51 @@ key for the different Agroecology icons*/
 		</Dialog.Title>
 
 		<!-- Key Content -->
-		<div class="mt-6 flex flex-row items-center justify-center gap-8">
+		<div class="mt-6 flex flex-row flex-wrap items-start justify-center gap-8">
 			<div class="flex max-w-xs flex-col items-center gap-6">
-				<div class="flex w-16 justify-center">
+				<div class="flex h-16 w-16 items-center justify-center">
 					<Fa icon={faLeaf} color="blue" size="3x" />
 				</div>
 				<div class="text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Plantas cultivables</h3>
-					<p class="invisible">Text here forces vertical alignment</p>
+					<p class="invisible">placeholder</p>
+					<p class="invisible mt-1 text-sm italic">placeholder</p>
 				</div>
 			</div>
 
 			<div class="flex max-w-xs flex-col items-center gap-6">
-				<div class="flex w-16 justify-center">
+				<div class="flex h-16 w-16 items-center justify-center">
 					<Fa icon={faSeedling} color="blue" size="3x" />
 				</div>
 				<div class="text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Plantas medicinales</h3>
-					<p class="text-amber-700">Plantas nativas y plantas introducidas</p>
+					<p class="text-amber-700">Plantas nativas</p>
+					<p class="mt-1 text-sm italic text-amber-600">
+						Las plantas nativas están en peligro de extinción
+					</p>
 				</div>
 			</div>
 
-			<div class="flex max-w-xs flex-col items-center gap-2">
-				<div class="flex w-16 justify-center">
+			<div class="flex max-w-xs flex-col items-center gap-6">
+				<div class="flex h-16 w-16 items-center justify-center">
+					<Fa icon={faSeedling} color="blue" size="3x" />
+				</div>
+				<div class="text-center">
+					<h3 class="text-xl font-semibold text-amber-900">Plantas medicinales</h3>
+					<p class="text-amber-700">Plantas introducidas</p>
+					<p class="invisible mt-1 text-sm italic">placeholder</p>
+				</div>
+			</div>
+
+			<div class="flex max-w-xs flex-col items-center gap-6">
+				<div class="flex h-16 w-16 items-center justify-center">
 					<!-- Mana Vai Icon Source: flaticon.com  -->
 					<img src="/mana-vai-icon.png" alt="Mana Vai" style="width: 4rem; height: 4rem;" />
 				</div>
 				<div class="text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Mana Vai</h3>
 					<p class="text-amber-700">Sistema agrícola ancestral Rapa Nui</p>
+					<p class="invisible mt-1 text-sm italic">placeholder</p>
 				</div>
 			</div>
 		</div>
