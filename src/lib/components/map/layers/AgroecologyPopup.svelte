@@ -93,14 +93,18 @@
 	class="agroecology-wrapper flex h-[calc(90vh-4rem)] w-full flex-col overflow-hidden md:flex-row"
 >
 	<!-- Left Panel - Images -->
-	<div class="d:h-full flex flex-col bg-amber-100/50 p-6 md:w-1/2 md:self-start md:overflow-y-auto">
+	<div
+		class="flex min-w-0 flex-col overflow-hidden bg-amber-100/50 p-6 md:h-full md:w-1/2 md:flex-shrink-0"
+	>
 		{#if images.length > 0}
 			<div class="relative mb-4">
 				<Carousel.Root setApi={(emblaApi) => (imageAPI = emblaApi)} class="w-full">
 					<Carousel.Content class="h-full">
 						{#each images as image}
 							<Carousel.Item class="flex h-full items-center justify-center">
-								<div class="relative h-[400px] w-full md:h-[500px]">
+								<div
+									class="relative h-[min(500px,calc(90vh-12rem))] w-full min-h-[280px]"
+								>
 									<button
 										onclick={() => openImageModal(image.file ?? '', image.title ?? '')}
 										class="group relative h-full w-full cursor-pointer"
@@ -162,7 +166,7 @@
 	</div>
 
 	<!-- Right Panel - Content -->
-	<div class="flex min-w-0 max-w-full flex-col overflow-hidden md:h-full md:w-1/2">
+	<div class="flex min-w-0 max-w-full flex-col overflow-hidden md:h-full md:w-1/2 md:flex-shrink-0">
 		<!-- Header -->
 		<div class="flex-shrink-0 overflow-hidden border-b border-amber-200 p-6">
 			<!-- Flex container for title and button -->
@@ -238,8 +242,8 @@
 		</div>
 
 		<!-- Tab Content -->
-		<!-- This container is scrollable -->
-		<div class="min-h-0 flex-1 overflow-y-auto p-6">
+		<!-- This container is scrollable; scrollbar gutter is reserved so width stays constant across tabs -->
+		<div class="min-h-0 flex-1 overflow-y-auto p-6" style="scrollbar-gutter: stable;">
 			{#if activeTab === 'info'}
 				{#if agroPage?.rapa_nui_description && !showSpanish}
 					<p class="whitespace-pre-line break-words leading-relaxed text-amber-900">
@@ -309,14 +313,7 @@
 						{agroPage.citations}
 					</div>
 				{:else}
-					<p class="min-w-96 whitespace-pre-line leading-relaxed text-amber-600">
-						No hay citas disponibles
-					</p>
-					<!-- This line prevents the visual bug with how the image is displayed for most pins -->
-					<p class="invisible">
-						PREVENTS VISUAL BUG PREVENTS VISUAL BUG PREVENTS VISUAL BUG PREVENTS VISUAL BUG PREVENTS
-						VISUAL BUG
-					</p>
+					<p class="whitespace-pre-line leading-relaxed text-amber-600">No hay citas disponibles</p>
 				{/if}
 			{/if}
 		</div>
