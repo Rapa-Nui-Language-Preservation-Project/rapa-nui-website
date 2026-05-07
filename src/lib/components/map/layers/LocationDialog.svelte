@@ -95,8 +95,12 @@
 	<Dialog.Content
 		class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900"
 	>
-		<ScrollArea>
-			<div class="flex flex-col items-center">
+		<!-- removing unnecessary scroll -->
+		{#if layerName.startsWith('Agro')}
+			<AgroecologyPopup {location} /> 
+		{:else}
+			<ScrollArea>
+				<div class="flex flex-col items-center">
 				{#if layerName.startsWith('Koro')}
 					<KoronuiLayer {location} allPruebas={pruebas} />
 				{:else if layerName.startsWith('Aves')}
@@ -105,8 +109,6 @@
 					<MicroCuentasLayer {location} />
 				{:else if layerName.startsWith('Hist')}
 					<HistPerdidasLayer {location} />
-				{:else if layerName.startsWith('Agro')}
-					<AgroecologyPopup {location} />
 				{:else if layerName.startsWith('Macro') || layerName.startsWith('\u02BCA\u02BCAMU')}
 					<MacroCuentosLayer {location} />
 				{:else if layerName.startsWith('Cuentos')}
@@ -114,5 +116,6 @@
 				{/if}
 			</div>
 		</ScrollArea>
+		{/if}
 	</Dialog.Content>
 </Dialog.Root>

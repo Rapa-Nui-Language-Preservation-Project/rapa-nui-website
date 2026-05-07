@@ -89,7 +89,9 @@
 	});
 </script>
 
-<div class="agroecology-wrapper flex h-screen max-w-full flex-col overflow-hidden md:flex-row">
+<div
+	class="agroecology-wrapper flex h-[calc(90vh-4rem)] w-full flex-col overflow-hidden md:flex-row"
+>
 	<!-- Left Panel - Images -->
 	<div class="d:h-full flex flex-col bg-amber-100/50 p-6 md:w-1/2 md:self-start md:overflow-y-auto">
 		{#if images.length > 0}
@@ -167,7 +169,7 @@
 			<div class="flex items-center justify-between gap-0">
 				<!-- Rapa Nui Name (Large Title) -->
 				{#if agroPage?.plantName}
-					<h2 class="break-words font-serif text-3xl font-bold text-amber-900">
+					<h2 class="break-words font-serif text-4xl font-bold uppercase text-amber-900">
 						{agroPage.plantName}
 					</h2>
 				{/if}
@@ -184,14 +186,18 @@
 
 			<!-- Spanish Name -->
 			{#if agroPage?.spanishName}
-				<p class="mt-3 text-sm font-medium text-amber-700">ʻInoa Paniora</p>
-				<p class="break-words text-lg font-semibold text-amber-800">{agroPage.spanishName}</p>
+				<p class="mt-3 text-sm font-semibold uppercase tracking-wide text-amber-700">
+					ʻInoa Paniora:
+				</p>
+				<p class="break-words text-sm font-medium text-amber-800">{agroPage.spanishName}</p>
 			{/if}
 
 			<!-- Scientific Name -->
 			{#if agroPage?.scientificName}
-				<p class="mt-3 text-sm font-medium text-amber-700">ʻInoa ʻi te Āo</p>
-				<p class="break-words text-lg italic text-amber-700">{agroPage.scientificName}</p>
+				<p class="mt-2 text-sm font-semibold uppercase tracking-wide text-amber-700">
+					ʻInoa ʻi te Āo:
+				</p>
+				<p class="break-words text-sm italic text-amber-700">{agroPage.scientificName}</p>
 			{/if}
 		</div>
 
