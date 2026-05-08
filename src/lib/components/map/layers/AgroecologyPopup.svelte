@@ -102,9 +102,7 @@
 					<Carousel.Content class="h-full">
 						{#each images as image}
 							<Carousel.Item class="flex h-full items-center justify-center">
-								<div
-									class="relative h-[min(500px,calc(90vh-12rem))] w-full min-h-[280px]"
-								>
+								<div class="relative h-[min(500px,calc(90vh-12rem))] min-h-[280px] w-full">
 									<button
 										onclick={() => openImageModal(image.file ?? '', image.title ?? '')}
 										class="group relative h-full w-full cursor-pointer"

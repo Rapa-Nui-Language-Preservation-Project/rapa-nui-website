@@ -77,25 +77,25 @@
 	>
 		<!-- removing unnecessary scroll -->
 		{#if layerName.startsWith('Agro')}
-			<AgroecologyPopup {location} /> 
+			<AgroecologyPopup {location} />
 		{:else}
 			<ScrollArea>
 				<div class="flex flex-col items-center">
-				{#if layerName.startsWith('Koro')}
-					<KoronuiLayer {location} allPruebas={pruebas} />
-				{:else if layerName.startsWith('Aves')}
-					<AvesLayer {location} />
-				{:else if layerName.startsWith('A ‘AMU')}
-					<MicroCuentasLayer {location} />
-				{:else if layerName.startsWith('Hist')}
-					<HistPerdidasLayer {location} />
-				{:else if layerName.startsWith('Macro') || layerName.startsWith('\u02BCA\u02BCAMU')}
-					<MacroCuentosLayer {location} />
-				{:else if layerName.startsWith('Cuentos')}
-					<CuentosDelMarLayer {location} />
-				{/if}
-			</div>
-		</ScrollArea>
+					{#if layerName.startsWith('Koro')}
+						<KoronuiLayer {location} allPruebas={pruebas} />
+					{:else if layerName.startsWith('Aves')}
+						<AvesLayer {location} />
+					{:else if layerName.startsWith('A ‘AMU')}
+						<MicroCuentasLayer {location} />
+					{:else if layerName.startsWith('Hist')}
+						<HistPerdidasLayer {location} />
+					{:else if layerName.startsWith('Macro') || layerName.startsWith('\u02BCA\u02BCAMU')}
+						<MacroCuentosLayer {location} />
+					{:else if layerName.startsWith('Cuentos')}
+						<CuentosDelMarLayer {location} />
+					{/if}
+				</div>
+			</ScrollArea>
 		{/if}
 	</Dialog.Content>
 </Dialog.Root>
