@@ -132,6 +132,7 @@ export type AgroecologyRecord = {
 	rapa_nui_description?: string;
 	id: string;
 	images?: RecordIdString[];
+	isMedicinal?: boolean;
 	plantName?: string;
 	spanishName?: string;
 	scientificName?: string;
