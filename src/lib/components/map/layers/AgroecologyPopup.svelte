@@ -53,6 +53,11 @@
 
 	// Get agroecology data from expanded relation
 	const agroPage = $derived(location.expand?.agroecology);
+	const plantOriginLabel = $derived.by(() => {
+		if (agroPage?.plantOrigin === 'nativa') return 'Nativa';
+		if (agroPage?.plantOrigin === 'introducida') return 'Introducida';
+		return null;
+	});
 	const images = $derived(
 		(agroPage?.expand?.images || []).slice().sort((a, b) => (a.order || 0) - (b.order || 0))
 	);
@@ -199,7 +204,16 @@
 				<p class="mt-2 text-sm font-semibold uppercase tracking-wide text-amber-700">
 					ʻInoa ʻi te Āo:
 				</p>
-				<p class="break-words text-sm italic text-amber-700">{agroPage.scientificName}</p>
+				<div class="mt-1 flex flex-wrap items-center gap-2">
+					<p class="break-words text-sm italic text-amber-700">{agroPage.scientificName}</p>
+					{#if plantOriginLabel}
+						<span
+							class="inline-flex rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-xs font-semibold not-italic text-amber-800"
+						>
+							{plantOriginLabel}
+						</span>
+					{/if}
+				</div>
 			{/if}
 		</div>
 
