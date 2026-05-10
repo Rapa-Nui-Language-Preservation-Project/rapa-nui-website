@@ -44,10 +44,8 @@ key for the different Agroecology icons*/
 				<div class="flex h-16 w-16 items-center justify-center">
 					<Fa icon={faLeaf} color="blue" size="3x" />
 				</div>
-				<div class="text-center">
+				<div class="min-h-[5rem] text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Plantas cultivables</h3>
-					<p class="invisible">placeholder</p>
-					<p class="invisible mt-1 text-sm italic">placeholder</p>
 				</div>
 			</div>
 
@@ -55,7 +53,7 @@ key for the different Agroecology icons*/
 				<div class="flex h-16 w-16 items-center justify-center">
 					<Fa icon={faSeedling} color="blue" size="3x" />
 				</div>
-				<div class="text-center">
+				<div class="min-h-[5rem] text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Plantas medicinales</h3>
 					<p class="text-amber-700">Plantas nativas</p>
 					<p class="mt-1 text-sm italic text-amber-600">
@@ -68,10 +66,9 @@ key for the different Agroecology icons*/
 				<div class="flex h-16 w-16 items-center justify-center">
 					<Fa icon={faSeedling} color="blue" size="3x" />
 				</div>
-				<div class="text-center">
+				<div class="min-h-[5rem] text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Plantas medicinales</h3>
 					<p class="text-amber-700">Plantas introducidas</p>
-					<p class="invisible mt-1 text-sm italic">placeholder</p>
 				</div>
 			</div>
 
@@ -80,10 +77,9 @@ key for the different Agroecology icons*/
 					<!-- Mana Vai Icon Source: flaticon.com  -->
 					<img src="/mana-vai-icon.png" alt="Mana Vai" style="width: 4rem; height: 4rem;" />
 				</div>
-				<div class="text-center">
+				<div class="min-h-[5rem] text-center">
 					<h3 class="text-xl font-semibold text-amber-900">Mana Vai</h3>
 					<p class="text-amber-700">Sistema agrícola ancestral Rapa Nui</p>
-					<p class="invisible mt-1 text-sm italic">placeholder</p>
 				</div>
 			</div>
 		</div>
