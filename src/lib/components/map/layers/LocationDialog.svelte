@@ -28,26 +28,6 @@
 		layerName,
 		pruebas
 	}: { location: ExpandedLocation; layerName: string; pruebas: PruebasResponse[] } = $props();
-
-	// particular plants for the agroecology layer, from the 'Plantas Primera' and 'Plantas Segunda' documents
-	// declared here so they have a different icon from regular agroecology pins
-	let medicinalPlants = [
-		"Matu'a Pua'a",
-		'Pua',
-		'Kava-Kava Atua',
-		'Pua Nako-Nako',
-		'Tia Pito',
-		'Pato',
-		"Ra'a Kau",
-		'Hitu Hua Hua',
-		'Miri Vaihi',
-		'Llantén',
-		'Tiare Toki',
-		'Pikano',
-		'Perejil',
-		'Miro Tahiti',
-		'Numera'
-	];
 </script>
 
 <Dialog.Root>
@@ -69,7 +49,7 @@
 						{:else if layerName.startsWith('Agro')}
 							{#if location.name == 'Mana Vai'}
 								<img src="/mana-vai-icon.png" alt="Mana Vai" style="width: 3em; height: 3em;" />
-							{:else if medicinalPlants.includes(location.name)}
+							{:else if location.expand?.agroecology?.isMedicinal}
 								<Fa icon={faSeedling} color="blue" size="2x" />
 							{:else}
 								<Fa icon={faLeaf} color="blue" size="2x" />
@@ -95,24 +75,27 @@
 	<Dialog.Content
 		class="max-w-screen m-0 h-[90vh] w-[90vw] bg-gradient-to-b from-amber-50 to-orange-50 text-amber-900"
 	>
-		<ScrollArea>
-			<div class="flex flex-col items-center">
-				{#if layerName.startsWith('Koro')}
-					<KoronuiLayer {location} allPruebas={pruebas} />
-				{:else if layerName.startsWith('Aves')}
-					<AvesLayer {location} />
-				{:else if layerName.startsWith('A ‘AMU')}
-					<MicroCuentasLayer {location} />
-				{:else if layerName.startsWith('Hist')}
-					<HistPerdidasLayer {location} />
-				{:else if layerName.startsWith('Agro')}
-					<AgroecologyPopup {location} />
-				{:else if layerName.startsWith('Macro') || layerName.startsWith('\u02BCA\u02BCAMU')}
-					<MacroCuentosLayer {location} />
-				{:else if layerName.startsWith('Cuentos')}
-					<CuentosDelMarLayer {location} />
-				{/if}
-			</div>
-		</ScrollArea>
+		<!-- removing unnecessary scroll -->
+		{#if layerName.startsWith('Agro')}
+			<AgroecologyPopup {location} />
+		{:else}
+			<ScrollArea>
+				<div class="flex flex-col items-center">
+					{#if layerName.startsWith('Koro')}
+						<KoronuiLayer {location} allPruebas={pruebas} />
+					{:else if layerName.startsWith('Aves')}
+						<AvesLayer {location} />
+					{:else if layerName.startsWith('A ‘AMU')}
+						<MicroCuentasLayer {location} />
+					{:else if layerName.startsWith('Hist')}
+						<HistPerdidasLayer {location} />
+					{:else if layerName.startsWith('Macro') || layerName.startsWith('\u02BCA\u02BCAMU')}
+						<MacroCuentosLayer {location} />
+					{:else if layerName.startsWith('Cuentos')}
+						<CuentosDelMarLayer {location} />
+					{/if}
+				</div>
+			</ScrollArea>
+		{/if}
 	</Dialog.Content>
 </Dialog.Root>
