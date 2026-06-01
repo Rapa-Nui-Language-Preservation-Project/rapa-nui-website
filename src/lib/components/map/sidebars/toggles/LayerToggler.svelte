@@ -14,11 +14,21 @@
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 	import MacroCuentosInfoDialog from '$lib/components/map/layers/MacroCuentosInfoDialog.svelte';
 	import AgroecologyKey from '$lib/components/map/layers/AgroecologyKey.svelte';
+	import {
+		HISTORIAS_CYCLES,
+		type HistoriasCycle,
+		isHistoriasPerdidasLayer
+	} from '$lib/historias-perdidas';
 
 	let {
 		layers,
-		selectedLayerId = $bindable()
-	}: { layers: ExpandedLayer[]; selectedLayerId?: string | null } = $props();
+		selectedLayerId = $bindable(),
+		selectedHistoriasCycle = $bindable<HistoriasCycle>('primer')
+	}: {
+		layers: ExpandedLayer[];
+		selectedLayerId?: string | null;
+		selectedHistoriasCycle?: HistoriasCycle;
+	} = $props();
 
 	let showMacroInfo = $state(false);
 	let showAgroKey = $state(false);
@@ -45,6 +55,11 @@
 		selectedLayerId = isSelecting ? layer.id : null;
 		if (!isSelecting) return;
 
+		if (isHistoriasPerdidasLayer(layer)) {
+			selectedHistoriasCycle = 'primer';
+			return;
+		}
+
 		if (isAgroecologyLayer(layer) && !hasAutoOpenedAgroKey) {
 			openAgroKey();
 			hasAutoOpenedAgroKey = true;
@@ -53,94 +68,140 @@
 			hasAutoOpenedMacroInfo = true;
 		}
 	};
+
+	const selectHistoriasCycle = (layer: ExpandedLayer, cycle: HistoriasCycle) => {
+		selectedLayerId = layer.id;
+		selectedHistoriasCycle = cycle;
+	};
 </script>
 
 <MacroCuentosInfoDialog bind:open={showMacroInfo} />
 <AgroecologyKey bind:open={showAgroKey} />
 
 {#each layers as layer}
-	<div
-		role="button"
-		tabindex="0"
-		onclick={() => toggleLayer(layer)}
-		onkeydown={(e) => e.key === 'Enter' && toggleLayer(layer)}
-		class="group relative cursor-pointer overflow-hidden rounded-lg px-6 py-1"
-	>
-		<!-- Color flow selection bar -->
-		<div
-			class={`absolute left-0 top-0 h-full w-1.5 bg-orange-600 transition-transform duration-300 ease-out ${
-				selectedLayerId === layer.id ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'
-			}`}
-		></div>
+	{#if isHistoriasPerdidasLayer(layer) && selectedLayerId === layer.id}
+		<div class="relative overflow-hidden rounded-lg px-6 py-1">
+			<div class="absolute left-0 top-0 h-full w-1.5 bg-orange-600"></div>
 
-		<!-- Layer name and icon -->
-		<div class="flex items-center justify-between">
-			<span
-				class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
-			>
-				{layer.name}
-			</span>
-			<div>
-				{#if layer.name.startsWith('Aves')}
-					<Fa icon={faCrow} color="blue" />
-				{:else if layer.name.startsWith('A ‘AMU')}
-					<Fa icon={faBookOpen} color="blue" />
-				{:else if layer.name.startsWith('Koro')}
-					<Fa icon={faLightbulb} color="blue" />
-				{:else if layer.name.startsWith('Hist')}
+			<button type="button" onclick={() => (selectedLayerId = null)} class="group w-full text-left">
+				<div class="flex items-center justify-between">
+					<span
+						class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
+					>
+						{layer.name}
+					</span>
 					<Fa icon={faCirclePlay} color="blue" />
-				{:else if isAgroecologyLayer(layer)}
-					<div class="flex items-center gap-2">
-						{#if selectedLayerId === layer.id}
-							<button
-								onclick={openAgroKey}
-								class="text-amber-600 transition-colors hover:text-orange-600"
-								title="Clave"
-							>
-								<Fa icon={faCircleInfo} size="lg" />
-							</button>
-						{/if}
-						<Fa icon={faLeaf} color="blue" />
-					</div>
-				{:else if isMacroCuentosLayer(layer)}
-					<div class="flex items-center gap-2">
-						{#if selectedLayerId === layer.id}
-							<button
-								onclick={openMacroInfo}
-								class="text-amber-600 transition-colors hover:text-orange-600"
-								title="Sobre el libro"
-							>
-								<Fa icon={faCircleInfo} size="lg" />
-							</button>
-						{/if}
-						<Fa icon={faBook} color="blue" />
-					</div>
-				{:else}
-					<Fa icon={faMapMarkerAlt} color="blue" />
-				{/if}
+				</div>
+			</button>
+
+			{#if layer.description}
+				<p class="text-xs leading-relaxed text-amber-900 opacity-80">
+					{layer.description}
+				</p>
+			{/if}
+
+			<div
+				class="relative my-2 flex aspect-[16/10] flex-col justify-center gap-2 rounded bg-white p-3"
+			>
+				{#each HISTORIAS_CYCLES as cycle}
+					<button
+						type="button"
+						onclick={() => selectHistoriasCycle(layer, cycle.value)}
+						class={`w-full rounded-md px-3 py-2 text-left text-sm transition-colors ${
+							selectedHistoriasCycle === cycle.value
+								? 'bg-orange-100 font-semibold text-orange-700'
+								: 'text-amber-900 hover:bg-amber-100 hover:text-orange-600'
+						}`}
+					>
+						{cycle.label}
+					</button>
+				{/each}
 			</div>
 		</div>
+	{:else}
+		<div
+			role="button"
+			tabindex="0"
+			onclick={() => toggleLayer(layer)}
+			onkeydown={(e) => e.key === 'Enter' && toggleLayer(layer)}
+			class="group relative cursor-pointer overflow-hidden rounded-lg px-6 py-1"
+		>
+			<!-- Color flow selection bar -->
+			<div
+				class={`absolute left-0 top-0 h-full w-1.5 bg-orange-600 transition-transform duration-300 ease-out ${
+					selectedLayerId === layer.id ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'
+				}`}
+			></div>
 
-		<!-- Description -->
-		{#if layer.description}
-			<p class="text-xs leading-relaxed text-amber-900 opacity-80">
-				{layer.description}
-			</p>
-		{/if}
-
-		<!-- Cover photo -->
-		{#if layer.cover_photo && layer.cover_photo.length > 0}
-			<div class="relative my-2 aspect-[16/10] overflow-hidden rounded bg-white">
-				<img
-					src={`${PUBLIC_POCKETBASE_URL}/files/layers/${layer.id}/${layer.cover_photo[0]}`}
-					alt={`Cover photo for ${layer.name}`}
-					class={`h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105 ${
-						selectedLayerId === layer.id
-							? 'ring-2 ring-orange-500 ring-offset-2 ring-offset-amber-50'
-							: ''
-					}`}
-				/>
+			<!-- Layer name and icon -->
+			<div class="flex items-center justify-between">
+				<span
+					class="mb-1 text-lg font-medium text-amber-900 transition-colors duration-200 group-hover:text-orange-600"
+				>
+					{layer.name}
+				</span>
+				<div>
+					{#if layer.name.startsWith('Aves')}
+						<Fa icon={faCrow} color="blue" />
+					{:else if layer.name.startsWith('A ‘AMU')}
+						<Fa icon={faBookOpen} color="blue" />
+					{:else if layer.name.startsWith('Koro')}
+						<Fa icon={faLightbulb} color="blue" />
+					{:else if layer.name.startsWith('Hist')}
+						<Fa icon={faCirclePlay} color="blue" />
+					{:else if isAgroecologyLayer(layer)}
+						<div class="flex items-center gap-2">
+							{#if selectedLayerId === layer.id}
+								<button
+									onclick={openAgroKey}
+									class="text-amber-600 transition-colors hover:text-orange-600"
+									title="Clave"
+								>
+									<Fa icon={faCircleInfo} size="lg" />
+								</button>
+							{/if}
+							<Fa icon={faLeaf} color="blue" />
+						</div>
+					{:else if isMacroCuentosLayer(layer)}
+						<div class="flex items-center gap-2">
+							{#if selectedLayerId === layer.id}
+								<button
+									onclick={openMacroInfo}
+									class="text-amber-600 transition-colors hover:text-orange-600"
+									title="Sobre el libro"
+								>
+									<Fa icon={faCircleInfo} size="lg" />
+								</button>
+							{/if}
+							<Fa icon={faBook} color="blue" />
+						</div>
+					{:else}
+						<Fa icon={faMapMarkerAlt} color="blue" />
+					{/if}
+				</div>
 			</div>
-		{/if}
-	</div>
+
+			<!-- Description -->
+			{#if layer.description}
+				<p class="text-xs leading-relaxed text-amber-900 opacity-80">
+					{layer.description}
+				</p>
+			{/if}
+
+			<!-- Cover photo -->
+			{#if layer.cover_photo && layer.cover_photo.length > 0}
+				<div class="relative my-2 aspect-[16/10] overflow-hidden rounded bg-white">
+					<img
+						src={`${PUBLIC_POCKETBASE_URL}/files/layers/${layer.id}/${layer.cover_photo[0]}`}
+						alt={`Cover photo for ${layer.name}`}
+						class={`h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105 ${
+							selectedLayerId === layer.id
+								? 'ring-2 ring-orange-500 ring-offset-2 ring-offset-amber-50'
+								: ''
+						}`}
+					/>
+				</div>
+			{/if}
+		</div>
+	{/if}
 {/each}

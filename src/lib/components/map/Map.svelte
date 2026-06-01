@@ -14,6 +14,11 @@
 	import { watchMediaQuery } from '$lib/utils/media-query';
 	import MobileMap from './MobileMap.svelte';
 	import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+	import {
+		getHistoriasCycle,
+		type HistoriasCycle,
+		isHistoriasPerdidasLayer
+	} from '$lib/historias-perdidas';
 
 	let dark = $state(false);
 	mode.subscribe((m) => {
@@ -27,10 +32,28 @@
 	}: { layers: ExpandedLayer[]; bases: string[]; pruebas: PruebasResponse[] } = $props();
 
 	let selectedLayerId = $state<string | null>(null);
+	let selectedHistoriasCycle = $state<HistoriasCycle>('primer');
 	let selectedBase = $state(bases[0]);
 	let calibrate = false;
 	let isMobile = $state(false);
 	const artisticMapSrc = `${PUBLIC_POCKETBASE_URL}/files/ia77ailu3ghoodv/6jjx168s5ezt2m8/map_k7mm569qll.png`;
+	const visibleLayers = $derived(
+		layers.map((layer) => {
+			if (!isHistoriasPerdidasLayer(layer) || !layer.expand?.locations) {
+				return layer;
+			}
+
+			return {
+				...layer,
+				expand: {
+					...layer.expand,
+					locations: layer.expand.locations.filter(
+						(location) => getHistoriasCycle(location) === selectedHistoriasCycle
+					)
+				}
+			};
+		})
+	);
 
 	onMount(() => {
 		return watchMediaQuery('(max-width: 768px)', (matches) => {
@@ -76,7 +99,7 @@
 					]}
 				>
 					{#if selectedLayerId}
-						{@const selectedLayer = layers.find((l) => l.id === selectedLayerId)}
+						{@const selectedLayer = visibleLayers.find((l) => l.id === selectedLayerId)}
 						{#if selectedLayer}
 							<MarkerPopup layers={[selectedLayer]} {pruebas} />
 						{/if}
@@ -86,7 +109,12 @@
 				{#if calibrate}
 					<CalibrationTool />
 				{:else}
-					<ArtisticBaseMap imageSrc={artisticMapSrc} {layers} {selectedLayerId} {pruebas} />
+					<ArtisticBaseMap
+						imageSrc={artisticMapSrc}
+						layers={visibleLayers}
+						{selectedLayerId}
+						{pruebas}
+					/>
 				{/if}
 			{/if}
 		</div>
@@ -96,13 +124,19 @@
 			bind:rightVisible={rightSidebarVisible}
 		/>
 		<!-- Left Sidebar - Left Layers -->
-		<LeftSidebar {layers} bind:selectedLayerId visible={leftSidebarVisible} />
+		<LeftSidebar
+			{layers}
+			bind:selectedLayerId
+			bind:selectedHistoriasCycle
+			visible={leftSidebarVisible}
+		/>
 		<!-- Right Sidebar - Map Style & Layers -->
 		<RightSidebar
 			{bases}
 			{layers}
 			bind:selectedBase
 			bind:selectedLayerId
+			bind:selectedHistoriasCycle
 			visible={rightSidebarVisible}
 		/>
 	</div>
