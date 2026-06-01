@@ -1,7 +1,21 @@
 <script lang="ts">
 	import LayerToggler from './toggles/LayerToggler.svelte';
+	import type { HistoriasCycle } from '$lib/historias-perdidas';
+	import type { ExpandedLayer } from '$lib/expanded-models';
 
-	let { layers = [], selectedLayerId = $bindable(), visible = true } = $props();
+	type Props = {
+		layers?: ExpandedLayer[];
+		selectedLayerId?: string | null;
+		selectedHistoriasCycle?: HistoriasCycle;
+		visible?: boolean;
+	};
+
+	let {
+		layers = [],
+		selectedLayerId = $bindable(),
+		selectedHistoriasCycle = $bindable<HistoriasCycle>('primer'),
+		visible = true
+	}: Props = $props();
 
 	const leftLayers = $derived(layers.filter((layer) => !layer.isRight));
 </script>
@@ -13,7 +27,7 @@
 >
 	<div class="p-6">
 		<div class="space-y-2">
-			<LayerToggler layers={leftLayers} bind:selectedLayerId />
+			<LayerToggler layers={leftLayers} bind:selectedLayerId bind:selectedHistoriasCycle />
 		</div>
 	</div>
 </div>

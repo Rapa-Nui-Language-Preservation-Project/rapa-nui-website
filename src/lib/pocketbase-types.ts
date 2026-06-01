@@ -214,6 +214,14 @@ export const LocationsLanguageOptions = {
 export type LocationsLanguageOptions =
 	(typeof LocationsLanguageOptions)[keyof typeof LocationsLanguageOptions];
 
+export const LocationsHistCycleOptions = {
+	primer: 'primer',
+	segundo: 'segundo',
+	tercer: 'tercer'
+} as const;
+export type LocationsHistCycleOptions =
+	(typeof LocationsHistCycleOptions)[keyof typeof LocationsHistCycleOptions];
+
 export const LocationsTypeOptions = {
 	site: 'site'
 } as const;
@@ -225,6 +233,8 @@ export type LocationsRecord = {
 	created: IsoAutoDateString;
 	description_espanol?: string;
 	description_rapa_nui?: string;
+	hist_chapter?: string;
+	hist_cycle?: LocationsHistCycleOptions;
 	id: string;
 	language?: LocationsLanguageOptions[];
 	latitude?: number;

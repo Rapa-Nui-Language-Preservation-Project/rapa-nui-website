@@ -65,9 +65,10 @@ Fetched: 2026-04-25
 
 ## Git And PR Hygiene
 
+- Branch names should follow `name/short-feature`, for example `max/historias-perdidas-cycles`.
 - Keep changes scoped. Avoid mixing feature work, formatting sweeps, dependency updates, and generated type changes unless they are directly related.
 - Do not rewrite student or teammate changes unless explicitly asked. Work with the current branch state.
-- Prefer small commits with clear messages. Use conventional commit style when practical.
+- Prefer small commits with clear messages. Use Conventional Commits when practical, for example `feat: add historias perdidas cycle selector`.
 - Mention known warnings, skipped checks, schema assumptions, and PocketBase data dependencies in the PR notes.
 
 ## Verification
